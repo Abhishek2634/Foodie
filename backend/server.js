@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import { connectDB } from './config/db.js';
 import foodRouter from './routes/foodRoute.js';
+import authRoutes from './routes/authRoutes.js';
 
 
 // app config
@@ -18,6 +19,7 @@ connectDB();
 
 // api endpoints
 app.use("/api/food",foodRouter);
+app.use("/api/auth", authRoutes);
 
 app.get('/',(req,res)=>{
     res.send("api working");
