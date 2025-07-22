@@ -5,7 +5,7 @@ import { protect } from '../middleware/authMiddleware.js';
 const foodRouter = express.Router();
 
 // Authentication
-router.get("/private", protect, (req, res) => {
+foodRouter.get("/private", protect, (req, res) => {
   res.send("This is a protected food route");
 });
 // Image Storage Engine
