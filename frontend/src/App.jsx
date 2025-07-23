@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer'
 import AppDownload from './components/AppDownlad/AppDownload'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import ThemeContextProvider from './components/context/ThemeContext'
+import FoodDetail from './pages/FoodDetail/FoodDetail'
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false)
@@ -21,6 +22,7 @@ const App = () => {
           <Route path='/' element={<Home/>} />
           <Route path='/cart' element={<Cart/>} />
           <Route path='/order' element={<PlaceOrder/>} />
+          <Route path="/item/:id" element={<FoodDetail/>} />
         </Routes>
         <AppDownload/>
         <Footer/>
