@@ -50,10 +50,10 @@
 }
 
 .food-item-img-container .add{
-    width: 35px;
+    width: 45px;
     position: absolute;
     bottom: 15px;
-    right: 15px;
+    right: 20px;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -61,14 +61,18 @@
 .food-item-counter{
     position: absolute;
     bottom: 15px;
-    right: 15px;
+    right: 20px;
     display: flex;
     align-items: center;
     gap: 10px;
     border-radius: 50px;
-    background-color: white;
+    background-color: orange;
 }
 
 .food-item-counter img{
     width: 30px;
+}
+.food-item-img-container .add:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }
