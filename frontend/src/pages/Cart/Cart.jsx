@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../components/context/StoreContext";
 import { useNavigate } from "react-router-dom";
+import BackToTopButton from "../../components/BackToTopButton";
 const Cart = () => {
   const { cartItems, food_list, removeFromCart, getTotalCartAmount } = useContext(StoreContext);
   const navigate = useNavigate();
@@ -67,6 +68,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
+       <BackToTopButton />
     </div>
   );
 };

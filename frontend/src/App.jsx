@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer'
 import AppDownload from './components/AppDownlad/AppDownload'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import ThemeContextProvider from './components/context/ThemeContext'
+import BackToTopButton from './components/BackToTopButton'
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false)
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='/order' element={<PlaceOrder/>} />
         </Routes>
         <AppDownload/>
+        <BackToTopButton />
         <Footer/>
       </div>
     </>
