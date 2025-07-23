@@ -18,7 +18,6 @@ const Navbar = ({ setShowLogin }) => {
   return (
     <div className={`navbar ${theme === "dark" ? "navbar-dark" : ""}`}>
       <Link to="/">
-        <img src={assets.appicon} alt="app icon" className="app-icon" />
         <img src={assets.logo} alt="logo" className="logo" />
       </Link>
 
@@ -31,32 +30,66 @@ const Navbar = ({ setShowLogin }) => {
       <ul className={`navbar-menu ${mobileMenuOpen ? "open" : ""}`}>
         <Link
           to="/"
-          onClick={() => setMenu("home")}
+          onClick={() => {
+            setMenu("home");
+            setMobileMenuOpen(false);
+            setTimeout(() => {
+               window.scrollTo(0, 0);
+            }, 0);
+          }}
           className={menu === "home" ? "active" : ""}
         >
           Home
         </Link>
-        <a
-          href="#explore-menu"
-          onClick={() => setMenu("menu")}
+
+        <Link
+          to="/"
+          onClick={() => {
+            setMenu("menu");
+            setMobileMenuOpen(false);
+            setTimeout(() => {
+              const section = document.getElementById('explore-menu');
+              if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+              }
+            }, 100);
+          }}
           className={menu === "menu" ? "active" : ""}
         >
           Menu
-        </a>
-        <a
-          href="#appdownload"
-          onClick={() => setMenu("mobile-app")}
+        </Link>
+        <Link
+          to="/"
+          onClick={() => {
+            setMenu("mobile-app");
+            setMobileMenuOpen(false);
+            setTimeout(() => {
+              const section = document.getElementById('appdownload');
+              if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+              }
+            }, 100);
+          }}
           className={menu === "mobile-app" ? "active" : ""}
         >
           Mobile-App
-        </a>
-        <a
-          href="#footer"
-          onClick={() => setMenu("contact-us")}
+        </Link>
+        <Link
+          to="/"
+          onClick={() => {
+            setMenu("contact-us");
+            setMobileMenuOpen(false);
+            setTimeout(() => {
+              const section = document.getElementById('footer');
+              if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+              }
+            }, 100);
+          }}
           className={menu === "contact-us" ? "active" : ""}
         >
           Contact Us
-        </a>
+        </Link>
       </ul>
 
       <div className="navbar-right">
@@ -64,12 +97,19 @@ const Navbar = ({ setShowLogin }) => {
           {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
         </button>
         <img src={assets.search_icon} alt="search" />
-        <div className="navbar-search-icon">
-          <Link to="/cart">
-            <img src={assets.basket_icon} alt="cart" />
-          </Link>
-          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
-        </div>
+          <div className="navbar-search-icon">
+            <Link 
+              to="/cart"
+              onClick={() => {
+                setMenu(""); // Reset menu state so no underline shows
+                setMobileMenuOpen(false);
+              }}
+            >
+              <img src={assets.basket_icon} alt="cart" />
+            </Link>
+            <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
+          </div>
+
         <button onClick={() => setShowLogin(true)}>Sign In</button>
       </div>
     </div>
