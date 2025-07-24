@@ -29,6 +29,22 @@
     cursor: pointer;
 }
 
+.cart-remove-btn {
+  color: #fff;
+  background: #f84c24;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+  margin-right: 10px;
+  display: inline-block;
+}
+.cart-remove-btn:hover {
+  background: darkorange;
+}
+
 .cart-bottom{
     margin-top: 80px;
     display: flex;

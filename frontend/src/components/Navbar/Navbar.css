@@ -1,8 +1,19 @@
+body{
+  padding-top: 95px;
+}
+
 .navbar{
-    padding: 20px 0px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+   position: fixed;         
+   top: 0;                  
+   left: 0;
+   right: 0;
+   z-index: 1000;          
+   background-color: var(--bg-color); 
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+   padding: 20px 0px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
 }
 .navbar-menu{
     display: flex;
@@ -54,6 +65,19 @@
     border-radius: 5px;
     top: -8px;
     right: -8px;
+}
+
+.app-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+  vertical-align: middle;
+}
+
+.logo {
+  vertical-align: middle;
 }
 
 @media (max-width:1050px) {

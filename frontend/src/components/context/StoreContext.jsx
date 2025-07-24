@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import { food_list } from "../../assets/frontend_assets/assets";
+import { toast } from 'react-hot-toast';
 
 export const StoreContext= createContext(null)
 
@@ -11,10 +12,12 @@ const StoreContextProvider = (props) =>{
         }else{
             setCartItems((prev) => ({...prev,[itemId] : prev[itemId]+1}));
         }
+        toast.success('Item added to cart!');
     }
 
     const removeFromCart = (itemId) => {
         setCartItems((prev) => ({...prev,[itemId] : prev[itemId]-1}));
+        toast.success('Item removed from cart.');
     }
 
     const getTotalCartAmount = ()=>{
@@ -35,7 +38,8 @@ const StoreContextProvider = (props) =>{
         setCartItems,
         removeFromCart,
         addToCart,
-        getTotalCartAmount
+        getTotalCartAmount,
+        
     }
     return (
         <StoreContext.Provider value={contextValue}>

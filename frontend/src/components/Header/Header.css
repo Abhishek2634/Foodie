@@ -57,3 +57,8 @@
         padding: 2vw 4vw;
     }
 }
+@media (min-width:1080px){
+    .header-contents h2{
+        font-size: 40px;
+    }
+}
