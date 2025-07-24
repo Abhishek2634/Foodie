@@ -10,6 +10,7 @@ import LoginPopup from './components/LoginPopup/LoginPopup'
 import ThemeContextProvider from './components/context/ThemeContext'
 import { Toaster } from 'react-hot-toast';
 import SubscribePopup from "./components/SubscribePopup/SubscribePopup";
+import FoodDetail from "./components/FoodDetail/FoodDetail";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false)
@@ -23,6 +24,7 @@ const App = () => {
             <Route path='/' element={<Home />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/order' element={<PlaceOrder />} />
+            <Route path="/food/:id" element={<FoodDetail />}></Route>
           </Routes>
           <AppDownload />
           
