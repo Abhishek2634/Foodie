@@ -3,7 +3,14 @@ import "./FoodItem.css";
 import { assets } from "../../assets/frontend_assets/assets";
 import { StoreContext } from "../context/StoreContext";
 import { useNavigate } from "react-router-dom";
-const FoodItem = ({ id, name, price, description, image }) => {
+const FoodItem = ({
+  id,
+  name,
+  price,
+  description,
+  image,
+  hideViewButton = false,
+}) => {
   const { cartItems, removeFromCart, addToCart } = useContext(StoreContext);
   const navigate = useNavigate();
   const handleClick = () => {
@@ -15,12 +22,25 @@ const FoodItem = ({ id, name, price, description, image }) => {
         <div className="food-item-img-container">
           <img className="food-item-image" src={image} alt="" />
           {!cartItems[id] ? (
-            <img className="add" onClick={() => addToCart(id)} src={assets.add_icon_white} alt="" />
+            <img
+              className="add"
+              onClick={() => addToCart(id)}
+              src={assets.add_icon_white}
+              alt=""
+            />
           ) : (
             <div className="food-item-counter">
-              <img onClick={() => removeFromCart(id)} src={assets.remove_icon_red} alt="" />
+              <img
+                onClick={() => removeFromCart(id)}
+                src={assets.remove_icon_red}
+                alt=""
+              />
               <p>{cartItems[id]}</p>
-              <img onClick={() => addToCart(id)} src={assets.add_icon_green} alt="" />
+              <img
+                onClick={() => addToCart(id)}
+                src={assets.add_icon_green}
+                alt=""
+              />
             </div>
           )}
         </div>
@@ -32,9 +52,11 @@ const FoodItem = ({ id, name, price, description, image }) => {
           <p className="food-item-desc">{description}</p>
           <div className="food-item-footer">
             <p className="food-item-price">${price}</p>
-            <button className="view-btn" onClick={handleClick}>
-              View Details
-            </button>
+            {!hideViewButton && (
+              <button className="view-btn" onClick={handleClick}>
+                View Details
+              </button>
+            )}
           </div>
         </div>
       </div>

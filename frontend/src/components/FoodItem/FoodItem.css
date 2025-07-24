@@ -77,3 +77,72 @@
 .food-item-counter img {
     width: 30px;
 }
+
+/* Footer section with price and view button */
+.food-item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+/* View Details Button Styling */
+.view-btn {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(255, 107, 53, 0.2);
+    min-width: 90px;
+    white-space: nowrap;
+}
+
+.view-btn:hover {
+    background: linear-gradient(135deg, #f7931e, #ff6b35);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.view-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(255, 107, 53, 0.3);
+}
+
+/* Responsive adjustments for the button */
+@media (max-width: 768px) {
+    .view-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+        min-width: 80px;
+    }
+    
+    .food-item-footer {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .view-btn {
+        padding: 5px 10px;
+        font-size: 10px;
+        min-width: 70px;
+    }
+    
+    .food-item-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .food-item-price {
+        margin: 0;
+    }
+}
