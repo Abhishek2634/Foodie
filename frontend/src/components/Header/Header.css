@@ -1,5 +1,5 @@
 .header {
-    height: 42vh; 
+    height: 60vh; 
     width: 100%;  
     background: url('header_img.png') no-repeat center center; 
     background-size: cover; 
@@ -17,28 +17,46 @@
     bottom: 10%;
     left: 6vw;
     animation: FadeIn 3s;
+    
 }
 
-.header-contents h2{
-    font-weight: 500;
-    color: white;
-    font-size: max(4vw,22px);
+.header-contents h2 {
+    font-weight: 600;
+    font-size: clamp(24px, 4vw, 48px);
+    line-height: 1.2;
+    color: #ffffff; /* FORCE white color */
+    text-shadow: 
+        2px 2px 4px rgba(0,0,0,0.7),
+        -1px -1px 2px rgba(255,255,255,0.1);
 }
 
-.header-contents p{
-    color: white;
-    font-size: 1vw;
+
+.header-contents p {
+    font-size: clamp(14px, 1.2vw, 18px);
+    line-height: 1.6;
+    color: #f0f0f0;
+    text-shadow: 1.5px 1.5px 3px rgba(0,0,0,0.6);
 }
 
-.header-contents button{
+
+.header-contents button {
     border: none;
-    color: #747474;
-    font-weight: 500;
+    color: black;
+    font-weight: 800;
     background-color: white;
     font-size: max(1vw, 13px);
     border-radius: 50px;
     padding: 1vw 2.3vw;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
 }
+
+.header-contents button:hover {
+    transform: scale(1.05);
+    background-color: #ffae00;
+    color: white;
+}
+
 
 @media (max-width:1050px) {
     .header-contents{

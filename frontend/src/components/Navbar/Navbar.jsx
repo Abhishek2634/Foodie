@@ -1,7 +1,17 @@
 import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Sun,
+  Moon,
+  Home,
+  UtensilsCrossed,
+  Smartphone,
+  Phone,
+  ShoppingCart,
+  Search,
+} from "lucide-react";
 import "./Navbar.css";
 import { assets } from "../../assets/frontend_assets/assets";
-import { Link } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
 import { ThemeContext } from "../context/ThemeContext";
 
@@ -11,67 +21,82 @@ const Navbar = ({ setShowLogin }) => {
   const { getTotalCartAmount } = useContext(StoreContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
 
-  const toggleMenu = () => {
-    setMobileMenuOpen((prev) => !prev);
-  };
+  const toggleMenu = () => setMobileMenuOpen((prev) => !prev);
 
   return (
-    <div className={`navbar ${theme === "dark" ? "navbar-dark" : ""}`}>
-      <Link to="/">
-        <img src={assets.logo} alt="logo" className="logo" />
-      </Link>
-
-      {/* Hamburger Icon */}
-      <div className="hamburger" onClick={toggleMenu}>
-        {mobileMenuOpen ? "✖" : "☰"}
-      </div>
-
-      {/* Desktop + Mobile Menu */}
-      <ul className={`navbar-menu ${mobileMenuOpen ? "open" : ""}`}>
-        <Link
-          to="/"
-          onClick={() => setMenu("home")}
-          className={menu === "home" ? "active" : ""}
-        >
-          Home
+    <>
+      <div className={`navbar ${theme === "dark" ? "navbar-dark" : ""}`}>
+        <Link to="/">
+          <img src={assets.logo} alt="logo" className="logo" />
         </Link>
-        <a
-          href="#explore-menu"
-          onClick={() => setMenu("menu")}
-          className={menu === "menu" ? "active" : ""}
-        >
-          Menu
-        </a>
-        <a
-          href="#appdownload"
-          onClick={() => setMenu("mobile-app")}
-          className={menu === "mobile-app" ? "active" : ""}
-        >
-          Mobile-App
-        </a>
-        <a
-          href="#footer"
-          onClick={() => setMenu("contact-us")}
-          className={menu === "contact-us" ? "active" : ""}
-        >
-          Contact Us
-        </a>
-      </ul>
 
-      <div className="navbar-right">
-        <button onClick={toggleTheme}>
-          {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
-        </button>
-        <img src={assets.search_icon} alt="search" />
-        <div className="navbar-search-icon">
-          <Link to="/cart">
-            <img src={assets.basket_icon} alt="cart" />
-          </Link>
-          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
+        <div className="hamburger" onClick={toggleMenu}>
+          {mobileMenuOpen ? "✖" : "☰"}
         </div>
-        <button onClick={() => setShowLogin(true)}>Sign In</button>
+
+        <ul className={`navbar-menu ${mobileMenuOpen ? "open" : ""}`}>
+          <li>
+            <Link
+              to="/"
+              onClick={() => setMenu("home")}
+              className={menu === "home" ? "active" : ""}
+            >
+              <Home size={18} /> Home
+            </Link>
+          </li>
+          <li>
+            <a
+              href="#explore-menu"
+              onClick={() => setMenu("menu")}
+              className={menu === "menu" ? "active" : ""}
+            >
+              <UtensilsCrossed size={18} /> Menu
+            </a>
+          </li>
+          <li>
+            <a
+              href="#appdownload"
+              onClick={() => setMenu("mobile-app")}
+              className={menu === "mobile-app" ? "active" : ""}
+            >
+              <Smartphone size={18} /> Mobile-App
+            </a>
+          </li>
+          <li>
+            <a
+              href="#footer"
+              onClick={() => setMenu("contact-us")}
+              className={menu === "contact-us" ? "active" : ""}
+            >
+              <Phone size={18} /> Contact Us
+            </a>
+          </li>
+        </ul>
+
+        <div className="navbar-right">
+          <button onClick={toggleTheme} className="icon-button">
+            {theme === "dark" ? <Sun /> : <Moon />}
+          </button>
+
+          <button className="icon-button">
+            <Search />
+          </button>
+
+          
+            
+
+          <button className="sign-in-btn" onClick={() => setShowLogin(true)}>
+            Sign In
+          </button>
+        </div>
       </div>
-    </div>
+
+      {/* Floating Cart Button */}
+      <Link to="/cart" className="floating-cart-btn">
+        <ShoppingCart />
+        {getTotalCartAmount() > 0 && <div className="dot" />}
+      </Link>
+    </>
   );
 };
 

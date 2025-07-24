@@ -7,15 +7,49 @@
 .navbar-menu{
     display: flex;
     list-style: none;
-    gap: 20px;
+    gap: 2rem;
     color: #49557e;
     font-size: 18px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.navbar-menu a {
+  white-space: nowrap;
 }
 
 .navbar-right{
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap:2rem;
+}
+.floating-cart-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 14px;
+  border-radius: 50%;
+  z-index: 999;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.floating-cart-btn:hover {
+  transform: scale(1.1);
+}
+
+.icon-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.icon-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .navbar button{
@@ -23,7 +57,7 @@
     font-size: 16px;
     color: 49557e;
     border: 1px solid tomato;
-    padding: 10px 30px;
+    padding: 10px;
     border-radius: 50px;
     cursor: pointer;
     transition: 0.6s;
