@@ -1,10 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../components/context/StoreContext";
 import { useNavigate } from "react-router-dom";
+
 const Cart = () => {
   const { cartItems, food_list, removeFromCart, getTotalCartAmount } = useContext(StoreContext);
   const navigate = useNavigate();
+
+  // Force scroll to top when cart component loads
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="cart">
       <div className="cart-items">
@@ -20,7 +27,7 @@ const Cart = () => {
         {food_list.map((item, index) => {
           if (cartItems[item._id] > 0) {
             return (
-              <>
+              <div key={item._id}>
                 <div className="cart-items-title cart-items-item">
                   <img src={item.image} alt="" />
                   <p>{item.name}</p>
@@ -32,7 +39,7 @@ const Cart = () => {
                   </p>
                 </div>
                 <hr />
-              </>
+              </div>
             );
           }
         })}
