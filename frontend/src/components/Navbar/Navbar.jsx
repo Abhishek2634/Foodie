@@ -18,6 +18,7 @@ const Navbar = ({ setShowLogin }) => {
   return (
     <div className={`navbar ${theme === "dark" ? "navbar-dark" : ""}`}>
       <Link to="/">
+        <img src={assets.appicon} alt="app icon" className="app-icon" />
         <img src={assets.logo} alt="logo" className="logo" />
       </Link>
 
@@ -49,6 +50,9 @@ const Navbar = ({ setShowLogin }) => {
         >
           Mobile-App
         </a>
+
+        <Link to="/wishlist" className="nav-link">Wishlist</Link>
+
         <a
           href="#footer"
           onClick={() => setMenu("contact-us")}
@@ -62,7 +66,7 @@ const Navbar = ({ setShowLogin }) => {
         <button onClick={toggleTheme}>
           {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
         </button>
-        <img src={assets.search_icon} alt="search" />
+        <img src={assets.search_icon}  alt="search" />
         <div className="navbar-search-icon">
           <Link to="/cart">
             <img src={assets.basket_icon} alt="cart" />

@@ -106,6 +106,18 @@ npm run lint
 
 ---
 
+## 🤝 Contributing
+
+We welcome contributions to the Foodie project! If you find this project helpful, please consider:
+
+- ⭐ **Star this repository** to show your support and help others discover it
+- 🐛 Report bugs or suggest features through issues
+- 🔧 Submit pull requests for improvements
+- 📖 Help improve documentation
+- 🚀 For more info go to [CONTRIBUTING.md](CONTRIBUTING.md)
+
+---
+
 ## 📄 License
 
 This project is licensed under the MIT License.
