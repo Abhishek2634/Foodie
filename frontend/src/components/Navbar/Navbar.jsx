@@ -56,6 +56,13 @@ const Navbar = ({ setShowLogin }) => {
         >
           Contact Us
         </a>
+        <a
+          href="/dashboard"
+          onClick={() => setMenu("dashboard")}
+          className={menu === "dashboard" ? "active" : ""}
+        >
+          Dashboard
+        </a>
       </ul>
 
       <div className="navbar-right">
