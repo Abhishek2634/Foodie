@@ -1,0 +1,28 @@
+.cart-summary-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #FC4B32;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  z-index: 1000;
+  font-weight: bold;
+}
+
+.view-cart-btn {
+  background-color: white;
+  color: #FC4B32;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.view-cart-btn:hover {
+  background-color: #ffe6e6;
+}

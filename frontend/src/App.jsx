@@ -11,7 +11,8 @@ import LoginPopup from "./components/LoginPopup/LoginPopup";
 import ThemeContextProvider from "./components/context/ThemeContext";
 import Dashboard from './components/Dashboard/Dashboard'
 import FoodDetail from "./components/FoodDetail/FoodDetail";
-import { Toaster } from 'react-hot-toast';
+import CartSummaryBar from "./components/CartSummaryBar/CartSummaryBar";
+import ScrollToTop from './components/ScrollToTop';
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -19,6 +20,7 @@ const App = () => {
     <ThemeContextProvider>
       <>
         {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
+         <ScrollToTop />
         <div className="app">
           <Navbar setShowLogin={setShowLogin} />
           <Routes>
@@ -28,6 +30,7 @@ const App = () => {
              <Route path='/dashboard' element={<Dashboard/>} />
             <Route path="/food/:id" element={<FoodDetail />}></Route>
           </Routes>
+           <CartSummaryBar />
           <AppDownload />
           <Footer />
         </div>
