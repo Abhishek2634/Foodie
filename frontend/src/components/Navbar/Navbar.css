@@ -67,6 +67,19 @@ body{
     right: -8px;
 }
 
+.app-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+  vertical-align: middle;
+}
+
+.logo {
+  vertical-align: middle;
+}
+
 @media (max-width:1050px) {
     .navbar .logo{
         width: 140px;

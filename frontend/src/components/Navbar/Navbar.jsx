@@ -18,6 +18,7 @@ const Navbar = ({ setShowLogin }) => {
   return (
     <div className={`navbar ${theme === "dark" ? "navbar-dark" : ""}`}>
       <Link to="/">
+        <img src={assets.appicon} alt="app icon" className="app-icon" />
         <img src={assets.logo} alt="logo" className="logo" />
       </Link>
 
