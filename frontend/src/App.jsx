@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import { Routes, Route } from "react-router-dom";
@@ -13,6 +12,9 @@ import Dashboard from './components/Dashboard/Dashboard'
 import FoodDetail from "./components/FoodDetail/FoodDetail";
 import CartSummaryBar from "./components/CartSummaryBar/CartSummaryBar";
 import ScrollToTop from './components/ScrollToTop';
+import Wishlist from './pages/wishlist/wishlist';
+import { Toaster } from 'react-hot-toast';
+
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -20,22 +22,23 @@ const App = () => {
     <ThemeContextProvider>
       <>
         {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
-         <ScrollToTop />
+        <ScrollToTop />
         <div className="app">
           <Navbar setShowLogin={setShowLogin} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/order" element={<PlaceOrder />} />
-             <Route path='/dashboard' element={<Dashboard/>} />
-            <Route path="/food/:id" element={<FoodDetail />}></Route>
+              <Route path='/dashboard' element={<Dashboard/>} />
+            <Route path="/food/:id" element={<FoodDetail />} />
+            <Route path="/wishlist" element={<Wishlist />} />
           </Routes>
-           <CartSummaryBar />
+          <CartSummaryBar />
           <AppDownload />
           <Footer />
         </div>
+        <Toaster position="top-center" />
       </>
-
     </ThemeContextProvider>
   );
 };

@@ -50,6 +50,9 @@ const Navbar = ({ setShowLogin }) => {
         >
           Mobile-App
         </a>
+
+        <Link to="/wishlist" className="nav-link">Wishlist</Link>
+
         <a
           href="#footer"
           onClick={() => setMenu("contact-us")}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './LoginPopup.css';
 import { assets } from '../../assets/frontend_assets/assets';
 import toast, { Toaster } from 'react-hot-toast';
@@ -13,7 +13,30 @@ const LoginPopup = ({ setShowLogin }) => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const popupRef = useRef();
   const otpRefs = useRef([]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setShowLogin(false);
+      }
+    };
+
+    const handleEscapeKey = (event) => {
+      if (event.key === 'Escape') {
+        setShowLogin(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscapeKey);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [setShowLogin]);
 
   useEffect(() => {
     let interval;
@@ -48,7 +71,6 @@ const LoginPopup = ({ setShowLogin }) => {
   const handleVerifyOTP = (e) => {
     e.preventDefault();
     if (otp.join("").length !== 6) return toast.error("Enter 6-digit OTP");
-    // Simulate OTP validation
     toast.success("OTP verified");
     setStage(3);
   };
@@ -66,10 +88,10 @@ const LoginPopup = ({ setShowLogin }) => {
   return (
     <div className='LoginPopup'>
       <Toaster />
-      <form className="login-popup-container">
+      <form ref={popupRef} className="login-popup-container">
         <div className="login-popup-title">
           <h2>{forgotFlow ? "Reset Password" : currState}</h2>
-          <img onClick={() => setShowLogin(false)} src={assets.cross_icon} alt="Close" />
+          <img onClick={() => setShowLogin(false)} src={assets.cross_icon} alt="close" />
         </div>
 
         <div className="login-popup-inputs">
@@ -82,14 +104,14 @@ const LoginPopup = ({ setShowLogin }) => {
               <input type="email" placeholder="Your Email" required />
               <input type="password" placeholder="Your Password" required />
               <button type="submit">{currState === 'Sign Up' ? "Create Account" : "Login"}</button>
-              {!forgotFlow && currState === "Login" && (
-          <p className="forgot-password-link" onClick={() => {
-            setForgotFlow(true);
-            setStage(1);
-          }}>
-            Forgot Password?
-          </p>
-        )}
+              {currState === "Login" && (
+                <p className="forgot-password-link" onClick={() => {
+                  setForgotFlow(true);
+                  setStage(1);
+                }}>
+                  Forgot Password?
+                </p>
+              )}
             </>
           )}
 
@@ -170,8 +192,6 @@ const LoginPopup = ({ setShowLogin }) => {
             <p>Already have an account? <span onClick={() => setCurrState("Login")}>Login Here</span></p>
           )
         )}
-
-        
       </form>
     </div>
   );
