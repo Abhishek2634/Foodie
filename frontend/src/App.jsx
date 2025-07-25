@@ -8,12 +8,14 @@ import Footer from "./components/Footer/Footer";
 import AppDownload from "./components/AppDownlad/AppDownload";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
 import ThemeContextProvider from "./components/context/ThemeContext";
+import Dashboard from './components/Dashboard/Dashboard'
 import FoodDetail from "./components/FoodDetail/FoodDetail";
 import CartSummaryBar from "./components/CartSummaryBar/CartSummaryBar";
 import ScrollToTop from './components/ScrollToTop';
 import Wishlist from './pages/wishlist/wishlist';
 import { Toaster } from 'react-hot-toast';
 import LoadingAnimation from './components/LoadingAnimation';
+
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -40,6 +42,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/order" element={<PlaceOrder />} />
+              <Route path='/dashboard' element={<Dashboard/>} />
             <Route path="/food/:id" element={<FoodDetail />} />
             <Route path="/wishlist" element={<Wishlist />} />
           </Routes>
