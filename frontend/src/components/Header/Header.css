@@ -5,6 +5,24 @@
     background-size: cover; 
     position: relative;
     border-radius: 20px;
+    overflow: hidden;
+}
+
+/* Subtle overlay for better text contrast */
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg, 
+        rgba(0, 0, 0, 0.2) 0%, 
+        rgba(0, 0, 0, 0.1) 50%, 
+        rgba(0, 0, 0, 0.3) 100%
+    );
+    z-index: 1;
 }
 
 .header-contents{
@@ -17,43 +35,191 @@
     bottom: 10%;
     left: 6vw;
     animation: FadeIn 3s;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.15);
+    padding: 1.5rem;
+    border-radius: 12px;
+    backdrop-filter: blur(2px);
 }
 
 .header-contents h2{
     font-weight: 500;
     color: white;
     font-size: max(4vw,22px);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+    margin: 0;
 }
 
 .header-contents p{
-    color: white;
-    font-size: 1vw;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: max(1vw, 14px);
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
+    line-height: 1.5;
+    margin: 0;
 }
 
 .header-contents button{
     border: none;
-    color: #747474;
+    color: #333;
     font-weight: 500;
     background-color: white;
     font-size: max(1vw, 13px);
     border-radius: 50px;
     padding: 1vw 2.3vw;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.header-contents button:hover{
+    background-color: #f8f8f8;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width:1050px) {
     .header-contents{
-        max-width: 45%;
+        max-width: 50%;
+        padding: 1.2rem;
     }
 }
 
-@media (max-width:750px) {
+@media (max-width:768px) {
+    .header {
+        height: auto;
+        min-height: 45vh;
+        display: flex;
+        flex-direction: column;
+        margin: 0 8px;
+        border-radius: 16px;
+    }
+    
+    .header::before {
+        background: linear-gradient(
+            to bottom, 
+            rgba(0, 0, 0, 0.15) 0%, 
+            rgba(0, 0, 0, 0.5) 100%
+        );
+    }
+    
     .header-contents{
-        max-width: 65%;
+        position: relative;
+        max-width: 90%;
+        margin: 1.5rem auto;
+        bottom: auto;
+        left: auto;
+        padding: 1.8rem 1.5rem;
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(1px);
+        border-radius: 14px;
     }
+    
+    .header-contents h2{
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+    
     .header-contents p{
-        display: none;
+        font-size: 15px;
+        text-align: center;
+        display: block;
+        margin-bottom: 1.3rem;
+        line-height: 1.5;
     }
+    
     .header-contents button{
-        padding: 2vw 4vw;
+        padding: 14px 28px;
+        font-size: 15px;
+        align-self: center;
+        min-height: 44px;
+        min-width: 120px;
+        border-radius: 25px;
+    }
+}
+
+@media (max-width:480px) {
+    .header {
+        min-height: 42vh;
+        margin: 0 5px;
+        border-radius: 12px;
+    }
+    
+    .header-contents{
+        max-width: 95%;
+        padding: 1.5rem 1.2rem;
+        margin: 1.2rem auto;
+        backdrop-filter: blur(0.1px);
+        border-radius: 12px;
+    }
+    
+    .header-contents h2{
+        font-size: 20px;
+        margin-bottom: 0.8rem;
+        line-height: 1.3;
+    }
+    
+    .header-contents p{
+        font-size: 14px;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+    }
+    
+    .header-contents button{
+        padding: 12px 24px;
+        font-size: 14px;
+        min-height: 42px;
+        min-width: 100px;
+    }
+}
+
+@media (max-width:360px) {
+    .header {
+        min-height: 38vh;
+        margin: 0 3px;
+        border-radius: 10px;
+    }
+    
+    .header-contents{
+        max-width: 98%;
+        padding: 1.2rem 1rem;
+        margin: 1rem auto;
+        backdrop-filter: blur(0.5px);
+        border-radius: 10px;
+    }
+    
+    .header-contents h2{
+        font-size: 18px;
+        margin-bottom: 0.7rem;
+    }
+    
+    .header-contents p{
+        font-size: 13px;
+        margin-bottom: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .header-contents button{
+        padding: 11px 20px;
+        font-size: 13px;
+        min-height: 40px;
+        min-width: 90px;
+    }
+}
+
+@media (min-width:1080px){
+    .header-contents h2{
+        font-size: 40px;
+    }
+    
+    .header-contents p{
+        font-size: 16px;
+    }
+    
+    .header-contents button{
+        font-size: 15px;
+        padding: 12px 28px;
     }
 }

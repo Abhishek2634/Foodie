@@ -1,0 +1,231 @@
+.loading-animation-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.city-skyline {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 40px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.loading-progress-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.progress-circle {
+  width: 200px;
+  height: 200px;
+  animation: rotateCircle 4s linear infinite;
+}
+
+@keyframes rotateCircle {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.progress-bar {
+  stroke-dasharray: 282.6;
+  stroke-dashoffset: 0;
+  animation: progressBarAnim 4s linear infinite;
+  filter: url(#glow);
+}
+
+@keyframes progressBarAnim {
+  0% { stroke-dashoffset: 282.6; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.city-map {
+  position: relative;
+  width: 220px;
+  height: 120px;
+  z-index: 2;
+}
+
+.city-path {
+  position: absolute;
+  left: 0;
+  top: 90px;
+  width: 220px;
+  height: 40px;
+  z-index: 2;
+  animation: dashmove 4s linear infinite;
+}
+
+@keyframes dashmove {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 36; }
+}
+
+.scooter-wrapper {
+  position: absolute;
+  left: 0;
+  top: 60px;
+  width: 80px;
+  height: 40px;
+  animation: scooterMove 4s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes scooterMove {
+  0% { left: 0; }
+  10% { top: 60px; }
+  20% { top: 55px; }
+  30% { top: 65px; }
+  40% { top: 60px; }
+  90% { left: 140px; }
+  100% { left: 0; }
+}
+
+.scooter-shadow {
+  width: 60px;
+  height: 10px;
+  background: radial-gradient(ellipse at center, #ffb30055 0%, #fff3e000 80%);
+  border-radius: 50%;
+  position: absolute;
+  left: 10px;
+  top: 38px;
+  z-index: 2;
+  filter: blur(1px);
+}
+
+.scooter {
+  width: 80px;
+  height: 40px;
+  display: block;
+  z-index: 3;
+}
+
+.delivery-person {
+  position: absolute;
+  left: 50px;
+  top: 0;
+}
+
+.person-svg {
+  width: 20px;
+  height: 20px;
+}
+
+.food-icon {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  opacity: 0;
+  animation: foodPop 4s infinite;
+}
+
+.food-burger {
+  left: 30px;
+  top: 10px;
+  animation-delay: 0.5s;
+}
+
+.food-pizza {
+  left: 100px;
+  top: 0px;
+  animation-delay: 1.2s;
+}
+
+.food-biryani {
+  left: 170px;
+  top: 20px;
+  animation-delay: 2s;
+}
+
+.food-drink {
+  left: 80px;
+  top: 70px;
+  animation-delay: 2.7s;
+}
+
+@keyframes foodPop {
+  0%, 100% { opacity: 0; transform: scale(0.7) translateY(10px) rotate(-10deg); }
+  10% { opacity: 1; transform: scale(1.1) translateY(-10px) rotate(8deg); }
+  20% { opacity: 1; transform: scale(1) translateY(0) rotate(-5deg); }
+  25% { opacity: 1; transform: scale(1.05) translateY(-5px) rotate(5deg); }
+  30% { opacity: 0; transform: scale(0.7) translateY(10px) rotate(-10deg); }
+  100% { opacity: 0; }
+}
+
+.loading-message {
+  margin-top: 30px;
+  font-size: 1.2rem;
+  color: #ff7043;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: center;
+  text-shadow: 0 2px 8px #fff3e0;
+  z-index: 10;
+}
+
+@media (max-width: 600px) {
+  .loading-progress-bg {
+    width: 120px;
+    height: 120px;
+  }
+  .progress-circle {
+    width: 120px;
+    height: 120px;
+  }
+  .city-map {
+    width: 140px;
+    height: 80px;
+  }
+  .city-skyline {
+    width: 140px;
+    height: 30px;
+  }
+  .city-path {
+    width: 140px;
+    height: 30px;
+    top: 60px;
+  }
+  .scooter-wrapper {
+    width: 50px;
+    height: 25px;
+    animation: scooterMoveMobile 4s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  }
+  @keyframes scooterMoveMobile {
+    0% { left: 0; }
+    10% { top: 60px; }
+    20% { top: 55px; }
+    30% { top: 65px; }
+    40% { top: 60px; }
+    90% { left: 90px; }
+    100% { left: 0; }
+  }
+  .scooter-shadow {
+    width: 30px;
+    height: 5px;
+    left: 5px;
+    top: 18px;
+  }
+  .food-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .loading-message {
+    font-size: 1rem;
+  }
+} 
