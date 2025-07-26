@@ -5,6 +5,29 @@ A full-stack web application for browsing, listing, and managing a variety of fo
 
 ---
 
+<details>
+  <summary><strong>📑 Table of Contents</strong></summary>
+
+- [🔧 Tech Stack](#-tech-stack)
+  - [🖥️ Frontend](#️-frontend)
+  - [🌐 Backend](#-backend)
+- [🚀 Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [📦 Installation](#-installation)
+  - [🔧 Development Setup](#-development-setup)
+- [📁 Project Structure](#-project-structure)
+- [🧪 Linting](#-linting)
+- [🧰 Scripts](#-scripts)
+- [📝 Notes](#-notes)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [🙌 Acknowledgements](#-acknowledgements)
+
+  </details>
+
+---
+
+
 ## 🔧 Tech Stack
 
 ### 🖥️ Frontend

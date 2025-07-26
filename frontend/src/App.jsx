@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
@@ -9,14 +9,25 @@ import AppDownload from "./components/AppDownlad/AppDownload";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
 import ThemeContextProvider from "./components/context/ThemeContext";
 import FoodDetail from "./components/FoodDetail/FoodDetail";
-
 import CartSummaryBar from "./components/CartSummaryBar/CartSummaryBar";
 import ScrollToTop from './components/ScrollToTop';
 import Wishlist from './pages/wishlist/wishlist';
 import { Toaster } from 'react-hot-toast';
+import LoadingAnimation from './components/LoadingAnimation';
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <LoadingAnimation />;
+  }
+
   return (
     <ThemeContextProvider>
       <>
