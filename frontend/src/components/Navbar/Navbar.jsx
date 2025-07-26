@@ -60,13 +60,29 @@ const Navbar = ({ setShowLogin }) => {
         >
           Contact Us
         </a>
+
+        {/* Mobile right options */}
+        <div className="navbar-right mobile-only">
+          <button onClick={toggleTheme}>
+            {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
+          </button>
+          <img src={assets.search_icon} alt="search" />
+          <div className="navbar-search-icon">
+            <Link to="/cart">
+              <img src={assets.basket_icon} alt="cart" />
+            </Link>
+            <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
+          </div>
+          <button onClick={() => setShowLogin(true)}>Sign In</button>
+        </div>
       </ul>
 
-      <div className="navbar-right">
+      {/* Desktop Right Section */}
+      <div className="navbar-right desktop-only">
         <button onClick={toggleTheme}>
           {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
         </button>
-        <img src={assets.search_icon}  alt="search" />
+        <img src={assets.search_icon} alt="search" />
         <div className="navbar-search-icon">
           <Link to="/cart">
             <img src={assets.basket_icon} alt="cart" />

@@ -207,3 +207,33 @@ body {
   background-color: var(--accent-color);
   color: #fff;
 }
+/* Hide desktop-right on mobile */
+.desktop-only {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 750px) {
+  .desktop-only {
+    display: none; /* Hide desktop version */
+  }
+  .mobile-only {
+    display: flex; /* Show mobile version */
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding-top: 15px;
+    /* border-top: 1px solid #ddd; */
+    width: 100%;
+  }
+  .mobile-only img {
+    width: 24px;
+  }
+  .mobile-only button {
+    padding: 6px 16px;
+    font-size: 14px;
+  }
+}
