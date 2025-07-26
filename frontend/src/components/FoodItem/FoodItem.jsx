@@ -28,6 +28,9 @@ const FoodItem = ({ id, name, price, description, image }) => {
     }
 
     localStorage.setItem("wishlist", JSON.stringify(updated));
+    
+    // Dispatch custom event for real-time updates
+    window.dispatchEvent(new CustomEvent('wishlistUpdated'));
   };
 
   const handleClick = () => {

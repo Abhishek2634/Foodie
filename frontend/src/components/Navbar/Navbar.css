@@ -320,3 +320,27 @@ body {
     display: flex;
   }
 }
+
+.wishlist-icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wishlist-dot {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  min-width: 18px;
+  min-height: 18px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: white;
+  animation: pulse 1.5s infinite;
+}
