@@ -4,6 +4,7 @@ import { FaDollarSign, FaListUl, FaStar, FaShoppingCart } from "react-icons/fa";
 import { StoreContext } from "../context/StoreContext";
 import "./FoodDetail.css";
 
+
 const FoodDetail = () => {
   const { addToCart, food_list } = useContext(StoreContext);
 

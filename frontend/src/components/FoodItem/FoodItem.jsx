@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./FoodItem.css";
-import { assets } from "../../assets/frontend_assets/assets";
 import { StoreContext } from "../context/StoreContext";
 import { useNavigate } from "react-router-dom";
+import { Heart, Plus, Minus } from "lucide-react";
+import { assets } from "../../assets/frontend_assets/assets";
 
 const FoodItem = ({ id, name, price, description, image }) => {
   const { cartItems, removeFromCart, addToCart } = useContext(StoreContext);
@@ -34,40 +35,50 @@ const FoodItem = ({ id, name, price, description, image }) => {
   };
 
   return (
-    <div>
-      <div className="food-item">
-        <div className="food-item-img-container">
-          <img className="food-item-image" src={image} alt="" />
-          {!cartItems[id] ? (
-            <img
-              className="add"
-              onClick={() => addToCart(id)}
-              src={assets.add_icon_white}
-              alt=""
+    <div className="food-item">
+      <div className="food-item-img-container">
+        <img className="food-item-image" src={image} alt={name} />
+        {!cartItems[id] ? (
+          <div className="add" onClick={() => addToCart(id)}>
+            <Plus size={20} color="white" />
+          </div>
+        ) : (
+          <div className="food-item-counter">
+            <Minus
+              size={18}
+              color="tomato"
+              onClick={() => removeFromCart(id)}
+              style={{ cursor: "pointer" }}
             />
-          ) : (
-            <div className="food-item-counter">
-              <img onClick={() => removeFromCart(id)} src={assets.remove_icon_red} alt="" />
-              <p>{cartItems[id]}</p>
-              <img onClick={() => addToCart(id)} src={assets.add_icon_green} alt="" />
-            </div>
-          )}
-          <div className="wishlist-icon" onClick={toggleWishlist}>
-            {isWishlisted ? "💖" : "🤍"}
+            <p>{cartItems[id]}</p>
+            <Plus
+              size={18}
+              color="green"
+              onClick={() => addToCart(id)}
+              style={{ cursor: "pointer" }}
+            />
           </div>
+        )}
+        <div className="wishlist-icon" onClick={toggleWishlist}>
+          <Heart
+            size={20}
+            color={isWishlisted ? "#e11d48" : "#444"}
+            fill={isWishlisted ? "#e11d48" : "none"}
+          />
         </div>
-        <div className="food-item-info">
-          <div className="food-item-name-rating">
-            <p>{name}</p>
-            <img src={assets.rating_starts} alt="" />
-          </div>
-          <p className="food-item-desc">{description}</p>
-          <div className="food-item-footer">
-            <p className="food-item-price">${price}</p>
-            <button className="view-btn" onClick={handleClick}>
-              View Details
-            </button>
-          </div>
+      </div>
+
+      <div className="food-item-info">
+        <div className="food-item-name-rating">
+          <p>{name}</p>
+          <img src={assets.rating_starts} alt="Rating" width={70} />
+        </div>
+        <p className="food-item-desc">{description}</p>
+        <div className="food-item-footer">
+          <p className="food-item-price">${price}</p>
+          <button className="view-btn" onClick={handleClick}>
+            View Details
+          </button>
         </div>
       </div>
     </div>

@@ -27,3 +27,6 @@ dist-ssr
 .env
 */ENV
 .env.*
+# Ignore uploaded files from multer
+/backend/uploads
+

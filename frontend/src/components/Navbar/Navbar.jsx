@@ -1,9 +1,23 @@
 import React, { useContext, useState } from "react";
 import "./Navbar.css";
-import { assets } from "../../assets/frontend_assets/assets";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
+import { assets } from "../../assets/frontend_assets/assets";
 import { ThemeContext } from "../context/ThemeContext";
+import {
+  Home,
+  Menu,
+  Smartphone,
+  Heart,
+  Phone,
+  Search,
+  ShoppingCart,
+  User,
+  Sun,
+  Moon,
+  X,
+  AlignJustify,
+} from "lucide-react";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
@@ -17,14 +31,13 @@ const Navbar = ({ setShowLogin }) => {
 
   return (
     <div className={`navbar ${theme === "dark" ? "navbar-dark" : ""}`}>
-      <Link to="/">
-        <img src={assets.appicon} alt="app icon" className="app-icon" />
-        <img src={assets.logo} alt="logo" className="logo" />
+      <Link to="/" className="navbar-logo">
+        <img src={assets.foodie_icon} alt="app icon" className="app-icon" />
       </Link>
 
       {/* Hamburger Icon */}
       <div className="hamburger" onClick={toggleMenu}>
-        {mobileMenuOpen ? "✖" : "☰"}
+        {mobileMenuOpen ? <X size={24} /> : <AlignJustify size={24} />}
       </div>
 
       {/* Desktop + Mobile Menu */}
@@ -32,48 +45,57 @@ const Navbar = ({ setShowLogin }) => {
         <Link
           to="/"
           onClick={() => setMenu("home")}
-          className={menu === "home" ? "active" : ""}
+          className={`nav-item ${menu === "home" ? "active" : ""}`}
         >
-          Home
+          <Home size={18} />
+          <span>Home</span>
         </Link>
         <a
           href="#explore-menu"
           onClick={() => setMenu("menu")}
-          className={menu === "menu" ? "active" : ""}
+          className={`nav-item ${menu === "menu" ? "active" : ""}`}
         >
-          Menu
+          <Menu size={18} />
+          <span>Menu</span>
         </a>
         <a
           href="#appdownload"
           onClick={() => setMenu("mobile-app")}
-          className={menu === "mobile-app" ? "active" : ""}
+          className={`nav-item ${menu === "mobile-app" ? "active" : ""}`}
         >
-          Mobile-App
+          <Smartphone size={18} />
+          <span>Mobile App</span>
         </a>
-
-        <Link to="/wishlist" className="nav-link">Wishlist</Link>
-
+        <Link to="/wishlist" className="nav-item">
+          <Heart size={18} />
+          <span>Wishlist</span>
+        </Link>
         <a
           href="#footer"
           onClick={() => setMenu("contact-us")}
-          className={menu === "contact-us" ? "active" : ""}
+          className={`nav-item ${menu === "contact-us" ? "active" : ""}`}
         >
-          Contact Us
+          <Phone size={18} />
+          <span>Contact</span>
         </a>
       </ul>
 
       <div className="navbar-right">
-        <button onClick={toggleTheme}>
-          {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
+        <button className="theme-toggle" onClick={toggleTheme}>
+          {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
         </button>
-        <img src={assets.search_icon}  alt="search" />
-        <div className="navbar-search-icon">
-          <Link to="/cart">
-            <img src={assets.basket_icon} alt="cart" />
+
+        <div className="navbar-cart">
+          <Link to="/cart" className="icon-button">
+            <ShoppingCart size={18} />
+            <div className={getTotalCartAmount() === 0 ? "" : "cart-dot"}></div>
           </Link>
-          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
-        <button onClick={() => setShowLogin(true)}>Sign In</button>
+
+        <button className="signin-button" onClick={() => setShowLogin(true)}>
+          <User size={16} />
+          <span>Sign In</span>
+        </button>
       </div>
     </div>
   );

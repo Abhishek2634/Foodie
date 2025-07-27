@@ -38,13 +38,13 @@
     align-items: center;
     gap: 16px;
     margin-bottom: 24px;
-    color: #111;
+    
 }
 
 .description {
     font-size: 18px;
     line-height: 1.8;
-    color: #444444ad;
+    
     margin-bottom: 32px;
     font-weight: 400;
 }
@@ -53,9 +53,10 @@
     color: #2e7d32;
 }
 
-.rating {
+.rating [data-theme='dark']{
+  
     font-weight: 600;
-    color: #444;
+    
 }
 
 .rating .star-icon {
@@ -149,4 +150,35 @@
         width: 100%;
         justify-content: center;
     }
+}
+:root {
+  --bg-color-light: #ffffff;
+  --bg-color-dark: #121212;
+  --text-color-light: #1c1c1c;
+  --text-color-dark: #f1f1f1;
+  --primary-red: #e53935;
+  --hover-red: #c62828;
+  --accent-green: #4caf50;
+}
+
+[data-theme="dark"] .food-detail-wrapper {
+  color: var(--text-color-dark);
+}
+
+[data-theme="dark"] .food-detail-info h1,
+[data-theme="dark"] .description,
+[data-theme="dark"] .info-section > div,
+[data-theme="dark"] .food-item-price {
+  color: var(--text-color-dark);
+}
+
+[data-theme="dark"] .add-to-cart,
+[data-theme="dark"] .view-btn {
+  background-color: var(--primary-red);
+  color: white;
+}
+
+[data-theme="dark"] .add-to-cart:hover,
+[data-theme="dark"] .view-btn:hover {
+  background-color: var(--hover-red);
 }
