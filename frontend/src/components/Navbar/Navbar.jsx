@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
@@ -22,8 +22,22 @@ import {
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [wishlistCount, setWishlistCount] = useState(0);
   const { getTotalCartAmount } = useContext(StoreContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
+
+  const updateWishlistCount = () => {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    setWishlistCount(wishlist.length);
+  };
+
+  useEffect(() => {
+    updateWishlistCount();
+    window.addEventListener('wishlistUpdated', updateWishlistCount);
+    return () => {
+      window.removeEventListener('wishlistUpdated', updateWishlistCount);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setMobileMenuOpen((prev) => !prev);
@@ -67,8 +81,13 @@ const Navbar = ({ setShowLogin }) => {
           <span>Mobile App</span>
         </a>
         <Link to="/wishlist" className="nav-item">
-          <Heart size={18} />
-          <span>Wishlist</span>
+          <div className="wishlist-icon-container">
+            <Heart size={18} />
+            <span>Wishlist</span>
+            {wishlistCount > 0 && (
+              <div className="wishlist-dot">{wishlistCount}</div>
+            )}
+          </div>
         </Link>
         <a
           href="#footer"

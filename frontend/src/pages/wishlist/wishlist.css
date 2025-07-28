@@ -1,0 +1,53 @@
+.wishlist-page {
+  padding: 20px 8vw;
+  min-height: 60vh;
+  background-color: var(--bg-color, #fff);
+  color: var(--text-color, #111);
+}
+
+.wishlist-page h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+  color: var(--title-color, #111);
+}
+
+.wishlist-page p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #676767;
+  margin-top: 50px;
+}
+
+.food-display-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+@media (max-width: 1050px) {
+  .wishlist-page {
+    padding: 20px 4vw;
+  }
+  
+  .wishlist-page h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 750px) {
+  .wishlist-page {
+    padding: 20px 2vw;
+  }
+  
+  .wishlist-page h2 {
+    font-size: 1.8rem;
+  }
+  
+  .food-display-list {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+} 
