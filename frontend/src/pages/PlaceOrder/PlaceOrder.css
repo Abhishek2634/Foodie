@@ -1,47 +1,113 @@
-.place-order{
+.place-order {
     display: flex;
-    align-items: start;
-    justify-content: space-between;
-    gap: 50px;
-    margin-top: 100px;
-    margin: 100px;
-}
-@media (max-width: 768px) {
-  .place-order {
-    margin: 20px;
-  }
-}
-
-.place-order-left{
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
     width: 100%;
-    max-width: max(30%, 500px);
-
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
 }
 
-.place-order-left .title{
-    font-size: 30px;
+.place-order-left {
+    flex: 1 1 340px;
+    max-width: 520px;
+    min-width: 280px;
+}
+
+.place-order-left .title {
+    font-size: 2rem;
     font-weight: 600;
-    margin-bottom: 50px;
+    margin-bottom: 32px;
 }
 
-.place-order-left input{
+.place-order-left input {
     margin-bottom: 15px;
     width: 100%;
     padding: 10px;
     border: 1px solid #c5c5c5;
     border-radius: 4px;
     outline-color: tomato;
+    font-size: 1rem;
 }
 
-.place-order-left .mutli-fields{
+.multi-fields {
     display: flex;
     gap: 10px;
 }
 
-.place-order-right{
-    margin-top: 30px;
+.multi-fields input {
+    flex: 1 1 0;
+    min-width: 0;
 }
 
-.place-order .cart-total button{
-    margin-top: 30px;
+.place-order-right {
+    flex: 0 0 340px;
+    max-width: 340px;
+    min-width: 260px;
+    width: 100%;
+    margin-top: 32px;
+}
+
+.cart-total {
+    border: 1px solid #ececec;
+    border-radius: 10px;
+    padding: 28px 22px;
+    background: #fff;
+}
+
+.cart-total h2 {
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+}
+
+.cart-total-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    margin: 7px 0;
+}
+
+.cart-total-details.total {
+    font-weight: bold;
+}
+
+.cart-total button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 12px 0;
+    background: tomato;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+.cart-total button:active {
+    opacity: 0.9;
+}
+
+/* RESPONSIVE FOR SMALLER SCREENS */
+@media (max-width: 900px) {
+    .place-order {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+        padding: 12px;
+    }
+    .place-order-left,
+    .place-order-right {
+        max-width: 100%;
+        width: 100%;
+    }
+    .place-order-right {
+        margin-top: 0;
+    }
 }
