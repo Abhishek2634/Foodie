@@ -8,7 +8,6 @@
   }
 }
 
-
 .cart-items-title{
     display: grid;
     grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 0.5fr;
@@ -116,7 +115,7 @@
     color: white;
     padding: 12px 5px;
     border-radius: 6px;
-    background-color: black;
+    background-color: tomato;
     border: none;
     cursor: pointer;
 }
