@@ -1,6 +1,7 @@
 import  { useEffect, useState, useContext } from 'react';
 import { StoreContext } from '../../components/context/StoreContext';
 import FoodItem from '../../components/FoodItem/FoodItem';
+import "./wishlist.css";
 
 const Wishlist = () => {
   const { food_list } = useContext(StoreContext);

@@ -5,8 +5,16 @@
   flex-direction: column;
   gap: 30px;
   padding: 0 20px;
+   margin: 50px;
   position: relative;
 }
+
+@media (max-width: 768px) {
+  .explore-menu {
+    margin: 0;
+  }
+}
+
 
 .explore-menu h1 {
   color: var(--text-color, #262626);

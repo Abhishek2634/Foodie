@@ -1,6 +1,13 @@
 .cart{
     margin-top: 100px;
+    margin: 100px;
 }
+@media (max-width: 768px) {
+  .cart {
+    margin: 20px;
+  }
+}
+
 
 .cart-items-title{
     display: grid;
