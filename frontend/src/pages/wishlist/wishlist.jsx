@@ -8,9 +8,20 @@ const Wishlist = () => {
   const [wishlistedItems, setWishlistedItems] = useState([]);
 
   useEffect(() => {
+    const updateWishlist = () => {
     const wishlistIds = JSON.parse(localStorage.getItem('wishlist')) || [];
     const filtered = food_list.filter(food => wishlistIds.includes(food._id));
     setWishlistedItems(filtered);
+  };
+     updateWishlist(); // Load initially
+
+  // Listen for custom wishlist update event
+  window.addEventListener("wishlistUpdated", updateWishlist);
+
+  // Cleanup when component unmounts
+  return () => {
+    window.removeEventListener("wishlistUpdated", updateWishlist);
+  };
   }, [food_list]);
 
   return (

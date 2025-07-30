@@ -12,8 +12,13 @@
   cursor: pointer;
   box-shadow: 0 4px 20px rgba(255, 99, 71, 0.3);
   transition: all 0.3s ease;
-  z-index: 1000;
+  z-index: 1001;
   color: white;
+}
+
+/* Adjust position when cart summary bar is visible */
+.chatbot-toggle.with-cart {
+  bottom: 100px;
 }
 
 .chatbot-toggle:hover {
@@ -33,8 +38,14 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  z-index: 1000;
+  z-index: 1001;
   border: 1px solid var(--chatbot-border, #e0e0e0);
+  transition: bottom 0.3s ease;
+}
+
+/* Adjust container position when cart summary bar is visible */
+.chatbot-container.with-cart {
+  bottom: 180px;
 }
 
 .chatbot-header {
@@ -322,8 +333,16 @@
     right: 20px;
   }
   
+  .chatbot-container.with-cart {
+    bottom: 180px;
+  }
+  
   .chatbot-toggle {
     bottom: 20px;
     right: 20px;
+  }
+  
+  .chatbot-toggle.with-cart {
+    bottom: 100px;
   }
 } 

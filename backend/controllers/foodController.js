@@ -1,11 +1,12 @@
+// foodController.js
+
 import Food from "../models/foodModel.js";
-import fs from 'fs'
+import fs from 'fs';
 
-
-// add food item
+// Add food item
 const addFood = async (req, res) => {
   try {
-    const body = Object.assign({}, req.body);
+    const body = { ...req.body };
     console.log("Parsed restaurantId:", body.restaurantId);
     console.log("Type:", typeof body.restaurantId);
 
@@ -27,7 +28,8 @@ const addFood = async (req, res) => {
   }
 };
 
-export const getFoodByRestaurant = async (req, res) => {
+// Get food by restaurant
+const getFoodByRestaurant = async (req, res) => {
   try {
     const { restaurantId } = req.params;
     const foodList = await Food.find({ restaurantId });
@@ -37,18 +39,18 @@ export const getFoodByRestaurant = async (req, res) => {
   }
 };
 
-
-
+// Remove food item
 const removeFood = async (req, res) => {
-    try {
-        const food = await foodModel.findById(req.body.id)
-        fs.unlink(`uploads/${food.image}`, () => {})
-        await foodModel.findByIdAndDelete(req.body.id);
-        res.json({ success: true, message: "Food item removed" });
-    } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: "Error removing food item" });
-    }
-}
+  try {
+    const food = await Food.findById(req.body.id);
+    fs.unlink(`uploads/${food.image}`, () => {});
+    await Food.findByIdAndDelete(req.body.id);
+    res.json({ success: true, message: "Food item removed" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error removing food item" });
+  }
+};
 
-export {addFood, getFoodByRestaurant, removeFood};
+// ✅ Export all at once (no duplicates)
+export { addFood, getFoodByRestaurant, removeFood };

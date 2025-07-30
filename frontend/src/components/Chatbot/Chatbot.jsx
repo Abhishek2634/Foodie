@@ -1,8 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Send, X, MessageCircle, ChefHat } from 'lucide-react';
+import { StoreContext } from '../context/StoreContext';
 import './Chatbot.css';
 
 const Chatbot = () => {
+  const { cartItems } = useContext(StoreContext);
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
@@ -15,6 +17,9 @@ const Chatbot = () => {
     dietaryPreferences: '',
     specificIngredients: ''
   });
+  
+  // Check if cart has items to adjust chatbot positioning
+  const hasCartItems = Object.values(cartItems).reduce((sum, item) => sum + item, 0) > 0;
   
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -208,13 +213,13 @@ Make the suggestions specific, appetizing, and relevant to their preferences. Us
   return (
     <>
       {/* Chatbot Toggle Button */}
-      <div className="chatbot-toggle" onClick={toggleChat}>
+      <div className={`chatbot-toggle ${hasCartItems ? 'with-cart' : ''}`} onClick={toggleChat}>
         {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
       </div>
 
       {/* Chatbot Window */}
       {isOpen && (
-        <div className="chatbot-container">
+        <div className={`chatbot-container ${hasCartItems ? 'with-cart' : ''}`}>
           <div className="chatbot-header">
             <div className="chatbot-title">
               <ChefHat size={20} />

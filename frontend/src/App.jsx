@@ -13,7 +13,9 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import CartSummaryBar from "./components/CartSummaryBar/CartSummaryBar";
 import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton";
 import Wishlist from "./pages/wishlist/wishlist";
+import Restaurants from "./pages/Restaurants/Restaurants";
 import Chatbot from "./components/Chatbot/Chatbot";
+import FAQ from "./components/FAQ/FAQ";
 import { Toaster } from "react-hot-toast";
 import LoadingAnimation from './components/LoadingAnimation';
 
@@ -45,11 +47,13 @@ const App = () => {
         <Route path="/order" element={<PlaceOrder />} />
         <Route path="/food/:id" element={<FoodDetail />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/restaurants" element={<Restaurants />} />
       </Routes>
        
       <ScrollToTopButton />   {/* floating button */}
       <CartSummaryBar />
       <AppDownload />
+      <FAQ />
       <Footer />
       <Chatbot /> {/* AI Food Assistant */}
     </div>

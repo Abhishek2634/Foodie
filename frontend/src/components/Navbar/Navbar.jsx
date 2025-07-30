@@ -17,6 +17,8 @@ import {
   Moon,
   X,
   AlignJustify,
+  Utensils,
+  HelpCircle,
 } from "lucide-react";
 
 const Navbar = ({ setShowLogin }) => {
@@ -50,6 +52,14 @@ const Navbar = ({ setShowLogin }) => {
           <Home size={18} />
           <span>Home</span>
         </Link>
+        <Link
+          to="/restaurants"
+          onClick={() => setMenu("restaurants")}
+          className={`nav-item ${menu === "restaurants" ? "active" : ""}`}
+        >
+          <Utensils size={18} />
+          <span>Restaurants</span>
+        </Link>
         <a
           href="#explore-menu"
           onClick={() => setMenu("menu")}
@@ -77,6 +87,14 @@ const Navbar = ({ setShowLogin }) => {
         >
           <Phone size={18} />
           <span>Contact</span>
+        </a>
+        <a
+          href="#faq"
+          onClick={() => setMenu("faq")}
+          className={`nav-item ${menu === "faq" ? "active" : ""}`}
+        >
+          <HelpCircle size={18} />
+          <span>FAQ</span>
         </a>
       </ul>
 
