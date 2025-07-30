@@ -5,6 +5,16 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const { cartItems, food_list, removeFromCart, getTotalCartAmount } = useContext(StoreContext);
   const navigate = useNavigate();
+
+  const formatPrice=(price) => {
+    return new Intl.NumberFormat('en-IN', {
+      style:'currency',
+      currency:'INR',
+      minimumFractionDigits:0,
+      maximumFractionDigits:0
+    }).format(price);
+  }
+
   return (
     <div className="cart">
       <div className="cart-items">
@@ -24,9 +34,9 @@ const Cart = () => {
                 <div className="cart-items-title cart-items-item">
                   <img src={item.image} alt="" />
                   <p>{item.name}</p>
-                  <p>${item.price}</p>
+                  <p>{formatPrice(price)}</p>
                   <p>{cartItems[item._id]}</p>
-                  <p>${item.price * cartItems[item._id]}</p>
+                  <p>{formatPrice(item.price * cartItems[item._id])}</p>
                   <p onClick={() => removeFromCart(item._id)} className="cart-remove-btn">
                     Remove
                   </p>
@@ -42,17 +52,17 @@ const Cart = () => {
           <h2>Cart Totals</h2>
           <div className="cart-total-details">
             <p>Subtotal</p>
-            <p>${getTotalCartAmount()}</p>
+            <p>{formatPrice(getTotalCartAmount())}</p>
           </div>
           <hr />
           <div className="cart-total-details">
             <p>Delivery Fee</p>
-            <p>${getTotalCartAmount() === 0 ? 0 : 2}</p>
+            <p>{formatPrice(getTotalCartAmount()) === 0 ? 0 : 2}</p>
           </div>
           <hr />
           <div className="cart-total-details">
             <b><p>Total</p></b>
-            <b><p>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount()+2}</p></b>
+            <b><p>{formatPrice(getTotalCartAmount()) === 0 ? 0 : formatPrice(getTotalCartAmount())+2}</p></b>
           </div>
           <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>
         </div>

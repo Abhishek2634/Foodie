@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { FaDollarSign, FaListUl, FaStar, FaShoppingCart } from "react-icons/fa";
 import { StoreContext } from "../context/StoreContext";
 import "./FoodDetail.css";
+import { IndianRupee } from "lucide-react";
 
 
 const FoodDetail = () => {
@@ -11,6 +12,15 @@ const FoodDetail = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(price);
+  };
 
   const { id } = useParams();
   const foodItem = food_list.find(item => item._id === id);  // Use food_list from context
@@ -35,7 +45,7 @@ console.log("Food List IDs:", food_list.map(item => item._id));
 
           <div className="info-section">
             <div className="price">
-              <FaDollarSign /> {foodItem.price}
+              {formatPrice(foodItem.price)}
             </div>
             <div className="category">
               <FaListUl /> {foodItem.category}

@@ -10,6 +10,15 @@ const FoodItem = ({ id, name, price, description, image }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const navigate = useNavigate();
 
+  const formatPrice=(price) => {
+    return new Intl.NumberFormat('en-IN', {
+      style:'currency',
+      currency:'INR',
+      minimumFractionDigits:0,
+      maximumFractionDigits:0
+    }).format(price);
+  }
+
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("wishlist")) || [];
     setIsWishlisted(stored.includes(id));
@@ -75,7 +84,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
         </div>
         <p className="food-item-desc">{description}</p>
         <div className="food-item-footer">
-          <p className="food-item-price">${price}</p>
+          <p className="food-item-price">{formatPrice(price)}</p>
           <button className="view-btn" onClick={handleClick}>
             View Details
           </button>

@@ -3,6 +3,16 @@ import "./PlaceOrder.css";
 import { StoreContext } from "../../components/context/StoreContext";
 const PlaceOrder = () => {
     const {getTotalCartAmount} = useContext(StoreContext)
+
+    const formatPrice = (price) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(price);
+    };
+
   return (
     <form className="place-order">
       <div className="place-order-left">
@@ -28,12 +38,12 @@ const PlaceOrder = () => {
           <h2>Cart Totals</h2>
           <div className="cart-total-details">
             <p>Subtotal</p>
-            <p>${getTotalCartAmount()}</p>
+            <p>{formatPrice(getTotalCartAmount())}</p>
           </div>
           <hr />
           <div className="cart-total-details">
             <p>Delivery Fee</p>
-            <p>${getTotalCartAmount() === 0? 0 : 2}</p>
+            <p>{formatPrice(getTotalCartAmount()) === 0? 0 : 2}</p>
           </div>
           <hr />
           <div className="cart-total-details">
@@ -41,7 +51,7 @@ const PlaceOrder = () => {
               <p>Total</p>
             </b>
             <b>
-              <p>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}</p>
+              <p>{formatPrice(getTotalCartAmount()) === 0 ? 0 : formatPrice(getTotalCartAmount()+2)}</p>
             </b>
           </div>
           <button>
