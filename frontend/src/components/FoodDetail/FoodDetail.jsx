@@ -15,7 +15,7 @@ const FoodDetail = () => {
   const { id } = useParams();
   const foodItem = food_list.find(item => item._id === id);  // Use food_list from context
   console.log("URL ID:", id);
-console.log("Food List IDs:", food_list.map(item => item._id));
+  console.log("Food List IDs:", food_list.map(item => item._id));
 
 
   if (!foodItem) {
@@ -24,6 +24,10 @@ console.log("Food List IDs:", food_list.map(item => item._id));
 
   return (
     <div className="food-detail-wrapper">
+      <button className="back-button" style={{ margin: '0 0 60px 0' }} onClick={() => window.history.back()}>
+        &larr; Back
+      </button>
+
       <div className="food-detail-container">
         <div className="food-detail-image">
           <img src={foodItem.image} alt={foodItem.name} />

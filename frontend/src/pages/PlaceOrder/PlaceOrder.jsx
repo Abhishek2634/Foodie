@@ -102,96 +102,96 @@ const PlaceOrder = () => {
     };
 
     return (
-        <>
+        <div className="place-order-container">
+            <button className="back-button" onClick={() => window.history.back()}>
+                &larr; Back
+            </button>
+
             <form className="place-order">
+
                 <div className="place-order-left">
                     <p className="title">Delivery Information</p>
-                    
-                   
-                    
+
                     <div className="multi-fields">
-                        <input 
+                        <input
                             name="firstName"
-                            placeholder="First Name" 
-                            type="text" 
+                            placeholder="First Name"
+                            type="text"
                             value={formData.firstName}
                             onChange={handleInputChange}
                         />
-                        <input 
+                        <input
                             name="lastName"
-                            placeholder="Last Name" 
-                            type="text" 
+                            placeholder="Last Name"
+                            type="text"
                             value={formData.lastName}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <input 
+                    <input
                         name="email"
-                        placeholder="Email Address" 
-                        type="email" 
+                        placeholder="Email Address"
+                        type="email"
                         value={formData.email}
                         onChange={handleInputChange}
                     />
-                    <input 
+                    <input
                         name="street"
-                        placeholder="Street" 
-                        type="text" 
+                        placeholder="Street"
+                        type="text"
                         value={formData.street}
                         onChange={handleInputChange}
                     />
                     <div className="multi-fields">
-                        <input 
+                        <input
                             name="city"
-                            placeholder="City" 
-                            type="text" 
+                            placeholder="City"
+                            type="text"
                             value={formData.city}
                             onChange={handleInputChange}
                         />
-                        <input 
+                        <input
                             name="state"
-                            placeholder="State" 
-                            type="text" 
+                            placeholder="State"
+                            type="text"
                             value={formData.state}
                             onChange={handleInputChange}
                         />
                     </div>
                     <div className="multi-fields">
-                        <input 
+                        <input
                             name="zipCode"
-                            placeholder="Zip Code" 
-                            type="text" 
+                            placeholder="Zip Code"
+                            type="text"
                             value={formData.zipCode}
                             onChange={handleInputChange}
                         />
-                        <input 
+                        <input
                             name="country"
-                            placeholder="Country" 
-                            type="text" 
+                            placeholder="Country"
+                            type="text"
                             value={formData.country}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <input 
+                    <input
                         name="phone"
-                        type="text" 
-                        placeholder="Phone" 
+                        type="text"
+                        placeholder="Phone"
                         value={formData.phone}
                         onChange={handleInputChange}
                     />
 
 
-                     {/* Location Button */}
-                    <button 
-                        type="button" 
+                    {/* Location Button */}
+                    <button
+                        type="button"
                         className="select-location-btn"
                         onClick={() => setShowLocationPopup(true)}
                     >
-                         Select Current Location
+                        Select Current Location
                     </button>
                 </div>
-
-
-                 
 
 
 
@@ -225,12 +225,12 @@ const PlaceOrder = () => {
 
             {/* Location Popup */}
             {showLocationPopup && (
-                <Location 
+                <Location
                     onLocationSelect={handleLocationSelect}
                     onClose={handleCloseLocationPopup}
                 />
             )}
-        </>
+        </div>
     );
 };
 
