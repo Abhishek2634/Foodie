@@ -5,6 +5,8 @@ We're excited you're here and interested in contributing to **Foodie**, a simple
 
 This project is in its early stage — so **you’re welcome to help build it from the ground up!**
 
+> **First time here?**
+> 👉 Start with [LEARN.md](./LEARN.md) – your fast track to understanding Foodie’s structure and contributions!
 ---
 
 ### 🚀 Getting Started

@@ -2,9 +2,10 @@
 .search-bar-container {
   position: relative;
   width: 100%;
-  padding-top: 75px;
   max-width: 600px;
   margin: 0 auto;
+  padding-top: 20px;
+  margin-bottom: 20px;
 }
 
 .search-bar {
@@ -16,7 +17,7 @@
   padding: 4px;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  margin: 20px;
+  margin: 0;
 }
 
 .search-bar:focus-within {
@@ -199,6 +200,7 @@
   .search-bar {
     border-radius: 10px;
     padding: 2px;
+    margin: 0;
   }
   
   .search-input {
@@ -222,17 +224,50 @@
 }
 
 @media (max-width: 480px) {
+  .search-bar-container {
+    padding-top: 40px;
+    max-width: 100vw;
+    margin: 0 0 10px 0;
+  }
+  .search-bar {
+    margin: 8px 2vw;
+    border-radius: 8px;
+    padding: 1px;
+    min-width: 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
   .search-input-wrapper {
-    padding: 0 8px;
+    padding: 0 4px;
   }
-  
+  .search-input {
+    font-size: 15px;
+    padding: 8px 0 8px 32px;
+  }
   .search-icon {
-    margin-right: 8px;
+    left: 8px;
+    width: 18px;
+    height: 18px;
   }
-  
   .search-button {
-    padding: 8px 12px;
-    font-size: 12px;
+    padding: 7px 10px;
+    font-size: 11px;
+    border-radius: 6px;
+  }
+  .clear-button {
+    padding: 2px;
+  }
+  .search-dropdown {
+    border-radius: 8px;
+    margin-top: 4px;
+    font-size: 13px;
+    left: 0;
+    right: 0;
+    min-width: 0;
+    max-width: 100vw;
+  }
+  .suggestion-item {
+    padding: 10px 10px;
+    font-size: 13px;
   }
 }
 

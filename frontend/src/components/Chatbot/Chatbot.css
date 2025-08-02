@@ -1,7 +1,7 @@
 .chatbot-toggle {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+        bottom: 80px;
+  right: 30px;
   width: 60px;
   height: 60px;
   background: linear-gradient(135deg, #ff6347, #ff8c69);
@@ -28,7 +28,7 @@
 
 .chatbot-container {
   position: fixed;
-  bottom: 100px;
+        bottom: 80px;
   right: 20px;
   width: 380px;
   height: 500px;
@@ -338,7 +338,7 @@
   }
   
   .chatbot-toggle {
-    bottom: 20px;
+    bottom: 80px;
     right: 20px;
   }
   
@@ -346,3 +346,55 @@
     bottom: 100px;
   }
 } 
+.chatbot-tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.chatbot-toggle::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff8c69;
+  color: white;
+  padding: 6px 12px; 
+  border-radius: 8px;
+  font-size: 13px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+  pointer-events: none;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); 
+}
+
+
+@media (max-width: 300px) {
+  .chatbot-toggle::before {
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+}
+
+.chatbot-toggle::after {
+  display: none !important;
+}
+
+
+.chatbot-toggle:hover::before,
+.chatbot-toggle:focus::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+.chatbot-toggle:focus {
+  outline: 2px solid #ff6347;
+  outline-offset: 2px;
+}

@@ -7,6 +7,16 @@ A full-stack web application for browsing, listing, and managing a variety of fo
 
 ---
 
+## 🚀 Quick Navigation
+
+> **📚 New to Foodie? Complete Developer Guide**  
+> 👉 **[LEARN.md](./LEARN.md)** – Architecture, setup, contribution pathways, and everything you need to get started!
+
+> **⚡ Want to jump right in?**  
+> Skip to [Getting Started](#-getting-started) for quick setup instructions.
+
+---
+
 ## 📑 Table of Contents
 
 - [🔧 Tech Stack](#-tech-stack)

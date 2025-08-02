@@ -3,6 +3,7 @@ import { Send, X, MessageCircle, ChefHat } from 'lucide-react';
 import { StoreContext } from '../context/StoreContext';
 import './Chatbot.css';
 
+
 const Chatbot = () => {
   const { cartItems } = useContext(StoreContext);
   const [isOpen, setIsOpen] = useState(false);
@@ -212,9 +213,18 @@ Make the suggestions specific, appetizing, and relevant to their preferences. Us
 
   return (
     <>
-      {/* Chatbot Toggle Button */}
-      <div className={`chatbot-toggle ${hasCartItems ? 'with-cart' : ''}`} onClick={toggleChat}>
-        {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
+      {/* Chatbot Toggle Button with tooltip and accessibility*/}
+      <div className="chatbot-tooltip-wrapper">
+        <button
+          className="chatbot-toggle"
+          onClick={toggleChat}
+          title="Chat with us"
+          aria-label="Chat with us"
+          tabIndex="0"
+          data-tooltip="Chat with us"
+        >
+          <MessageCircle size={24} />
+        </button>
       </div>
 
       {/* Chatbot Window */}

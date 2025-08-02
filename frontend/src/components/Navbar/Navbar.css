@@ -4,27 +4,26 @@
   left: 0;
   right: 0;
   z-index: 1000;
-background: var(--navbar-bg);
-border: 1px solid var(--navbar-border); 
+  background: var(--navbar-bg);
+  border: 1px solid var(--navbar-border); 
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   padding: 15px 80px; 
   display: flex;
-  justify-content:space-evenly;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--border-color);
-  padding-left:10px;
-  padding-right:10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 /* as per theme*/
 :root {
-  --navbar-bg: rgba(255, 255, 255, 0.85); /* light frosted white */
+  --navbar-bg: #ffffff; /* light frosted white */
 }
 [data-theme="dark"] {
-  --navbar-bg: rgba(17, 21, 29, 0.85); /* dark frosted black */
+  --navbar-bg: #11151d; /* dark frosted black */
 }
-
-
-
 
 .navbar-logo {
   display: flex;
@@ -184,14 +183,14 @@ border: 1px solid var(--navbar-border);
   box-shadow: 0 4px 12px rgba(255, 99, 71, 0.3);
 }
 
-.app-icon {
-  margin-top: 14px;
-  height: 85px;        /* increase size */
-  width: auto;         /* let it scale naturally */
-  object-fit: contain; /* prevent cropping */
-  border-radius: 8px;
-  opacity: 1;
 
+.app-icon {
+  margin-top: 0;
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  opacity: 1;
 }
 
 /* .logo {
@@ -323,32 +322,121 @@ border: 1px solid var(--navbar-border);
 }
 
 @media (max-width: 750px) {
+  /* Top navbar with logo and action buttons */
   .navbar {
-    padding: 15px 20px;
+    padding: 10px 20px;
+    background: var(--navbar-bg);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
   }
   
   .hamburger {
-    display: block;
-  }
-  
-  .navbar-menu {
     display: none;
   }
-  
+
+  .app-icon {
+    height: 60px;
+    margin-top: 0;
+  }
+
+  /* Keep the action buttons visible in top navbar */
   .navbar-right {
+    display: flex;
+    gap: 8px;
+  }
+
+  .navbar-right .signin-button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .navbar-right .theme-toggle,
+  .navbar-right .icon-button {
+    width: 35px;
+    height: 35px;
+    padding: 8px;
+  }
+
+  /* Hide mobile actions since we're using navbar-right */
+  .mobile-actions {
     display: none;
   }
-  
-  .mobile-actions {
-    display: flex;
+
+  /* Bottom navigation menu */
+  .navbar-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex !important;
+    margin: 0;
+    padding: 4px 0 4px 0;
+    width: 100vw;
+    min-width: 0;
+    max-width: 100vw;
+    overflow-x: auto;
+    justify-content: space-between;
+    gap: 0;
+    background: #fff;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
   }
-  
-  .navbar-menu.open .nav-item {
+  .navbar-menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navbar-menu .nav-item {
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 6px;
+    font-size: 11px;
+    min-width: 48px;
+    max-width: 70px;
     width: 100%;
-    text-align: center;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    align-items: center;
     justify-content: center;
-    padding: 15px;
-    font-size: 16px;
+    flex: 1 1 0;
+    word-break: break-word;
+  }
+
+  .navbar-menu .nav-item svg {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .navbar-menu .nav-item span {
+    font-size: 10px;
+    font-weight: 500;
+    text-align: center;
+    display: block;
+    white-space: normal;
+    line-height: 1.1;
+    word-break: break-word;
+  }
+
+  .navbar-menu .nav-item.active {
+    color: var(--accent-color);
+    background: none;
+    transform: translateY(-2px);
+  }
+
+  .navbar-menu .nav-item.active::after {
+    display: none;
+  }
+
+  .navbar-menu .nav-item:hover {
+    background: none;
+    transform: translateY(-2px);
   }
 }
 
@@ -380,4 +468,5 @@ body {
   color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
   padding-top: 90px;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 70px);
 }
