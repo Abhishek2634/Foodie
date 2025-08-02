@@ -9,14 +9,15 @@ import AppDownload from "./components/AppDownlad/AppDownload";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
 import ThemeContextProvider from "./components/context/ThemeContext";
 import FoodDetail from "./components/FoodDetail/FoodDetail";
-import SearchBar from "./components/SearchBar/SearchBar";
 import CartSummaryBar from "./components/CartSummaryBar/CartSummaryBar";
 import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton";
 import Wishlist from "./pages/wishlist/wishlist";
 import Restaurants from "./pages/Restaurants/Restaurants";
 import Chatbot from "./components/Chatbot/Chatbot";
+import FAQ from "./components/FAQ/FAQ";
 import { Toaster } from "react-hot-toast";
 import LoadingAnimation from './components/LoadingAnimation';
+import ScrollToTop from "../utility/ScrollToTop";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -39,7 +40,7 @@ const App = () => {
     
     <div className="app">
       <Navbar setShowLogin={setShowLogin} />
-      <SearchBar />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
@@ -52,6 +53,7 @@ const App = () => {
       <ScrollToTopButton />   {/* floating button */}
       <CartSummaryBar />
       <AppDownload />
+      <FAQ />
       <Footer />
       <Chatbot /> {/* AI Food Assistant */}
     </div>

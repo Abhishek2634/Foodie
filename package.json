@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "gsap": "^3.13.0",
+    "leaflet": "^1.9.4",
+    "react-leaflet": "^4.2.1"
+  }
+}

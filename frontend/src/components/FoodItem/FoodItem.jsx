@@ -28,6 +28,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
     }
 
     localStorage.setItem("wishlist", JSON.stringify(updated));
+     window.dispatchEvent(new Event("wishlistUpdated"));
   };
 
   const handleClick = () => {
@@ -64,6 +65,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
             size={20}
             color={isWishlisted ? "#e11d48" : "#444"}
             fill={isWishlisted ? "#e11d48" : "none"}
+            stroke="#facc15"
           />
         </div>
       </div>

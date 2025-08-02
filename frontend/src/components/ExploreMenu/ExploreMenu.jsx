@@ -13,11 +13,7 @@ const ExploreMenu = ({ category, setCategory }) => {
   // Auto-scroll function using requestAnimationFrame for smooth animation
   const autoScroll = () => {
     if (isPaused || isHovered || !scrollRef.current) {
-      if (isHovered) {
-        console.log("Auto-scroll paused due to hover"); // Debug log
-      }
-      animationRef.current = requestAnimationFrame(autoScroll);
-      return;
+      return; //  Stop animation completely while hovered/paused
     }
 
     const container = scrollRef.current;
@@ -111,13 +107,19 @@ const ExploreMenu = ({ category, setCategory }) => {
 
   // Hover handlers
   const handleMouseEnter = () => {
-    console.log("Mouse entered - pausing scroll"); // Debug log
+    console.log("Mouse entered - pausing scroll");
     setIsHovered(true);
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current); //  Stop animation on hover
+    }
   };
   
   const handleMouseLeave = () => {
-    console.log("Mouse left - resuming scroll"); // Debug log
+    console.log("Mouse left - resuming scroll");
     setIsHovered(false);
+    if (!isPaused) {
+      animationRef.current = requestAnimationFrame(autoScroll); //  Resume animation after hover
+    }
   };
 
   // Start auto-scroll on mount
@@ -137,12 +139,16 @@ const ExploreMenu = ({ category, setCategory }) => {
   // Restart animation when pause state changes
   useEffect(() => {
     if (!isPaused && !isHovered) {
+      animationRef.current = requestAnimationFrame(autoScroll);
+    }
+
+    return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
-      animationRef.current = requestAnimationFrame(autoScroll);
-    }
+    };
   }, [isPaused, isHovered]);
+
 
   return (
     <div className="explore-menu" id="explore-menu">
