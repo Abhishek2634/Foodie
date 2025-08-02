@@ -18,21 +18,21 @@ const ExploreMenu = ({ category, setCategory }) => {
 
     const container = scrollRef.current;
     const scrollSpeed = 0.5; // Pixels per frame
-    
+
     // Move forward
     container.scrollLeft += scrollSpeed;
-    
+
     // Calculate when to reset with better precision
     const scrollWidth = container.scrollWidth;
     const halfWidth = scrollWidth / 2;
     const resetBuffer = 20; // Small buffer to ensure clean reset
-    
+
     // Reset when we've scrolled past the first set (with buffer)
     if (container.scrollLeft >= halfWidth - resetBuffer) {
       container.scrollLeft = 0;
       console.log("Auto-scroll reset triggered"); // Debug log
     }
-    
+
     // Continue the animation
     animationRef.current = requestAnimationFrame(autoScroll);
   };
@@ -40,29 +40,29 @@ const ExploreMenu = ({ category, setCategory }) => {
   // Manual scroll with arrows
   const handleManualScroll = (direction) => {
     console.log(`Button clicked: ${direction}`); // Debug log
-    
+
     if (!scrollRef.current) {
       console.log("No scrollRef available"); // Debug log
       return;
     }
-    
+
     const container = scrollRef.current;
     const scrollAmount = 300;
-    
+
     // Calculate safe boundaries to avoid reset issues
     const scrollWidth = container.scrollWidth;
     const halfWidth = scrollWidth / 2;
     const safeZone = 100; // Buffer to stay away from reset boundary
-    
+
     console.log(`Current scroll position: ${container.scrollLeft}`); // Debug log
     console.log(`Half width (reset point): ${halfWidth}`); // Debug log
-    
+
     // Stop auto-scroll first
     setIsPaused(true);
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
     }
-    
+
     // Calculate new position
     let newPosition;
     if (direction === "left") {
@@ -78,17 +78,17 @@ const ExploreMenu = ({ category, setCategory }) => {
         newPosition = 0;
       }
     }
-    
+
     // Apply the safe scroll position
     container.scrollLeft = newPosition;
-    
+
     console.log(`New scroll position: ${container.scrollLeft}`); // Debug log
-    
+
     // Clear existing timeout
     if (pauseTimeoutRef.current) {
       clearTimeout(pauseTimeoutRef.current);
     }
-    
+
     // Resume after 1 second
     pauseTimeoutRef.current = setTimeout(() => {
       console.log("Resuming auto-scroll"); // Debug log
@@ -113,7 +113,7 @@ const ExploreMenu = ({ category, setCategory }) => {
       cancelAnimationFrame(animationRef.current); //  Stop animation on hover
     }
   };
-  
+
   const handleMouseLeave = () => {
     console.log("Mouse left - resuming scroll");
     setIsHovered(false);
@@ -125,7 +125,7 @@ const ExploreMenu = ({ category, setCategory }) => {
   // Start auto-scroll on mount
   useEffect(() => {
     animationRef.current = requestAnimationFrame(autoScroll);
-    
+
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
@@ -154,18 +154,18 @@ const ExploreMenu = ({ category, setCategory }) => {
     <div className="explore-menu" id="explore-menu">
       <h1>Explore Our Menu</h1>
       <p className="explore-menu-text">
-        Choose from a diverse menu featuring a delectable array of dishes crafted with passion. 
-        Our mission is to satisfy your cravings and elevate your dining experience, 
+        Choose from a diverse menu featuring a delectable array of dishes crafted with passion.
+        Our mission is to satisfy your cravings and elevate your dining experience,
         one delicious meal at a time.
       </p>
 
-      <div 
+      <div
         className="explore-menu-wrapper"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <button 
-          className="arrow left" 
+        <button
+          className="arrow left"
           onClick={() => handleManualScroll("left")}
           style={{
             position: 'absolute',
@@ -187,9 +187,9 @@ const ExploreMenu = ({ category, setCategory }) => {
         >
           &#8249;
         </button>
-        
-        <div 
-          className="explore-menu-list" 
+
+        <div
+          className="explore-menu-list"
           ref={scrollRef}
         >
           {/* Triple the items for seamless infinite scroll */}
@@ -212,9 +212,13 @@ const ExploreMenu = ({ category, setCategory }) => {
             </div>
           ))}
         </div>
-        
-        <button 
-          className="arrow right" 
+
+        <button className="reset-button" onClick={() => setCategory("All")}>
+          Show All Categories
+        </button>
+
+        <button
+          className="arrow right"
           onClick={() => handleManualScroll("right")}
           style={{
             position: 'absolute',
