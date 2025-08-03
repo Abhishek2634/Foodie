@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../components/context/StoreContext";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, Link } from "react-router-dom";
 
 const Cart = () => {
   const { cartItems, food_list, removeFromCart, getTotalCartAmount, addToCart } = useContext(StoreContext);
@@ -27,15 +28,13 @@ const Cart = () => {
               <React.Fragment key={item._id}>
                 <div className="cart-items-title cart-items-item">
                   <img src={item.image} alt="" />
-                  <p>{item.name}</p>
+                  <Link to={`/food/${item._id}`}>{item.name}</Link>
                   <p>${item.price}</p>
-
                   <div className="cart-quantity-controls">
                     <button onClick={() => removeFromCart(item._id)}>-</button>
                     <span>{cartItems[item._id]}</span>
                     <button onClick={() => addToCart(item._id)}>+</button>
                   </div>
-
                   <p>${item.price * cartItems[item._id]}</p>
                 </div>
                 <hr />
