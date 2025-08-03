@@ -4,8 +4,8 @@
   left: 0;
   right: 0;
   z-index: 1000;
-background: var(--navbar-bg);
-border: 1px solid var(--navbar-border); 
+  background: var(--navbar-bg);
+  border: 1px solid var(--navbar-border); 
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   padding: 15px 80px; 
   display: flex;
@@ -14,6 +14,7 @@ border: 1px solid var(--navbar-border);
   border-bottom: 1px solid var(--border-color);
   padding-left:10px;
   padding-right:10px;
+  margin-bottom: 0;
 }
 /* as per theme*/
 :root {
@@ -379,5 +380,5 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
-  padding-top: 50px;
-}
+  padding-top: 60px;
+} 
