@@ -21,6 +21,10 @@ import ScrollToTop from "../utility/ScrollToTop";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return !!localStorage.getItem("authToken"); // or whatever you store on login
+  });
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -44,7 +48,18 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/order" element={<PlaceOrder />} />
+        <Route
+            path="/order"
+            element={
+              isLoggedIn ? (
+                <PlaceOrder />
+              ) : (
+                <div style={{ padding: "2rem", textAlign: "center" }}>
+                  <h2>Please log in to proceed to checkout.</h2>
+                </div>
+              )
+            }
+        />
         <Route path="/food/:id" element={<FoodDetail />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/restaurants" element={<Restaurants />} />
