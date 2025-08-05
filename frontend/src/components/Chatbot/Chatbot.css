@@ -1,6 +1,6 @@
 .chatbot-toggle {
   position: fixed;
-  bottom: 20px;
+        bottom: 80px;
   right: 30px;
   width: 60px;
   height: 60px;
@@ -28,7 +28,7 @@
 
 .chatbot-container {
   position: fixed;
-  bottom: 100px;
+        bottom: 80px;
   right: 20px;
   width: 380px;
   height: 500px;
@@ -338,7 +338,7 @@
   }
   
   .chatbot-toggle {
-    bottom: 20px;
+    bottom: 80px;
     right: 20px;
   }
   
