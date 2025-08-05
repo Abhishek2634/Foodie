@@ -7,7 +7,13 @@ const Footer = () => {
         <div className="footer-content">
             <div className="footer-content-left">
                 <img src={assets.foodie_icon} alt="" />
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime, sapiente. Libero esse aperiam voluptatum placeat culpa iure vero? Odio itaque accusantium amet animi possimus adipisci id saepe corporis inventore consequatur.</p>
+                <p>Enjoy delicious food from your favorite restaurants.
+Fast delivery, easy to use, and always satisfying.
+
+No more waiting in lines or cooking at home.
+Order fresh, tasty meals with just a few taps.
+
+</p>
                 <div className="footer-social-icons">
                     <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"> 
                         <img src={assets.facebook_icon} alt="Facebook" />
@@ -36,7 +42,9 @@ const Footer = () => {
             </div>
         </div>
         <hr />
-        <p className="footer-copyright">Copyright 2024 &nbsp;  &copy; &nbsp; foodie.com - All Right Reserved</p>
+        <p className="footer-copyright">
+          Copyright {new Date().getFullYear()} &nbsp; &copy; &nbsp; foodie.com - All Right Reserved
+        </p>
     </div>
   )
 }

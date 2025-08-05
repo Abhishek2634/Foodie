@@ -96,14 +96,19 @@ const Navbar = ({ setShowLogin }) => {
         <Heart size={18} />
         <span>Wishlist</span>
       </Link>
-      <a
-        href="#footer"
+
+      <Link
+        to="/contact"
+        onClick={() => setMenu("contact-us")}
         className={`nav-item ${menu === "contact-us" ? "active" : ""}`}
+        my-feature
         onClick={(e) => handleNavMenuClick(e, "contact-us", "footer")}
+        main
       >
         <Phone size={18} />
         <span>Contact</span>
-      </a>
+      </Link>
+
       <a
         href="#faq"
         className={`nav-item ${menu === "faq" ? "active" : ""}`}
