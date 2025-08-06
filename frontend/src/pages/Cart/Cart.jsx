@@ -7,6 +7,9 @@ const Cart = () => {
   const navigate = useNavigate();
   return (
     <div className="cart">
+      <button className="back-button" style={{ margin: '0 0 60px 0' }} onClick={() => window.history.back()}>
+        &larr; Back
+      </button>
       <div className="cart-items">
         <div className="cart-items-title">
           <p>Items</p>
@@ -53,9 +56,9 @@ const Cart = () => {
           <hr />
           <div className="cart-total-details">
             <b><p>Total</p></b>
-            <b><p>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount()+2}</p></b>
+            <b><p>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}</p></b>
           </div>
-          <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>
+          <button onClick={() => navigate('/order')}>PROCEED TO CHECKOUT</button>
         </div>
         <div className="cart-promo-code">
           <div>

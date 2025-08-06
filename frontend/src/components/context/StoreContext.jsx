@@ -6,6 +6,7 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({});
+    const [category, setCategory] = useState('All');
 
     /**
      * Adds an item to the cart or increments its quantity if it already exists.
@@ -57,6 +58,8 @@ const StoreContextProvider = (props) => {
         food_list,
         cartItems,
         setCartItems,
+        category,
+        setCategory,
         addToCart,
         removeFromCart,
         getTotalCartAmount,
