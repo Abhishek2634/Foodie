@@ -48,7 +48,10 @@ body {
   display: flex;
   align-items: center;
   margin-left: 0;
-  margin-right: 15%;
+  /* 
+    Removed margin right that is making it push remiaining elements to right too much
+  */
+  /* margin-right: 15%; */
   transition: transform 0.14s cubic-bezier(0.4,0.1,0.6,0.9);
 }
 .navbar-logo:hover { transform: scale(1.03); }
