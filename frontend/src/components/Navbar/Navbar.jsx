@@ -5,7 +5,6 @@ import { StoreContext } from "../context/StoreContext";
 import { assets } from "../../assets/frontend_assets/assets";
 import { ThemeContext } from "../context/ThemeContext";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 import {
   Home,
@@ -26,24 +25,64 @@ const Navbar = ({ setShowLogin }) => {
   const { getTotalCartAmount } = useContext(StoreContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [user, setUser] = useState(null);
-  
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setUser(storedUser);
   }, []);
 
-=======
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    const path = location.pathname;
+
+    if (path === "/") {
+      const scrollToId = localStorage.getItem("scrollToId");
+      const menuName = localStorage.getItem("menu");
+      if (scrollToId && menuName) {
+        setMenu(menuName);
+      } else {
+        setMenu("home");
+      }
+    } else if (path.startsWith("/restaurants")) {
+      setMenu("restaurants");
+    } else if (path.startsWith("/wishlist")) {
+      setMenu("wishlist");
+    } else if (path.startsWith("/contact")) {
+      setMenu("contact-us");
+    } else if (path.startsWith("/cart")) {
+      setMenu("cart");
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const scrollToId = localStorage.getItem("scrollToId");
+    const menuName = localStorage.getItem("menu");
+    if (location.pathname === "/" && scrollToId) {
+      const timeout = setTimeout(() => {
+        const section = document.getElementById(scrollToId);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+          localStorage.removeItem("scrollToId");
+          localStorage.removeItem("menu");
+          setMenu(menuName || "home");
+        } else {
+          console.warn("Section not found:", scrollToId);
+        }
+      }, 100);
+      return () => clearTimeout(timeout); // Cleanup
+    }
+  }, [location.pathname]);
 
   // Handles smooth scroll or navigation for # links
   const handleNavMenuClick = (event, menuName, id) => {
     event.preventDefault();
+    localStorage.setItem("menu", menuName);
     setMenu(menuName);
     if (id) {
       if (location.pathname !== "/") {
-        localStorage.setItem("scrollToMenu", "true");
+        localStorage.setItem("scrollToId", id);
         navigate("/");
       } else {
         const section = document.getElementById(id);
@@ -59,22 +98,26 @@ const Navbar = ({ setShowLogin }) => {
     window.location.reload();
   };
 
-  return (
-    <div className={`navbar ${theme === "dark" ? "navbar-dark" : ""}`}>
-      <Link to="/" className="navbar-logo">
-        <img src={assets.foodie_icon} alt="app icon" className="app-icon " />
+  const handleGoHome = () => {
+    localStorage.removeItem("menu");
+    setMenu("home");
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+    }
+  };
 
   // Nav menu fragment to use in both desktop and mobile navbars
   const navMenu = (
     <>
       <Link
         to="/"
-        onClick={() => setMenu("home")}
+        onClick={handleGoHome}
         className={`nav-item ${menu === "home" ? "active" : ""}`}
       >
         <Home size={18} />
         <span>Home</span>
-
       </Link>
       <Link
         to="/restaurants"
@@ -134,7 +177,7 @@ const Navbar = ({ setShowLogin }) => {
       {/* Top Navigation Bar */}
       <div className={`navbar ${theme === "dark" ? "navbar-dark" : ""}`}>
         {/* Logo */}
-        <Link to="/" className="navbar-logo">
+        <Link to="/" onClick={handleGoHome} className="navbar-logo">
           <img src={assets.foodie_icon} alt="app icon" className="app-icon" />
         </Link>
         {/* Desktop menu (center, hidden on mobile) */}
@@ -160,10 +203,11 @@ const Navbar = ({ setShowLogin }) => {
           </button>
         </div>
 
-
         {user ? (
           <div className="user-info">
-            <div className="user-avatar">{user.name?.charAt(0).toUpperCase()}</div>
+            <div className="user-avatar">
+              {user.name?.charAt(0).toUpperCase()}
+            </div>
             <span>{user.name}</span>
             <button className="signin-button" onClick={handleLogout}>
               Logout
