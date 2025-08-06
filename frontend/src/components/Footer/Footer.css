@@ -39,6 +39,7 @@
     width: 100px;  /* or any size you want, e.g., 80px */
     height: auto;  /* keeps aspect ratio */
     border-radius: 12px;  /* optional: softer look */
+    
 }
 
 .footer-content-right h2, .footer-content-center h2{

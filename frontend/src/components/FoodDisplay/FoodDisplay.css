@@ -25,3 +25,25 @@
     gap: 30px;
     row-gap: 50px;
 }
+
+.filter-toggle {
+  margin: 15px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.filter-toggle button {
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 500;
+  margin-left: 23px;
+}
+
+.filter-toggle button.active {
+  background-color: tomato;
+  color: white;
+  border-color: tomato;
+}

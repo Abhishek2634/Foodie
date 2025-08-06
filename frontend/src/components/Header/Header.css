@@ -51,6 +51,7 @@
   margin: 0 auto;
   padding: 2rem 2rem;
   background: rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   border-radius: 32px;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -81,7 +82,7 @@
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 800;
   line-height: 1.1;
-  margin: 0;
+  margin: 20px 1.5rem;
   animation: slideInUp 1s ease-out 0.2s both;
 }
 
@@ -271,6 +272,8 @@
 
   .hero-title {
     font-size: clamp(1.8rem, 5vw, 2.5rem);
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
   }
 
   .hero-actions {

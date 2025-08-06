@@ -1,9 +1,11 @@
 import React from "react";
 import "./Restaurants.css";
 import { Star, MapPin, Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Restaurants = () => {
-  // Sample restaurant data with images from Unsplash
+  const navigate = useNavigate();
+
   const restaurants = [
     {
       id: 1,
@@ -14,7 +16,7 @@ const Restaurants = () => {
       cuisine: "Italian",
       deliveryTime: "25-35 min",
       location: "Downtown",
-      description: "Authentic Italian cuisine with fresh ingredients and traditional recipes."
+      description: "Authentic Italian cuisine with fresh ingredients and traditional recipes.",
     },
     {
       id: 2,
@@ -25,7 +27,7 @@ const Restaurants = () => {
       cuisine: "Indian",
       deliveryTime: "30-45 min",
       location: "Midtown",
-      description: "Exotic Indian flavors with aromatic spices and rich curries."
+      description: "Exotic Indian flavors with aromatic spices and rich curries.",
     },
     {
       id: 3,
@@ -36,7 +38,7 @@ const Restaurants = () => {
       cuisine: "Seafood",
       deliveryTime: "20-30 min",
       location: "Harbor District",
-      description: "Fresh seafood and coastal cuisine with stunning ocean views."
+      description: "Fresh seafood and coastal cuisine with stunning ocean views.",
     },
     {
       id: 4,
@@ -47,8 +49,8 @@ const Restaurants = () => {
       cuisine: "American",
       deliveryTime: "15-25 min",
       location: "Westside",
-      description: "Gourmet burgers and comfort food with premium ingredients."
-    }
+      description: "Gourmet burgers and comfort food with premium ingredients.",
+    },
   ];
 
   const renderStars = (rating) => {
@@ -81,16 +83,15 @@ const Restaurants = () => {
 
       <div className="restaurants-grid">
         {restaurants.map((restaurant) => (
-          <div key={restaurant.id} className="restaurant-card">
+          <div
+            key={restaurant.id}
+            className="restaurant-card"
+            onClick={() => navigate(`/restaurant/${restaurant.id}`)}
+            style={{ cursor: "pointer" }}
+          >
             <div className="restaurant-image-container">
-              <img 
-                src={restaurant.image} 
-                alt={restaurant.name} 
-                className="restaurant-image"
-              />
-              <div className="discount-badge">
-                {restaurant.discount}
-              </div>
+              <img src={restaurant.image} alt={restaurant.name} className="restaurant-image" />
+              <div className="discount-badge">{restaurant.discount}</div>
             </div>
 
             <div className="restaurant-info">
@@ -116,9 +117,7 @@ const Restaurants = () => {
               <p className="restaurant-cuisine">{restaurant.cuisine}</p>
               <p className="restaurant-description">{restaurant.description}</p>
 
-              <button className="order-now-btn">
-                Order Now
-              </button>
+              <button className="order-now-btn">Order Now</button>
             </div>
           </div>
         ))}
@@ -127,4 +126,4 @@ const Restaurants = () => {
   );
 };
 
-export default Restaurants; 
+export default Restaurants;

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import './LoginPopup.css';
 import { assets } from '../../assets/frontend_assets/assets';
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+
 
 const LoginPopup = ({ setShowLogin }) => {
   const [currState, setCurrState] = useState("Sign Up");
@@ -12,6 +14,7 @@ const LoginPopup = ({ setShowLogin }) => {
   const [timer, setTimer] = useState(60);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate=useNavigate();
 
   const popupRef = useRef();
   const otpRefs = useRef([]);
@@ -84,11 +87,58 @@ const LoginPopup = ({ setShowLogin }) => {
     setOtp(Array(6).fill(""));
     setCurrState("Login");
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    if (!email || !password || (currState === "Sign Up" && !name)) {
+      return toast.error("Please fill all fields");
+    }
+
+    const endpoint =
+      currState === "Sign Up"
+        ? "http://localhost:4000/api/auth/register"
+        : "http://localhost:4000/api/auth/login";
+
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success(`${currState} successful!`);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("token", data.token);
+        setShowLogin(false);
+        window.location.reload();
+      } else {
+        toast.error(data.message || "Signup failed");
+      }
+    } catch (err) {
+      toast.error("Network error");
+      console.error(err);
+    }
+  };
+
 
   return (
     <div className='LoginPopup'>
       <Toaster />
-      <form ref={popupRef} className="login-popup-container">
+      <form ref={popupRef} className="login-popup-container" onSubmit={handleSubmit}>
         <div className="login-popup-title">
           <h2>{forgotFlow ? "Reset Password" : currState}</h2>
           <img onClick={() => setShowLogin(false)} src={assets.cross_icon} alt="close" />
@@ -96,13 +146,13 @@ const LoginPopup = ({ setShowLogin }) => {
 
         <div className="login-popup-inputs">
           {!forgotFlow && currState !== "Login" && (
-            <input type="text" placeholder="Your Name" required />
+            <input type="text" name="name" placeholder="Your Name" required />
           )}
 
           {!forgotFlow && (
             <>
-              <input type="email" placeholder="Your Email" required />
-              <input type="password" placeholder="Your Password" required />
+              <input type="email" name="email" placeholder="Your Email" required />
+              <input type="password" name="password" placeholder="Your Password" required />
               <button type="submit">{currState === 'Sign Up' ? "Create Account" : "Login"}</button>
               {currState === "Login" && (
                 <p className="forgot-password-link" onClick={() => {
