@@ -4,6 +4,9 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
 import { assets } from "../../assets/frontend_assets/assets";
 import { ThemeContext } from "../context/ThemeContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Home,
   Menu,
@@ -22,7 +25,18 @@ const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
   const { getTotalCartAmount } = useContext(StoreContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
+  my-feature
   const [scrolled, setScrolled] = useState(false);
+
+  const [user, setUser] = useState(null);
+  
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    setUser(storedUser);
+  }, []);
+
+  main
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -53,6 +67,18 @@ const Navbar = ({ setShowLogin }) => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    setUser(null);
+    window.location.reload();
+  };
+
+  return (
+    <div className={`navbar ${theme === "dark" ? "navbar-dark" : ""}`}>
+      <Link to="/" className="navbar-logo">
+        <img src={assets.foodie_icon} alt="app icon" className="app-icon " />
+
   // Nav menu fragment to use in both desktop and mobile navbars
   const navMenu = (
     <>
@@ -63,6 +89,7 @@ const Navbar = ({ setShowLogin }) => {
       >
         <Home size={18} />
         <span>Home</span>
+
       </Link>
       <Link
         to="/restaurants"
@@ -150,6 +177,22 @@ const Navbar = ({ setShowLogin }) => {
             <span>Sign In</span>
           </button>
         </div>
+
+
+        {user ? (
+          <div className="user-info">
+            <div className="user-avatar">{user.name?.charAt(0).toUpperCase()}</div>
+            <span>{user.name}</span>
+            <button className="signin-button" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+        ) : (
+          <button className="signin-button" onClick={() => setShowLogin(true)}>
+            <User size={16} />
+            <span>Sign In</span>
+          </button>
+        )}
       </div>
       {/* Mobile bottom nav */}
       <nav className="navbar-menu-mobile">{navMenu}</nav>
