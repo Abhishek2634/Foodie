@@ -1,12 +1,13 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
+import asyncHandler from '../utils/asyncHandler.js';
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 };
 
-export const registerUser = async (req, res) => {
+export const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
   const userExists = await User.findOne({ email });
@@ -20,9 +21,9 @@ export const registerUser = async (req, res) => {
     user: { _id: user._id, name: user.name, email: user.email },
     token: generateToken(user._id),
   });
-};
+});
 
-export const loginUser = async (req, res) => {
+export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -35,10 +36,9 @@ export const loginUser = async (req, res) => {
     user: { _id: user._id, name: user.name, email: user.email },
     token: generateToken(user._id),
   });
-};
+});
 
-export const logoutUser = async (req, res) => {
-  // Clear token on client side (no server-side storage for JWT)
+export const logoutUser = asyncHandler(async (req, res) => {
   res.clearCookie('token'); // Only relevant if token is in cookie
   res.status(200).json({ message: 'User logged out successfully' });
-};
+});

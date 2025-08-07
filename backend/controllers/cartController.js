@@ -1,99 +1,79 @@
 import Cart from "../models/cartModel.js";
+import asyncHandler from '../utils/asyncHandler.js';
 
-export const addToCart = async (req, res) => {
-  try {
-    const { foodId, quantity, restaurantId } = req.body;
-    const userId = req.user._id;
+export const addToCart = asyncHandler(async (req, res) => {
+  const { foodId, quantity, restaurantId } = req.body;
+  const userId = req.user._id;
 
-    let cart = await Cart.findOne({ userId });
+  let cart = await Cart.findOne({ userId });
 
-    if (!cart) {
-      cart = new Cart({ userId, items: [{ foodId, quantity, restaurantId }] });
+  if (!cart) {
+    cart = new Cart({ userId, items: [{ foodId, quantity, restaurantId }] });
+  } else {
+    const itemIndex = cart.items.findIndex(
+      item => item.foodId.toString() === foodId
+    );
+
+    if (itemIndex > -1) {
+      cart.items[itemIndex].quantity += quantity;
     } else {
-      const itemIndex = cart.items.findIndex(
-        item => item.foodId.toString() === foodId
-      );
-
-      if (itemIndex > -1) {
-        cart.items[itemIndex].quantity += quantity;
-      } else {
-        cart.items.push({ foodId, quantity, restaurantId });
-      }
+      cart.items.push({ foodId, quantity, restaurantId });
     }
-
-    await cart.save();
-    res.status(200).json(await cart.populate("items.foodId items.restaurantId"));
-  } catch (error) {
-    console.error("❌ Cart Error:", error);
-    res.status(500).json({ message: "Error adding to cart", error });
   }
-};
 
-export const getCart = async (req, res) => {
-  try {
-    const userId = req.user._id;
+  await cart.save();
+  res.status(200).json(await cart.populate("items.foodId items.restaurantId"));
+});
 
-    const cart = await Cart.findOne({ userId }).populate("items.foodId items.restaurantId");
+export const getCart = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
 
-    if (!cart) {
-      return res.status(200).json({ items: [] });
-    }
+  const cart = await Cart.findOne({ userId }).populate("items.foodId items.restaurantId");
 
-    res.status(200).json(cart);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching cart" });
+  if (!cart) {
+    return res.status(200).json({ items: [] });
   }
-};
 
-export const updateCartItemQuantity = async (req, res) => {
-  try {
-    const { foodId, quantity } = req.body;
-    const userId = req.user._id;
+  res.status(200).json(cart);
+});
 
-    const cart = await Cart.findOne({ userId });
-    if (!cart) return res.status(404).json({ message: "Cart not found" });
+export const updateCartItemQuantity = asyncHandler(async (req, res) => {
+  const { foodId, quantity } = req.body;
+  const userId = req.user._id;
 
-    const item = cart.items.find((item) => item.foodId.toString() === foodId);
-    if (!item) return res.status(404).json({ message: "Item not in cart" });
+  const cart = await Cart.findOne({ userId });
+  if (!cart) return res.status(404).json({ message: "Cart not found" });
 
-    item.quantity = quantity;
-    await cart.save();
+  const item = cart.items.find((item) => item.foodId.toString() === foodId);
+  if (!item) return res.status(404).json({ message: "Item not in cart" });
 
-    res.status(200).json({ message: "Quantity updated", cart });
-  } catch (error) {
-    res.status(500).json({ message: "Error updating quantity" });
-  }
-};
+  item.quantity = quantity;
+  await cart.save();
 
-export const removeFromCart = async (req, res) => {
-  try {
-    const { foodId } = req.body;
-    const userId = req.user._id;
+  res.status(200).json({ message: "Quantity updated", cart });
+});
 
-    const cart = await Cart.findOne({ userId });
-    if (!cart) return res.status(404).json({ message: "Cart not found" });
+export const removeFromCart = asyncHandler(async (req, res) => {
+  const { foodId } = req.body;
+  const userId = req.user._id;
 
-    cart.items = cart.items.filter((item) => item.foodId.toString() !== foodId);
-    await cart.save();
+  const cart = await Cart.findOne({ userId });
+  if (!cart) return res.status(404).json({ message: "Cart not found" });
 
-    res.status(200).json({ message: "Item removed", cart });
-  } catch (error) {
-    res.status(500).json({ message: "Error removing item" });
-  }
-};
+  cart.items = cart.items.filter((item) => item.foodId.toString() !== foodId);
+  await cart.save();
 
-export const clearCart = async (req, res) => {
-  try {
-    const userId = req.user._id;
+  res.status(200).json({ message: "Item removed", cart });
+});
 
-    const cart = await Cart.findOne({ userId });
-    if (!cart) return res.status(404).json({ message: "Cart not found" });
+export const clearCart = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
 
-    cart.items = [];
-    await cart.save();
+  const cart = await Cart.findOne({ userId });
+  if (!cart) return res.status(404).json({ message: "Cart not found" });
 
-    res.status(200).json({ message: "Cart cleared", cart });
-  } catch (error) {
-    res.status(500).json({ message: "Error clearing cart" });
-  }
-};
+  cart.items = [];
+  await cart.save();
+
+  res.status(200).json({ message: "Cart cleared", cart });
+});

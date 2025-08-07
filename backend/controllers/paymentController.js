@@ -1,5 +1,7 @@
 import Razorpay from "razorpay";
 import dotenv from "dotenv";
+import asyncHandler from '../utils/asyncHandler.js';
+
 dotenv.config();
 
 const razorpay = new Razorpay({
@@ -7,29 +9,21 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-export const createOrder = async (req, res) => {
-  try {
-    const { amount } = req.body;
+export const createOrder = asyncHandler(async (req, res) => {
+  const { amount } = req.body;
 
-    const options = {
-      amount: amount * 100, // convert to paise
-      currency: "INR",
-      receipt: `order_rcptid_${Date.now()}`,
-    };
+  const options = {
+    amount: amount * 100, // convert to paise
+    currency: "INR",
+    receipt: `order_rcptid_${Date.now()}`,
+  };
 
-    const order = await razorpay.orders.create(options);
+  const order = await razorpay.orders.create(options);
 
-    res.status(200).json({
-      success: true,
-      orderId: order.id,
-      amount: order.amount,
-      currency: order.currency,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Payment order creation failed",
-      error: error.message,
-    });
-  }
-};
+  res.status(200).json({
+    success: true,
+    orderId: order.id,
+    amount: order.amount,
+    currency: order.currency,
+  });
+});
