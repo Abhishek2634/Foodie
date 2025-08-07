@@ -40,8 +40,8 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 65px;
-  padding-left: 32px;
-  padding-right: 48px;
+  padding-left: 10px;
+  right: 80%;
 }
 
 .navbar-logo {
@@ -90,15 +90,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px; height: 40px;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  margin-left: 12px;
 }
 .theme-toggle:hover { background: var(--accent-color); color: #fff; transform: rotate(180deg); }
 
 .signin-button {
   background: var(--accent-color);
+  width: 120px;
   color: #fff;
   border: none;
-  padding: 10px 18px;
+  padding: 10px 25px;
   border-radius: 8px;
   cursor: pointer;
   display: flex; align-items: center; gap: 6px;
@@ -143,7 +147,7 @@ body {
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0px;
   color: var(--text-color);
   text-decoration: none;
   padding: 10px 20px;
@@ -178,16 +182,40 @@ body {
 @media (max-width: 1200px) {
   .navbar { padding-left: 18px; padding-right: 24px; }
 }
-
-@media (max-width: 990px) {
-  .navbar { height: 54px; }
+@media (max-width: 1100px) {
+  .navbar { height: 60px; }
+  .app-icon { height: 60px; width: 60px; }
+  .navbar-logo { margin-right: 10%; }
+}
+@media (max-width: 1050px) {
+  .navbar { padding: 0 16px; }
+  .nav-item { font-size: 14px; padding: 0px 10px; }
+  .navbar-logo { margin-right: 8%; }
+  .app-icon { height: 54px; width: 54px; }
+}
+@media (max-width: 1020px) {
+  .navbar { padding: 0 12px; }
+  .nav-item { font-size: 13px; padding: 0px 8px; }
+  .navbar-logo { margin-right: 6%; }
+  .app-icon { height: 50px; width: 50px; }
+}
+@media (max-width: 1002px) {
+  .navbar { padding: 0 10px; }
+  .nav-item { font-size: 13px; padding: 0px 6px; }
+  .navbar-logo { margin-right: 4%; }
   .app-icon { height: 48px; width: 48px; }
-  .navbar-logo { margin-right: 9%; }
+}
+@media (max-width: 990px) {
+  body { padding-top: 54px; padding-bottom: 64px; }
+  .navbar { height: 54px; padding: 0 8px; }
+  .nav-item { font-size: 13px; padding: 0px 4px; }
+  .navbar-logo { margin-right: 2%; }
+  .app-icon { height: 46px; width: 46px; }
 }
 
 @media (max-width: 900px) {
   .navbar { padding: 0 8px; }
-  .nav-item { font-size: 13px; padding: 8px 10px; }
+  .nav-item { font-size: 13px; padding: 0px 0px; }
   .navbar-logo { margin-right: 5%; }
   .app-icon { height: 42px; width: 42px; }
 }
@@ -200,7 +228,7 @@ body {
   }
   .app-icon { height: 32px; width: 32px; }
   .navbar-logo { margin-right: 0; }
-  .navbar-right .theme-toggle, .icon-button { width: 34px; height: 34px; padding: 8px;}
+  .navbar-right .theme-toggle, .icon-button { width: 34px; height: 34px; padding: px;}
   .signin-button { font-size: 12px; padding: 7px 9px;}
 
   /* Hide inline menu, show mobile bottom nav */
