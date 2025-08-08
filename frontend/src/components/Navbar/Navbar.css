@@ -1,3 +1,4 @@
+
 :root {
   --navbar-bg: #ffffff;
   --bg-color: #ffffff;
@@ -39,10 +40,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 65px;
-  padding-left: 32px;
-  padding-right: 48px;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
+
 
 .navbar-logo {
   display: flex;
@@ -51,6 +55,8 @@ body {
   margin-right: 15%;
   transition: transform 0.14s cubic-bezier(0.4,0.1,0.6,0.9);
 }
+  
+
 .navbar-logo:hover { transform: scale(1.03); }
 
 .app-icon {
@@ -272,7 +278,10 @@ body {
     color: var(--accent-color);
     transform: translateY(-2px);
   }
-}
+
+  }
+
+
 
 .user-info {
   display: flex;
@@ -298,3 +307,4 @@ body {
   color: red;
   cursor: pointer;
 }
+

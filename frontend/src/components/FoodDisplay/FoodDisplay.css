@@ -3,7 +3,7 @@
   margin: 50px;
 }
 
-/* Remove margin on mobile view */
+
 @media (max-width: 768px) {
   .food-display {
     margin: 0;
@@ -12,7 +12,7 @@
 
 
 .food-display h2{
-    font-size: max(2vw 24px);
+    font-size: max(2v, 24px);
     font-weight: 600;
      margin: 30px;
 
@@ -24,6 +24,21 @@
     margin-top: 30px;
     gap: 30px;
     row-gap: 50px;
+}
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.no-results p {
+    font-size: 18px;
+    color: #6c757d;
+    margin: 0;
+    font-weight: 500;
 }
 
 .filter-toggle {
@@ -47,3 +62,4 @@
   color: white;
   border-color: tomato;
 }
+

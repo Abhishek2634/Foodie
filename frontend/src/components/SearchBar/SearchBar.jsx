@@ -1,69 +1,65 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { Search, X, Clock, TrendingUp } from 'lucide-react';
-import './SearchBar.css';
+import React, { useState, useRef, useEffect, useMemo } from "react";
+import { Search, X, Clock, TrendingUp } from "lucide-react";
+import "./SearchBar.css";
 
-const SearchBar = ({ 
+const SearchBar = ({
   placeholder = "Search for food, restaurants, cuisines...",
   onSearch,
   suggestions = [],
   recentSearches = [],
   popularSearches = [],
   showSuggestions = true,
-  className = ""
+  className = "",
 }) => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const searchRef = useRef(null);
   const inputRef = useRef(null);
 
   // Sample data for demonstration
-  const defaultSuggestions = useMemo(() => [
-    'Pizza Margherita',
-    'Chicken Biryani',
-    'Pasta Carbonara',
-    'Sushi Roll',
-    'Burger Deluxe',
-    'Thai Green Curry',
-    'Caesar Salad',
-    'Fish and Chips',
-    'Tacos',
-    'Ramen Noodles'
-  ], []);
+  const defaultSuggestions = useMemo(
+    () => [
+      "Chicken Biryani",
+      "Pasta Carbonara",
+      "Sushi Roll",
+      "Burger Deluxe",
+      "Thai Green Curry",
+      "Caesar Salad",
+      "Fish and Chips",
+      "Tacos",
+      "Ramen Noodles",
+    ],
+    []
+  );
 
-  const defaultRecentSearches = useMemo(() => [
-    'Pizza',
-    'Chinese food',
-    'Desserts'
-  ], []);
+  const defaultRecentSearches = useMemo(() => ["Chinese food", "Desserts"], []);
 
-  const defaultPopularSearches = useMemo(() => [
-    'Pizza',
-    'Burger',
-    'Sushi',
-    'Biryani',
-    'Pasta'
-  ], []);
+  const defaultPopularSearches = useMemo(
+    () => ["Roll", "Sandwich", "Noddles", "Pasta"],
+    []
+  );
 
   // Use useMemo to prevent recreation on every render
-  const allSuggestions = useMemo(() => 
-    suggestions.length > 0 ? suggestions : defaultSuggestions, 
+  const allSuggestions = useMemo(
+    () => (suggestions.length > 0 ? suggestions : defaultSuggestions),
     [suggestions, defaultSuggestions]
   );
-  
-  const allRecentSearches = useMemo(() => 
-    recentSearches.length > 0 ? recentSearches : defaultRecentSearches,
+
+  const allRecentSearches = useMemo(
+    () => (recentSearches.length > 0 ? recentSearches : defaultRecentSearches),
     [recentSearches, defaultRecentSearches]
   );
-  
-  const allPopularSearches = useMemo(() => 
-    popularSearches.length > 0 ? popularSearches : defaultPopularSearches,
+
+  const allPopularSearches = useMemo(
+    () =>
+      popularSearches.length > 0 ? popularSearches : defaultPopularSearches,
     [popularSearches, defaultPopularSearches]
   );
 
   useEffect(() => {
     if (query.trim()) {
-      const filtered = allSuggestions.filter(item =>
+      const filtered = allSuggestions.filter((item) =>
         item.toLowerCase().includes(query.toLowerCase())
       );
       setFilteredSuggestions(filtered.slice(0, 8));
@@ -79,8 +75,8 @@ const SearchBar = ({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleInputChange = (e) => {
@@ -102,15 +98,15 @@ const SearchBar = ({
   };
 
   const handleClear = () => {
-    setQuery('');
+    setQuery("");
     setIsOpen(false);
     inputRef.current?.focus();
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch();
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       setIsOpen(false);
       inputRef.current?.blur();
     }
@@ -164,13 +160,15 @@ const SearchBar = ({
                     >
                       <Search size={16} className="suggestion-icon" />
                       <span className="suggestion-text">
-                        {suggestion.split(new RegExp(`(${query})`, 'gi')).map((part, i) =>
-                          part.toLowerCase() === query.toLowerCase() ? (
-                            <mark key={i}>{part}</mark>
-                          ) : (
-                            part
-                          )
-                        )}
+                        {suggestion
+                          .split(new RegExp(`(${query})`, "gi"))
+                          .map((part, i) =>
+                            part.toLowerCase() === query.toLowerCase() ? (
+                              <mark key={i}>{part}</mark>
+                            ) : (
+                              part
+                            )
+                          )}
                       </span>
                     </div>
                   ))}
@@ -201,7 +199,7 @@ const SearchBar = ({
                   ))}
                 </div>
               )}
-              
+
               {allPopularSearches.length > 0 && (
                 <div className="suggestions-section">
                   <div className="section-header">

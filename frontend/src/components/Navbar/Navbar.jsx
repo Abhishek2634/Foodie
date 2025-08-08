@@ -62,6 +62,7 @@ const Navbar = ({ setShowLogin }) => {
       >
         <Home size={18} />
         <span>Home</span>
+
       </Link>
       <Link
         to="/restaurants"
@@ -97,8 +98,17 @@ const Navbar = ({ setShowLogin }) => {
       </Link>
       <Link
         to="/contact"
-        onClick={() => setMenu("contact-us")}
+        
         className={`nav-item ${menu === "contact-us" ? "active" : ""}`}
+        
+        onClick={(e) =>{
+          if (location.pathname === "/") {
+            handleNavMenuClick(e, "contact-us", "footer");
+          } else {
+            setMenu("contact-us");
+        
+          }
+        }}
       >
         <Phone size={18} />
         <span>Contact</span>
@@ -106,7 +116,10 @@ const Navbar = ({ setShowLogin }) => {
       <a
         href="#faq"
         className={`nav-item ${menu === "faq" ? "active" : ""}`}
+
+
         onClick={(e) => handleNavMenuClick(e, "faq", "faq")}
+
       >
         <HelpCircle size={18} />
         <span>FAQ</span>
@@ -124,6 +137,7 @@ const Navbar = ({ setShowLogin }) => {
         </Link>
 
         {/* Desktop menu (center, hidden on mobile) */}
+
         <nav className="navbar-menu navbar-menu-desktop">{navMenu}</nav>
 
         {/* Right action buttons */}
@@ -133,13 +147,16 @@ const Navbar = ({ setShowLogin }) => {
             onClick={toggleTheme}
             aria-label="Toggle theme"
           >
+
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
 
           <div className="navbar-cart">
             <Link to="/cart" className="icon-button" aria-label="Go to cart">
               <ShoppingCart size={18} />
+
               {getTotalCartAmount() > 0 && <div className="cart-dot"></div>}
+
             </Link>
           </div>
 
@@ -161,6 +178,7 @@ const Navbar = ({ setShowLogin }) => {
           )}
         </div>
       </div>
+
 
       {/* Mobile bottom nav */}
       <nav className="navbar-menu-mobile">{navMenu}</nav>

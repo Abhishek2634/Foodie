@@ -1,3 +1,4 @@
+
 import React, { useContext, useState } from 'react';
 import './FoodDisplay.css';
 import { StoreContext } from '../context/StoreContext';
@@ -57,9 +58,13 @@ const FoodDisplay = ({ category }) => {
             image={item.image}
           />
         ))}
+
       </div>
     </div>
   );
 };
 
-export default FoodDisplay
+
+export default FoodDisplay;
+
+
