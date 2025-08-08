@@ -62,7 +62,7 @@ const Navbar = ({ setShowLogin }) => {
       <a
         href="#explore-menu"
         className={`nav-item ${menu === "menu" ? "active" : ""}`}
-        onClick={e => handleNavMenuClick(e, "menu", "explore-menu")}
+        onClick={(e) => handleNavMenuClick(e, "menu", "explore-menu")}
       >
         <Menu size={18} />
         <span>Menu</span>
@@ -70,7 +70,7 @@ const Navbar = ({ setShowLogin }) => {
       <a
         href="#appdownload"
         className={`nav-item ${menu === "mobile-app" ? "active" : ""}`}
-        onClick={e => handleNavMenuClick(e, "mobile-app", "appdownload")}
+        onClick={(e) => handleNavMenuClick(e, "mobile-app", "appdownload")}
       >
         <Smartphone size={18} />
         <span>Mobile App</span>
@@ -83,18 +83,20 @@ const Navbar = ({ setShowLogin }) => {
         <Heart size={18} />
         <span>Wishlist</span>
       </Link>
-      <a
-        href="#footer"
+
+      <Link
+        to="/contact"
+        onClick={() => setMenu("contact-us")}
         className={`nav-item ${menu === "contact-us" ? "active" : ""}`}
-        onClick={e => handleNavMenuClick(e, "contact-us", "footer")}
       >
         <Phone size={18} />
         <span>Contact</span>
-      </a>
+      </Link>
+
       <a
         href="#faq"
         className={`nav-item ${menu === "faq" ? "active" : ""}`}
-        onClick={e => handleNavMenuClick(e, "faq", "faq")}
+        onClick={(e) => handleNavMenuClick(e, "faq", "faq")}
       >
         <HelpCircle size={18} />
         <span>FAQ</span>
@@ -111,12 +113,14 @@ const Navbar = ({ setShowLogin }) => {
           <img src={assets.foodie_icon} alt="app icon" className="app-icon" />
         </Link>
         {/* Desktop menu (center, hidden on mobile) */}
-        <nav className="navbar-menu navbar-menu-desktop">
-          {navMenu}
-        </nav>
+        <nav className="navbar-menu navbar-menu-desktop">{navMenu}</nav>
         {/* Right action buttons */}
         <div className="navbar-right">
-          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <div className="navbar-cart">
@@ -132,9 +136,7 @@ const Navbar = ({ setShowLogin }) => {
         </div>
       </div>
       {/* Mobile bottom nav */}
-      <nav className="navbar-menu-mobile">
-        {navMenu}
-      </nav>
+      <nav className="navbar-menu-mobile">{navMenu}</nav>
     </>
   );
 };

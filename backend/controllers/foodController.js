@@ -52,5 +52,23 @@ const removeFood = async (req, res) => {
   }
 };
 
+const searchFood = async (req, res) => {
+  try{
+    const{q} = req.query;
+
+    if(!q){
+      return res.status(400).json({ success:false, message:"Missing search query (q"})
+    }
+    const foodList = await Food.find({
+      name: {$regex: q, $options: "i"},
+    });
+
+    res.status(200).json({ success: true, food: foodList});
+  }catch(error){
+    console.error("search food reeor", error);
+    res.status(500).json({success:false, message: error.message});
+  }
+};
+
 // ✅ Export all at once (no duplicates)
-export { addFood, getFoodByRestaurant, removeFood };
+export { addFood, getFoodByRestaurant, removeFood, searchFood};
