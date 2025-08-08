@@ -12,6 +12,7 @@ import FoodDetail from "./components/FoodDetail/FoodDetail";
 import CartSummaryBar from "./components/CartSummaryBar/CartSummaryBar";
 import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton";
 import Wishlist from "./pages/wishlist/wishlist";
+import SharedWishlist from "./pages/wishlist/SharedWishlist";
 import Restaurants from "./pages/Restaurants/Restaurants";
 import RestaurantDetail from "./pages/Restaurants/RestaurantDetail";
 import Chatbot from "./components/Chatbot/Chatbot";
@@ -24,6 +25,9 @@ import ScrollToTop from "../utility/ScrollToTop";
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return !!localStorage.getItem("authToken"); 
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 3000);
@@ -46,9 +50,34 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/order" element={<PlaceOrder />} />
+             <Route
+            path="/order"
+            element={
+              isLoggedIn ? (
+                <PlaceOrder />
+              ) : (
+                <div style={{ padding: "2rem", textAlign: "center" }}>
+                  <h2
+                    style={{
+                      color: "#f97316", // Tailwind's orange-500
+                      fontSize: "2rem",
+                      fontWeight: "bold",
+                      textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    Please Log In To Proceed
+                  </h2>
+                  <p style={{ color: "#fdba74", fontSize: "1rem" }}>
+                    Your journey continues after login 🔐
+                  </p>
+                </div>
+              )
+            }
+        />
             <Route path="/food/:id" element={<FoodDetail />} />
             <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/wishlist/:userId" element={<SharedWishlist />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/restaurants" element={<Restaurants />} />
 

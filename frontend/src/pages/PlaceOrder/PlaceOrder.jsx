@@ -100,10 +100,47 @@ const PlaceOrder = () => {
     const handleCloseLocationPopup = () => {
         setShowLocationPopup(false);
     };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+        alert("Please log in to place your order.");
+        return;
+        }
+
+        const orderData = {
+        ...formData,
+        cartTotal: getTotalCartAmount(),
+        deliveryFee: getTotalCartAmount() === 0 ? 0 : 2,
+        };
+
+        try {
+        const response = await fetch("/api/orders/place", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(orderData),
+        });
+
+        if (!response.ok) throw new Error("Order failed");
+
+        const data = await response.json();
+        alert("Order placed successfully!");
+        console.log("Server response:", data);
+
+        // Optional: navigate("/thankyou");
+        } catch (error) {
+        console.error("Order error:", error);
+        alert("Failed to place order.");
+        }
+    };
 
     return (
         <>
-            <form className="place-order">
+            <form className="place-order" onSubmit={handleSubmit}>
                 <div className="place-order-left">
                     <p className="title">Delivery Information</p>
                     

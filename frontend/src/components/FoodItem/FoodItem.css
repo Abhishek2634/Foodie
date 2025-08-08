@@ -124,6 +124,26 @@
   z-index: 2;
 }
 
+/* Shared wishlist item styles */
+.food-item.shared {
+  border: 2px solid #f093fb;
+  position: relative;
+}
+
+.food-item.shared::before {
+  content: "🔗 Shared";
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 3;
+}
+
 @keyframes FadeIn {
   0% {
     opacity: 0;

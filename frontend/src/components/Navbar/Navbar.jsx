@@ -2,8 +2,9 @@ import React, { useContext, useState, useEffect } from "react";
 import "./Navbar.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
-import { assets } from "../../assets/frontend_assets/assets";
 import { ThemeContext } from "../context/ThemeContext";
+
+import { assets } from "../../assets/frontend_assets/assets";
 
 import {
   Home,
@@ -100,7 +101,6 @@ const Navbar = ({ setShowLogin }) => {
         <Heart size={18} />
         <span>Wishlist</span>
       </Link>
-
       <Link
         to="/contact"
         onClick={() => setMenu("contact-us")}
@@ -109,7 +109,6 @@ const Navbar = ({ setShowLogin }) => {
         <Phone size={18} />
         <span>Contact</span>
       </Link>
-
       <a
         href="#faq"
         onClick={(e) => handleNavMenuClick(e, "faq", "faq")}
@@ -130,10 +129,17 @@ const Navbar = ({ setShowLogin }) => {
           <img src={assets.foodie_icon} alt="app icon" className="app-icon" />
         </Link>
 
+
         {/* Desktop menu */}
         <nav className="navbar-menu navbar-menu-desktop">{navMenu}</nav>
 
         {/* Right-side action buttons */}
+
+        {/* Desktop menu (center, hidden on mobile) */}
+        <nav className="navbar-menu navbar-menu-desktop">{navMenu}</nav>
+
+        {/* Right action buttons */}
+
         <div className="navbar-right">
           <button
             className="theme-toggle"

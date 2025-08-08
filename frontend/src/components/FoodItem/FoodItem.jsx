@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Heart, Plus, Minus } from "lucide-react";
 import { assets } from "../../assets/frontend_assets/assets";
 
-const FoodItem = ({ id, name, price, description, image }) => {
+const FoodItem = ({ id, name, price, description, image, isShared = false }) => {
   const { cartItems, removeFromCart, addToCart } = useContext(StoreContext);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
   };
 
   return (
-    <div className="food-item">
+    <div className={`food-item ${isShared ? 'shared' : ''}`}>
       <div className="food-item-img-container">
         <img className="food-item-image" src={image} alt={name} />
         {!cartItems[id] ? (
@@ -60,14 +60,16 @@ const FoodItem = ({ id, name, price, description, image }) => {
             />
           </div>
         )}
-        <div className="wishlist-icon" onClick={toggleWishlist}>
-          <Heart
-            size={20}
-            color={isWishlisted ? "#e11d48" : "#444"}
-            fill={isWishlisted ? "#e11d48" : "none"}
-            stroke="#facc15"
-          />
-        </div>
+        {!isShared && (
+          <div className="wishlist-icon" onClick={toggleWishlist}>
+            <Heart
+              size={20}
+              color={isWishlisted ? "#e11d48" : "#444"}
+              fill={isWishlisted ? "#e11d48" : "none"}
+              stroke="#facc15"
+            />
+          </div>
+        )}
       </div>
 
       <div className="food-item-info">
