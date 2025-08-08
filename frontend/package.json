@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.11",
     "gsap": "^3.13.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.525.0",
@@ -20,7 +21,8 @@
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.26.2",
     "react-toastify": "^11.0.5",
-    "react-tooltip": "^4.5.1"
+    "react-tooltip": "^4.5.1",
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

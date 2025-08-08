@@ -8,7 +8,10 @@
   background-color: #00000090;
   display: grid;
 }
-
+/* improved visibility in while in dark mode */
+.LoginPopup h2{
+  color:black;
+}
 
 .login-popup-container {
   place-self: center;

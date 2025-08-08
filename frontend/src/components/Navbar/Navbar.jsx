@@ -3,6 +3,7 @@ import "./Navbar.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
 import { ThemeContext } from "../context/ThemeContext";
+import { useEffect } from "react";
 import { assets } from "../../assets/frontend_assets/assets";
 import {
   Home,
@@ -32,6 +33,10 @@ const Navbar = ({ setShowLogin }) => {
     setUser(storedUser);
   }, []);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Handles smooth scroll or navigation for # links
   const handleNavMenuClick = (event, menuName, id) => {
     event.preventDefault();
     setMenu(menuName);
@@ -52,7 +57,7 @@ const Navbar = ({ setShowLogin }) => {
     setUser(null);
     window.location.reload();
   };
-
+  {/*  Nav menu fragment to use in both desktop and mobile navbars */}
   const navMenu = (
     <>
       <Link
@@ -142,6 +147,7 @@ const Navbar = ({ setShowLogin }) => {
               {getTotalCartAmount() > 0 && <div className="cart-dot"></div>}
             </Link>
           </div>
+        </div>
 
           {user ? (
             <div className="user-info">
