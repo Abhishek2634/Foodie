@@ -8,7 +8,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 const Home = () => {
   const [category, setCategory] = useState('All');
   const [showButton, setShowButton] = useState(false);
- 
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,14 +29,40 @@ const Home = () => {
     }
   }, []);
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    // Scroll to food display section when search is performed
+    const foodDisplaySection = document.getElementById("food-display");
+    if (foodDisplaySection) {
+      foodDisplaySection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-  
+  const handleCategoryChange = (newCategory) => {
+    setCategory(newCategory);
+    // Clear search when category is changed
+    setSearchQuery('');
+  };
+
+  const handleSearchSuggestion = (suggestion) => {
+    setSearchQuery(suggestion);
+    // Scroll to food display section when suggestion is clicked
+    const foodDisplaySection = document.getElementById("food-display");
+    if (foodDisplaySection) {
+      foodDisplaySection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="home-page">
-      <SearchBar />
+      <SearchBar onSearch={handleSearch} />
       <Header />
-      <ExploreMenu category={category} setCategory={setCategory} />
-      <FoodDisplay category={category} />
+      <ExploreMenu category={category} setCategory={handleCategoryChange} />
+      <FoodDisplay 
+        category={category} 
+        searchQuery={searchQuery} 
+        onSearchSuggestion={handleSearchSuggestion}
+      />
     </div>
   );
 };

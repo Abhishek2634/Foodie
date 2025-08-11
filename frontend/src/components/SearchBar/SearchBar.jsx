@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useMemo, useContext } from 'react';
 import { Search, X, Clock, TrendingUp } from 'lucide-react';
 import './SearchBar.css';
+import { StoreContext } from '../context/StoreContext';
 
 const SearchBar = ({ 
   placeholder = "Search for food, restaurants, cuisines...",
@@ -16,34 +17,48 @@ const SearchBar = ({
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const searchRef = useRef(null);
   const inputRef = useRef(null);
+  const { food_list } = useContext(StoreContext);
 
-  // Sample data for demonstration
-  const defaultSuggestions = useMemo(() => [
-    'Pizza Margherita',
-    'Chicken Biryani',
-    'Pasta Carbonara',
-    'Sushi Roll',
-    'Burger Deluxe',
-    'Thai Green Curry',
-    'Caesar Salad',
-    'Fish and Chips',
-    'Tacos',
-    'Ramen Noodles'
-  ], []);
+  // Generate suggestions from actual food data
+  const defaultSuggestions = useMemo(() => {
+    if (!food_list) return [];
+    
+    const foodNames = food_list.map(item => item.name);
+    const categories = [...new Set(food_list.map(item => item.category))];
+    const descriptions = food_list.map(item => item.description.split(' ').slice(0, 3).join(' '));
+    
+    // Add some common food-related search terms
+    const commonTerms = [
+      'Pizza', 'Burger', 'Sushi', 'Biryani', 'Pasta', 'Salad', 'Sandwich',
+      'Cake', 'Ice Cream', 'Noodles', 'Rolls', 'Desserts', 'Veg', 'Non-veg',
+      'Italian', 'Chinese', 'Indian', 'Mexican', 'Fast Food', 'Healthy',
+      'Spicy', 'Sweet', 'Creamy', 'Grilled', 'Fried', 'Baked'
+    ];
+    
+    return [...foodNames, ...categories, ...commonTerms].slice(0, 20);
+  }, [food_list]);
 
   const defaultRecentSearches = useMemo(() => [
     'Pizza',
-    'Chinese food',
-    'Desserts'
+    'Salad',
+    'Pasta',
+    'Cake',
+    'Ice Cream'
   ], []);
 
-  const defaultPopularSearches = useMemo(() => [
-    'Pizza',
-    'Burger',
-    'Sushi',
-    'Biryani',
-    'Pasta'
-  ], []);
+  const defaultPopularSearches = useMemo(() => {
+    if (!food_list) return ['Pizza', 'Burger', 'Sushi', 'Biryani', 'Pasta'];
+    
+    // Get most common categories
+    const categoryCount = {};
+    food_list.forEach(item => {
+      categoryCount[item.category] = (categoryCount[item.category] || 0) + 1;
+    });
+    
+    return Object.keys(categoryCount)
+      .sort((a, b) => categoryCount[b] - categoryCount[a])
+      .slice(0, 5);
+  }, [food_list]);
 
   // Use useMemo to prevent recreation on every render
   const allSuggestions = useMemo(() => 

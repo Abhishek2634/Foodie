@@ -19,6 +19,12 @@
   color: #222; /* Dark color for heading */
 }
 
+.result-count {
+  font-size: 0.8em;
+  color: #666;
+  font-weight: 400;
+}
+
 /* === Grid Layout === */
 .food-display-list {
   display: grid;
@@ -26,6 +32,61 @@
   gap: 30px;
   row-gap: 50px;
   margin-top: 30px;
+}
+
+/* === No Results Message === */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  border: 2px dashed #dee2e6;
+  margin: 20px 0;
+}
+
+.no-results p {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.no-results p:first-child {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+/* === Search Suggestions === */
+.search-suggestions {
+  margin-top: 20px;
+}
+
+.suggestion-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.suggestion-tag {
+  background-color: #e63946;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid #e63946;
+}
+
+.suggestion-tag:hover {
+  background-color: white;
+  color: #e63946;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(230, 57, 70, 0.2);
 }
 
 /* === Filter Buttons === */

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu Search Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .search-bar { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .search-input { width: 70%; padding: 10px; border: 2px solid #ddd; border-radius: 4px; font-size: 16px; }
+        .search-button { padding: 10px 20px; background: #e63946; color: white; border: none; border-radius: 4px; cursor: pointer; margin-left: 10px; }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .food-card { background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .food-card.hidden { display: none; }
+        .food-title { font-size: 18px; font-weight: bold; margin-bottom: 8px; }
+        .food-description { color: #666; margin-bottom: 10px; }
+        .food-price { color: #e63946; font-weight: bold; }
+        .search-results { margin: 15px 0; padding: 10px; background: #f8f9fa; border-left: 4px solid #e63946; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍽️ Food Menu Search Demo</h1>
+        
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search for food items..." id="searchInput">
+            <button class="search-button" onclick="performSearch()">Search</button>
+        </div>
+
+        <div class="search-results" id="searchResults">
+            <p id="searchResultsText"></p>
+        </div>
+
+        <div class="menu-grid" id="menuGrid"></div>
+    </div>
+
+    <script>
+        const foodData = [
+            { id: "1", name: "Greek Salad", description: "Fresh vegetables with olives", price: 12, category: "Salad" },
+            { id: "2", name: "Chicken Burger", description: "Juicy chicken patty", price: 18, category: "Burger" },
+            { id: "3", name: "Margherita Pizza", description: "Classic pizza with tomato", price: 22, category: "Pizza" },
+            { id: "4", name: "Chicken Biryani", description: "Aromatic rice dish", price: 25, category: "Rice" },
+            { id: "5", name: "Veg Pasta", description: "Pasta with vegetables", price: 16, category: "Pasta" },
+            { id: "6", name: "Fish Tacos", description: "Fresh fish with salsa", price: 20, category: "Tacos" }
+        ];
+
+        let currentSearchTerm = '';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderFoodCards(foodData);
+            setupSearchInput();
+        });
+
+        function setupSearchInput() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function(e) {
+                currentSearchTerm = e.target.value.toLowerCase();
+                filterAndDisplayFood();
+            });
+        }
+
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            currentSearchTerm = searchInput.value.toLowerCase();
+            filterAndDisplayFood();
+        }
+
+        function filterAndDisplayFood() {
+            const filteredFood = foodData.filter(item => {
+                return !currentSearchTerm || 
+                    item.name.toLowerCase().includes(currentSearchTerm) ||
+                    item.description.toLowerCase().includes(currentSearchTerm) ||
+                    item.category.toLowerCase().includes(currentSearchTerm);
+            });
+
+            renderFoodCards(filteredFood);
+            updateSearchResultsInfo(filteredFood.length);
+        }
+
+        function renderFoodCards(foodItems) {
+            const menuGrid = document.getElementById('menuGrid');
+            
+            if (foodItems.length === 0) {
+                menuGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px;">No food items found</div>';
+                return;
+            }
+
+            menuGrid.innerHTML = foodItems.map(item => `
+                <div class="food-card">
+                    <div class="food-title">${item.name}</div>
+                    <div class="food-description">${item.description}</div>
+                    <div class="food-price">$${item.price}</div>
+                </div>
+            `).join('');
+        }
+
+        function updateSearchResultsInfo(resultCount) {
+            const searchResults = document.getElementById('searchResults');
+            const searchResultsText = document.getElementById('searchResultsText');
+            const searchInput = document.getElementById('searchInput');
+            
+            if (currentSearchTerm) {
+                searchResultsText.textContent = resultCount > 0 
+                    ? `Found ${resultCount} item(s) for "${searchInput.value}"`
+                    : `No items found for "${searchInput.value}"`;
+                searchResults.style.display = 'block';
+            } else {
+                searchResults.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
