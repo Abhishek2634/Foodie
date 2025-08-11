@@ -10,7 +10,7 @@ import { IoIosMail } from "react-icons/io";
 
 const Footer = () => {
   return (
-    <div className='footer' id='footer'> 
+    <div className='footer' id='footer' > 
         <div className="footer-content">
             <div className="footer-content-left">
                 <img src={assets.foodie_icon} alt="" />
