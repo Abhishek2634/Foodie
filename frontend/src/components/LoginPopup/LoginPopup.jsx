@@ -128,7 +128,8 @@ const LoginPopup = ({ setShowLogin }) => {
       <Toaster />
       <form ref={popupRef} className="login-popup-container" onSubmit={handleSubmit}>
         <div className="login-popup-title">
-          <h2>{forgotFlow ? "Reset Password" : currState}</h2>
+          {/* improved visibility for darkmode */}
+          <h2 className='font-extrabold text-xl'>{forgotFlow ? "Reset Password" : currState}</h2>  
           <img onClick={() => setShowLogin(false)} src={assets.cross_icon} alt="close" />
         </div>
 
@@ -219,15 +220,15 @@ const LoginPopup = ({ setShowLogin }) => {
         {!forgotFlow && (
           <div className="login-popup-condition">
             <input type="checkbox" required />
-            <p>By continuing, I agree to the terms of use & privacy policy.</p>
+            <p style={{color: "black"}}>By continuing, I agree to the terms of use & privacy policy.</p>
           </div>
         )}
 
         {!forgotFlow && (
           currState === "Login" ? (
-            <p>Create a new account? <span onClick={() => setCurrState("Sign Up")}>Click Here</span></p>
+            <p style={{color: "black"}}>Create a new account? <span onClick={() => setCurrState("Sign Up")}>Click Here</span></p>
           ) : (
-            <p>Already have an account? <span onClick={() => setCurrState("Login")}>Login Here</span></p>
+            <p style={{color: "black"}}>Already have an account? <span onClick={() => setCurrState("Login")}>Login Here</span></p>
           )
         )}
       </form>

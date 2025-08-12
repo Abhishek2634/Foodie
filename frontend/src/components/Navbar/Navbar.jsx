@@ -3,6 +3,7 @@ import "./Navbar.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
 import { ThemeContext } from "../context/ThemeContext";
+import { useEffect } from "react";
 import { assets } from "../../assets/frontend_assets/assets";
 import {
   Home,
@@ -31,6 +32,9 @@ const Navbar = ({ setShowLogin }) => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setUser(storedUser);
   }, []);
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleNavMenuClick = (event, menuName, id) => {
     event.preventDefault();
@@ -142,6 +146,7 @@ const Navbar = ({ setShowLogin }) => {
               {getTotalCartAmount() > 0 && <div className="cart-dot"></div>}
             </Link>
           </div>
+        </div>
 
           {user ? (
             <div className="user-info">
