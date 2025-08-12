@@ -1,6 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -10,7 +12,7 @@ html, body, #root {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
   scroll-behavior: smooth;
 }
 
@@ -25,14 +27,19 @@ a {
 
 .app {
   width: 100%;
-  padding-top: 100px;
+  margin-top: 60px;
   height: 100%;
 }
 
 /* Typewriter caret */
 @keyframes blink {
-  0%, 100% { border-color: transparent; }
-  50% { border-color: black; }
+  0%,
+  100% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: black;
+  }
 }
 
 .animate-pulse {
@@ -41,9 +48,15 @@ a {
 
 /* Scooter animation */
 @keyframes scooterMove {
-  0% { transform: translateX(-100%); }
-  50% { transform: translateX(50%); }
-  100% { transform: translateX(110%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(50%);
+  }
+  100% {
+    transform: translateX(110%);
+  }
 }
 
 .animate-scooter {
@@ -52,8 +65,12 @@ a {
 
 /* Optional FadeIn (if needed) */
 @keyframes FadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Theme support */
@@ -61,14 +78,31 @@ a {
   --bg-color: #ffffff;
   --text-color: #111111;
   --title-color: #111111;
+  --border-color: #d1d5db;
+  --box-shadow: #00000015;
+  --hover-box-shadow: rgba(0, 0, 0, 0.2);
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --bg-color: #1a1a1a;
   --text-color: #eeeeee;
   --title-color: #ffffff;
+  --border-color: #374151;
+  --box-shadow: #ffffff12;
+  --hover-box-shadow: hsla(0, 0%, 90%, 0.2);
 }
 
-h1, h2, h3, h4, h5, h6, p, a, span, li {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span,
+li {
   color: var(--text-color);
 }
+

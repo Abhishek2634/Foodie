@@ -23,6 +23,7 @@
 }
 
 body {
+  width: 100%;
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
@@ -31,6 +32,7 @@ body {
 }
 
 .navbar {
+  width: 100%;
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
@@ -45,37 +47,50 @@ body {
 }
 
 .navbar-logo {
+  width: 10%;
+  max-width: 80px;
   display: flex;
   align-items: center;
-  margin-left: 0;
-  margin-right: 15%;
+    /* margin-left: 0;
+  margin-right: 15%; */
   transition: transform 0.14s cubic-bezier(0.4,0.1,0.6,0.9);
 }
-.navbar-logo:hover { transform: scale(1.03); }
+.navbar-logo img{
+  width: 60px;
+  height: 60px;
+}
+.navbar-logo img:hover{
+  transform: scale(1.03); 
+}
 
 .app-icon {
-  height: 70px;
-  width: 70px;
+  height: 60px;
+  width: 60px;
   border-radius: 10px;
 }
 
 .navbar-menu,
 .navbar-menu-desktop {
+  width: 60%;
+  max-width: 550px;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  padding-right: 2rem;
+  /* gap: 0.75rem;
   flex: 1;
-  margin: 0 24px;
+  margin: 0 24px; */
 }
 .navbar-menu-mobile {
   display: none;
 }
 
 .navbar-right {
+  width: 20%;
+  max-width: 200px;
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 
 /* ACTION BUTTONS */
@@ -143,7 +158,7 @@ body {
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.5rem;
   color: var(--text-color);
   text-decoration: none;
   padding: 10px 20px;
@@ -175,38 +190,191 @@ body {
 }
 
 /* DESKTOP / TABLET RESPONSIVE ADJUSTMENTS */
-@media (max-width: 1200px) {
-  .navbar { padding-left: 18px; padding-right: 24px; }
-}
 
-@media (max-width: 990px) {
-  .navbar { height: 54px; }
-  .app-icon { height: 48px; width: 48px; }
-  .navbar-logo { margin-right: 9%; }
-}
+@media screen and (min-width: 1200px) {
+  .navbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .navbar-logo img{
+    width: 70px;
+    height: 70px;
+  }
+  .navbar-logo{
+    width: 100px;
+  }
+  .navbar-menu.navbar-menu-desktop{
+    width: 1000px;
+    max-width: 1000px;
+    gap: 1rem;
+    padding-left: 100px;
+  }
+  .app-icon {
+    height: 60px;
+    width: 60px;
+    border-radius: 8px;
+  }
+  .nav-item {
+    gap: 8px;
+    padding: 0.5rem 0.6rem;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  .navbar-right{
+    width: 200px;
+    max-width: 200px;
+    padding-right:0.5rem;
+    gap: 0.01rem;
+  }
+  .signin-button {
+    width: 200px;
+    padding: 0.5rem 0.3rem;
+  }
+} 
 
-@media (max-width: 900px) {
-  .navbar { padding: 0 8px; }
-  .nav-item { font-size: 13px; padding: 8px 10px; }
-  .navbar-logo { margin-right: 5%; }
-  .app-icon { height: 42px; width: 42px; }
+@media screen and (min-width: 1100px) {
+  .navbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .navbar-logo img{
+    width: 70px;
+    height: 70px;
+  }
+  .navbar-logo{
+    width: 100px;
+  }
+  .navbar-menu.navbar-menu-desktop{
+    width: 800px;
+    max-width: 800px;
+    padding-left: 50px;
+  }
+  .app-icon {
+    height: 60px;
+    width: 60px;
+    border-radius: 8px;
+  }
+  .nav-item {
+    gap: 10px;
+    padding: 0.5rem 0.6rem;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .navbar-right{
+    width: 200px;
+    max-width: 250px;
+    padding-right:0.5rem;
+    gap: 0.01rem;
+  }
+
+  .theme-toggle {
+    padding:10px ;
+    width: 50px; height: 50px;
+  }
+  .navbar-cart {
+    width: 100%;
+    height: 100%;
+  }
+  .signin-button {
+    width: 180px;
+    padding: 0.4rem 0.2rem;
+    border-radius: 8px;
+    gap: 0.2rem;
+    font-size: 15px; 
+    font-weight: 500;
+  }
+} 
+
+@media screen and (min-width:751px) and (max-width:1100px) {
+  .navbar-logo img{
+    width: 50px;
+    height: 50px;
+  }
+  .navbar-logo{
+    width: 80px;
+    left: 0;
+    margin-left: 0;
+  }
+  .navbar-menu.navbar-menu-desktop{
+    width: 500px;
+    max-width: 500px;
+    display: flex;
+    padding-left: 1rem;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 8px;
+    font-size: 12px;
+  }
+
+  .app-icon {
+    height: 30px;
+    width: 30px;
+    border-radius: 6px;
+  }
+  .navbar-right{
+    width: 150px;
+    max-width: 150px;
+    margin-left: 30px;
+    padding-right:10px;
+    gap: 0.1rem;
+  }
+
+  .theme-toggle {
+    padding: 5px;
+    width: 30px; height: 30px;
+  }
+  .navbar-cart {
+    width: 50%;
+    height: 50%;
+  }
+  .signin-button {
+    width: 100px;
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+    padding: 0.3rem 0.4rem;
+    border-radius: 8px;
+    gap: 0.1rem;
+    font-size: 12px; 
+    font-weight: 500;
+  }
 }
 
 @media (max-width: 750px) {
-  body { padding-top: 44px; padding-bottom: 64px; }
-  .navbar {
-    height: 44px;
-    padding: 0 4px;
-  }
-  .app-icon { height: 32px; width: 32px; }
-  .navbar-logo { margin-right: 0; }
-  .navbar-right .theme-toggle, .icon-button { width: 34px; height: 34px; padding: 8px;}
-  .signin-button { font-size: 12px; padding: 7px 9px;}
-
   /* Hide inline menu, show mobile bottom nav */
   .navbar-menu, .navbar-menu-desktop {
     display: none !important;
   }
+
+  body {
+    width: 100%;
+    /* padding-top: 44px; padding-bottom: 64px;  */
+  }
+  .navbar {
+    width: 100dvw;
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 1.5rem;
+  }
+  .app-icon { height: 32px; width: 32px; }
+  /* .navbar-logo { margin-right: 0; } */
+
+  .navbar-right{
+    width: 170px;
+  }
+  .theme-toggle, .icon-button { width: 34px; height: 34px; padding: 8px;}
+  .signin-button { 
+    font-size: 12px; 
+    padding: 7px 9px;
+  }
+
   .navbar-menu-mobile {
     display: flex !important;
     position: fixed;
@@ -272,4 +440,29 @@ body {
     color: var(--accent-color);
     transform: translateY(-2px);
   }
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-avatar {
+  background-color: #333;
+  color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.logout-button {
+  background: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
 }
