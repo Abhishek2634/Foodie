@@ -1,6 +1,13 @@
 import React from 'react'
 import './Footer.css'
 import { assets } from '../../assets/frontend_assets/assets'
+import { IoHome } from "react-icons/io5";
+import { SlSpeech } from "react-icons/sl";
+import { CiDeliveryTruck } from "react-icons/ci";
+import { MdPrivacyTip } from "react-icons/md";
+import { MdAddCall } from "react-icons/md";
+import { IoIosMail } from "react-icons/io";
+
 const Footer = () => {
   return (
     <div className='footer' id='footer'> 
@@ -25,19 +32,19 @@ Order fresh, tasty meals with just a few taps.
                 </div>
             </div>
             <div className='footer-content-center'>
-                <h2>COMPANY</h2>
+                <h2 className='text'>COMPANY</h2>
                 <ul>
-                    <li>Home</li>
-                    <li>About Us</li>
-                    <li>Delivery</li>
-                    <li>Privacy Policy</li>
+                    <li><IoHome className='icon' /><span>Home</span></li>
+                    <li><SlSpeech className='icon' /><span>About Us</span></li>
+                    <li><CiDeliveryTruck className='icon' /><span>Delivery</span></li>
+                    <li><MdPrivacyTip className='icon' /><span>Privacy Policy</span></li>
                 </ul>
             </div>
             <div className='footer-content-right'>
-                <h2>Get In Touch</h2>
+                <h2 className='text'>Get In Touch</h2>
                 <ul>
-                    <li>+1-214-723-889</li>
-                    <li>Contact@foodie.com</li>
+                    <li><MdAddCall className='icon' /><span>+1-214-723-889</span></li>
+                    <li><IoIosMail className='icon' /><span>Contact@foodie.com</span></li>
                 </ul>
             </div>
         </div>

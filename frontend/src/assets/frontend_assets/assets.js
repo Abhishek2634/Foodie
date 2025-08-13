@@ -62,66 +62,71 @@ import logout_icon from './logout_icon.png'
 import parcel_icon from './parcel_icon.png'
 import appicon from './appicon.jpg'
 
+import play_store_light from "./play_store_light.png"
+import app_store_light from "./app_store_light.jpg"
+
 export const assets = {
-    logo,
-    basket_icon,
-    header_img,
-    search_icon,
-    rating_starts,
-    add_icon_green,
-    add_icon_white,
-    remove_icon_red,
-    app_store,
-    play_store,
-    linkedin_icon,
-    facebook_icon,
-    twitter_icon,
-    cross_icon,
-    selector_icon,
-    profile_icon,
-    logout_icon,
-    bag_icon,
-    parcel_icon,
-    appicon,
-    foodie_icon
+  logo,
+  basket_icon,
+  header_img,
+  search_icon,
+  rating_starts,
+  add_icon_green,
+  add_icon_white,
+  remove_icon_red,
+  app_store,
+  play_store,
+  linkedin_icon,
+  facebook_icon,
+  twitter_icon,
+  cross_icon,
+  selector_icon,
+  profile_icon,
+  logout_icon,
+  bag_icon,
+  parcel_icon,
+  appicon,
+  foodie_icon,
+  play_store_light,
+  app_store_light
 }
 
 export const menu_list = [
-    {
-        menu_name: "Salad",
-        menu_image: menu_1
-    },
-    {
-        menu_name: "Rolls",
-        menu_image: menu_2
-    },
-    {
-        menu_name: "Deserts",
-        menu_image: menu_3
-    },
-    {
-        menu_name: "Sandwich",
-        menu_image: menu_4
-    },
-    {
-        menu_name: "Cake",
-        menu_image: menu_5
-    },
-    {
-        menu_name: "Pure Veg",
-        menu_image: menu_6
-    },
-    {
-        menu_name: "Pasta",
-        menu_image: menu_7
-    },
-    {
-        menu_name: "Noodles",
-        menu_image: menu_8
-    }]
+  {
+    menu_name: "Salad",
+    menu_image: menu_1
+  },
+  {
+    menu_name: "Rolls",
+    menu_image: menu_2
+  },
+  {
+    menu_name: "Deserts",
+    menu_image: menu_3
+  },
+  {
+    menu_name: "Sandwich",
+    menu_image: menu_4
+  },
+  {
+    menu_name: "Cake",
+    menu_image: menu_5
+  },
+  {
+    menu_name: "Pure Veg",
+    menu_image: menu_6
+  },
+  {
+    menu_name: "Pasta",
+    menu_image: menu_7
+  },
+  {
+    menu_name: "Noodles",
+    menu_image: menu_8
+  }]
 
 export const food_list = [
-    
+
   {
     _id: "1",
     name: "Greek salad",

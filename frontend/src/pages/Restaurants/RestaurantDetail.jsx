@@ -95,11 +95,25 @@ const RestaurantDetail = () => {
 
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto", padding: "1rem" }}>
-      <button
+      <button 
         onClick={() => navigate("/restaurants")}
-        style={{ marginBottom: "1rem", cursor: "pointer", padding: "0.5rem 1rem" }}
+         style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    backgroundColor: "#3b82f6",
+    border: "none",
+    borderRadius: "8px",
+    padding: "0.5rem 1rem",
+    color: "white",
+    fontSize: "1rem",
+    fontWeight: "500",
+    boxShadow: "0 4px 6px rgba(59, 130, 246, 0.3)",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+  }}
       >
-        ← Back to Restaurants
+        Back to Restaurants
       </button>
 
       <img

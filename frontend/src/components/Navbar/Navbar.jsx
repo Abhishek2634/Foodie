@@ -144,6 +144,11 @@ const Navbar = ({ setShowLogin }) => {
     </>
   );
 
+  const totalCartItems = Object.values(useContext(StoreContext).cartItems || {}).reduce(
+    (sum, qty) => sum + qty,
+    0
+  );
+
   return (
     <>
       {/* Top Navigation Bar */}
@@ -169,7 +174,9 @@ const Navbar = ({ setShowLogin }) => {
           <div className="navbar-cart">
             <Link to="/cart" className="icon-button" aria-label="Go to cart">
               <ShoppingCart size={18} />
-              {getTotalCartAmount() > 0 && <div className="cart-dot"></div>}
+              {totalCartItems > 0 && (
+                <div className="cart-badge">{totalCartItems}</div>
+              )}
             </Link>
           </div>
 

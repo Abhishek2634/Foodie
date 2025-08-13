@@ -3,6 +3,7 @@ import './LoginPopup.css';
 import { assets } from '../../assets/frontend_assets/assets';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import apiRequest from "../../lib/apiRequest";
 
 
 const LoginPopup = ({ setShowLogin }) => {
@@ -81,13 +82,13 @@ const LoginPopup = ({ setShowLogin }) => {
   const handleResetPassword = (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) return toast.error("Passwords do not match");
-    toast.success("Password reset successfully!");
-    setForgotFlow(false);
-    setStage(1);
-    setOtp(Array(6).fill(""));
-    setCurrState("Login");
-  };
-  const handleSubmit = async (e) => {
+      toast.success("Password reset successfully!");
+      setForgotFlow(false);
+      setStage(1);
+      setOtp(Array(6).fill(""));
+      setCurrState("Login");
+    };
+    const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -100,39 +101,26 @@ const LoginPopup = ({ setShowLogin }) => {
     }
 
     const endpoint =
-      currState === "Sign Up"
-        ? "http://localhost:4000/api/auth/register"
-        : "http://localhost:4000/api/auth/login";
+      currState === "Sign Up" ? "/api/auth/register" : "/api/auth/login";
 
     try {
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-        }),
-      });
+      const { data } = await apiRequest.post(endpoint, { name, email, password });
 
-      const data = await res.json();
+      toast.success(`${currState} successful!`);
 
-      if (res.ok) {
-        toast.success(`${currState} successful!`);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("token", data.token);
-        setShowLogin(false);
-        window.location.reload();
-      } else {
-        toast.error(data.message || "Signup failed");
-      }
+      // Store user info locally (no token)
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      setShowLogin(false);
+      window.location.reload();
     } catch (err) {
-      toast.error("Network error");
+      const message =
+        err.response?.data?.message || `${currState} failed. Please try again.`;
+      toast.error(message);
       console.error(err);
     }
   };
+
 
 
   return (

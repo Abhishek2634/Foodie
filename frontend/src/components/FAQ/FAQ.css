@@ -1,7 +1,7 @@
 .faq-section {
   background: var(--bg-color);
   padding: 60px 8vw;
-  margin-top: 60px;
+  /* margin-top: 60px; */
   color: var(--text-color);
   border-top: 1px solid #e5e5e5;
 }
