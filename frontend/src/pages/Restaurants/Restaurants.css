@@ -111,9 +111,8 @@
 .rating-text {
   font-size: 14px;
   font-weight: 600;
-  color: #333;
+  color: var(--title-color, #333); /* Use theme variable for color */
 }
-
 .restaurant-details {
   display: flex;
   gap: 20px;
@@ -160,6 +159,7 @@
   width: 100%;
   font-size: 14px;
 }
+
 
 .order-now-btn:hover {
   background-color: #e5533d;
