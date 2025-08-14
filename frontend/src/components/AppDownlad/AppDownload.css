@@ -1,9 +1,16 @@
 .appdownload {
   margin: auto auto;
-  margin-top: 100px;
+  padding: 80px;
+  /* margin-bottom: 60px; */
   font-size: max(3vw, 20px);
   text-align: center;
   font-weight: 500;
+  /* background-color: var(--bg-color, #ffffff); */
+  background-color: #fff;
+}
+
+.appdownload p {
+  color: #111111;
 }
 
 .app-download-platforms {
@@ -25,7 +32,3 @@
   box-shadow: 0 2px 8px #a1a1a18e;
 }
 
-.app-download-platforms img.image-dark {
-  border: 1px solid #a1a1a18e;
-  border-radius: 15px;
-}

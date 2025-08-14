@@ -3,6 +3,7 @@
 .home-page {
   position: relative;
   padding-bottom: 60px; /* room for floating elements */
+  background-color: var(--bg-color, #ffffff);
 }
 
 /* Floating back-to-top button */

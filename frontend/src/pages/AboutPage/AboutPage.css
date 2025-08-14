@@ -1,0 +1,232 @@
+.about-container {
+  font-family: "Poppins", sans-serif;
+  color: #222;
+  background: #fff8f0;
+}
+
+.section,
+.hero-section {
+  animation: fadeIn 0.7s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section Wrapper */
+.section {
+  padding: 70px 20px;
+  max-width: 1100px;
+  margin: auto;
+  margin-bottom: 60px;
+}
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #ff7e5f, #ffb347);
+  color: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.hero-section h1 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  letter-spacing: 1.2px;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  max-width: 650px;
+  margin: auto;
+  opacity: 0.95;
+}
+
+/* Story Section */
+.story-section {
+  background: transparent;
+  padding: 60px 20px 40px;
+  text-align: center;
+  box-shadow: none;
+}
+
+.story-section .story-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.story-text {
+  max-width: 750px;
+}
+
+.story-text h2 {
+  font-size: 2.4rem;
+  margin-bottom: 15px;
+  color: #ff7e5f;
+  position: relative;
+}
+
+.story-text h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #ffb347;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.story-text p {
+  line-height: 1.7;
+  margin-bottom: 12px;
+  color: #444;
+  font-size: 1.05rem;
+}
+
+.story-image img {
+  max-width: 40%;
+  border-radius: 16px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Mission Section */
+.mission-section {
+  background: #fff4e0;
+  text-align: center;
+  border-radius: 16px;
+  padding: 60px 20px;
+}
+
+.mission-section h2 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #ff7e5f;
+}
+
+.mission-quote {
+  font-style: italic;
+  margin-bottom: 40px;
+  font-size: 1.15rem;
+  color: #666;
+}
+
+.mission-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+}
+
+.mission-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  width: 280px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mission-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.mission-card .icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  color: #ff7e5f;
+}
+
+/* Achievements Section */
+.achievements-section {
+  background: #222;
+  color: white;
+  text-align: center;
+  border-radius: 16px;
+  padding: 60px 20px;
+  margin-top: 40px; /* Extra gap above Achievements */
+}
+
+.achievements-section h2 {
+  color: #ffb347;
+  margin-bottom: 25px;
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 25px;
+}
+
+.achievement-number {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #ffb347;
+}
+
+/* CTA Section */
+.cta-section {
+  text-align: center;
+  background: linear-gradient(135deg, #ffb347, #ffcc33);
+  color: #222;
+  padding: 60px 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.cta-section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.cta-section p {
+  max-width: 600px;
+  margin: auto;
+  margin-bottom: 25px;
+  font-size: 1.05rem;
+}
+
+.cta-button {
+  background: white;
+  border: none;
+  padding: 14px 32px;
+  font-size: 1.05rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.25s ease;
+}
+
+.cta-button:hover {
+  background: #f9f9f9;
+  transform: scale(1.07);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .story-image img {
+    max-width: 80%; /* Larger on smaller screens for better visibility */
+  }
+}
+
+.icon {
+  font-size: 2.5rem;
+  color: #ff7f32;
+  margin-bottom: 10px;
+}

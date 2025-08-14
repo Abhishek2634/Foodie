@@ -38,8 +38,11 @@ Order fresh, tasty meals with just a few taps.
             <div className='footer-content-center'>
                 <h2 className='text'>COMPANY</h2>
                 <ul>
+
                     <li><IoHome className='icon' /><Link to="/"><span>Home</span></Link></li>
                     <li><SlSpeech className='icon'  /><span>About Us</span></li>
+
+              
                     <li><CiDeliveryTruck className='icon' /><span>Delivery</span></li>
                     <li><MdPrivacyTip className='icon' /><span>Privacy Policy</span></li>
                 </ul>

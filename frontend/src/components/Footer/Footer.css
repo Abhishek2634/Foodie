@@ -7,7 +7,7 @@
     gap: 20px;
     padding: 20px 8vw;
     padding-top: 50px;
-    margin-top: 100px;
+    /* margin-top: 100px; */
     /* border-top-left-radius: 30px;
     border-top-right-radius: 30px; */
 }
@@ -128,3 +128,12 @@
         text-align: center;
     }
 }
+
+.nav-link {
+    display: flex;           
+    align-items: center;    
+    gap: 8px;                
+    text-decoration: none;  
+    color: inherit;          
+  }
+  
