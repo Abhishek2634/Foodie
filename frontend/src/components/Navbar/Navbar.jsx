@@ -16,10 +16,13 @@ import {
   Moon,
   HelpCircle,
   Utensils,
+  Menu as MenuIcon,
+  X,
 } from "lucide-react";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
+  const [showHamburger, setShowHamburger] = useState(false);
   const { getTotalCartAmount } = useContext(StoreContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [user, setUser] = useState(null);
@@ -35,6 +38,7 @@ const Navbar = ({ setShowLogin }) => {
   const handleNavMenuClick = (event, menuName, id) => {
     event.preventDefault();
     setMenu(menuName);
+    setShowHamburger(false);
     if (id) {
       if (location.pathname !== "/") {
         localStorage.setItem("scrollToMenu", "true");
@@ -121,17 +125,15 @@ const Navbar = ({ setShowLogin }) => {
 
   return (
     <>
-      {/* Top Navigation Bar */}
       <div className={`navbar ${theme === "dark" ? "navbar-dark" : ""}`}>
-        {/* Logo */}
         <Link to="/" className="navbar-logo">
           <img src={assets.foodie_icon} alt="app icon" className="app-icon" />
         </Link>
 
-        {/* Desktop menu (center, hidden on mobile) */}
+        {/* Desktop menu */}
         <nav className="navbar-menu navbar-menu-desktop">{navMenu}</nav>
 
-        {/* Right action buttons */}
+        {/* Right section */}
         <div className="navbar-right">
           <button
             className="theme-toggle"
@@ -166,11 +168,83 @@ const Navbar = ({ setShowLogin }) => {
               <span>Sign In</span>
             </button>
           )}
+
+          {/* Mobile hamburger toggle */}
+          <button
+            className="hamburger-toggle"
+            onClick={() => setShowHamburger(!showHamburger)}
+            aria-label="Toggle menu"
+          >
+            {showHamburger ? <X size={20} /> : <MenuIcon size={20} />}
+          </button>
         </div>
       </div>
 
-      {/* Mobile bottom nav */}
-      <nav className="navbar-menu-mobile">{navMenu}</nav>
+      {/* Hamburger dropdown */}
+      {showHamburger && (
+        <div className="hamburger-dropdown">
+          <Link
+            to="/wishlist"
+            className="nav-item"
+            onClick={() => setMenu("wishlist")}
+          >
+            <Heart size={18} />
+            <span>Wishlist</span>
+          </Link>
+          <a
+            href="#appdownload"
+            className="nav-item"
+            onClick={(e) => handleNavMenuClick(e, "mobile-app", "appdownload")}
+          >
+            <Smartphone size={18} />
+            <span>Mobile App</span>
+          </a>
+          <a
+            href="#footer"
+            className="nav-item"
+            onClick={(e) => handleNavMenuClick(e, "contact-us", "footer")}
+          >
+            <Phone size={18} />
+            <span>Contact</span>
+          </a>
+          <a
+            href="#faq"
+            className="nav-item"
+            onClick={(e) => handleNavMenuClick(e, "faq", "faq")}
+          >
+            <HelpCircle size={18} />
+            <span>FAQ</span>
+          </a>
+        </div>
+      )}
+
+      {/* Mobile bottom navbar */}
+      <nav className="navbar-menu-mobile">
+        <Link
+          to="/"
+          onClick={() => setMenu("home")}
+          className={`nav-item ${menu === "home" ? "active" : ""}`}
+        >
+          <Home size={18} />
+          <span>Home</span>
+        </Link>
+        <Link
+          to="/restaurants"
+          onClick={() => setMenu("restaurants")}
+          className={`nav-item ${menu === "restaurants" ? "active" : ""}`}
+        >
+          <Utensils size={18} />
+          <span>Restaurant</span>
+        </Link>
+        <a
+          href="#explore-menu"
+          className={`nav-item ${menu === "menu" ? "active" : ""}`}
+          onClick={(e) => handleNavMenuClick(e, "menu", "explore-menu")}
+        >
+          <Menu size={18} />
+          <span>Menu</span>
+        </a>
+      </nav>
     </>
   );
 };
