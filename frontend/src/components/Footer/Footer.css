@@ -1,6 +1,6 @@
 .footer{
-    color: #d9d9d9;
-    background-color: #323232;
+    color: var(--text-color, #d9d9d9);
+    background-color: var(--bg-color, #323232);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,7 +24,7 @@
     flex-direction: column;
     align-items: start;
     gap: 20px;
-    color: rgb(233, 207, 207);
+    color: var(--text-color, rgb(233, 207, 207));
 }
 
 .footer-content-left li, .footer-content-right li, .footer-content-center li{
@@ -32,7 +32,7 @@
     margin-bottom: 10px;
     cursor: pointer;
     margin-left: 3px;
-    color: rgb(233, 207, 207);
+    color: var(--text-color, rgb(233, 207, 207));
 }
 
 .footer-content-left img {
@@ -59,13 +59,13 @@
 }
 
 .footer-content-center ul li span,.footer-content-right ul li span{
-    color: White;
+    color: var(--text-color, White);
 }
 
 .text{
     position: relative;
     display: inline-block;
-    color: white;
+    color: var(--text-color, white);
 }
 
 .text::after{

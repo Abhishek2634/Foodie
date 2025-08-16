@@ -97,15 +97,15 @@
 }
 
 .privacy-toggle-btn.private {
-  background: #f1f5f9;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
+  background: var(--bg-color, #f1f5f9);
+  color: var(--text-color, #64748b);
+  border: 1px solid var(--border-color, #e2e8f0);
 }
 
 .privacy-toggle-btn.public {
-  background: #dcfce7;
-  color: #166534;
-  border: 1px solid #bbf7d0;
+  background: var(--bg-color, #dcfce7);
+  color: var(--text-color, #166534);
+  border: 1px solid var(--border-color, #bbf7d0);
 }
 
 .privacy-toggle-btn:hover {
@@ -159,24 +159,24 @@
   text-align: center;
   padding: 40px;
   font-size: 18px;
-  color: #666;
+  color: var(--text-color, #666);
 }
 
 .error-message {
   text-align: center;
   padding: 40px;
-  background: #fff3f3;
+  background: var(--bg-color, #fff3f3);
   border-radius: 10px;
-  border: 1px solid #ffcdd2;
+  border: 1px solid var(--border-color, #ffcdd2);
 }
 
 .error-message h2 {
-  color: #d32f2f;
+  color: var(--text-color, #d32f2f);
   margin-bottom: 10px;
 }
 
 .error-message p {
-  color: #666;
+  color: var(--text-color, #666);
   margin: 0;
 }
 

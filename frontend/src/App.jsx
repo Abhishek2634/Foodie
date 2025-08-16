@@ -7,7 +7,6 @@ import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import Footer from "./components/Footer/Footer";
 import AppDownload from "./components/AppDownlad/AppDownload";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
-import ThemeContextProvider from "./components/context/ThemeContext";
 import FoodDetail from "./components/FoodDetail/FoodDetail";
 import CartSummaryBar from "./components/CartSummaryBar/CartSummaryBar";
 import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton";
@@ -43,64 +42,62 @@ const App = () => {
   }
 
   return (
-    <ThemeContextProvider>
-      <>
-        <Toaster position="top-right" reverseOrder={false} />
-        {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
+    <>
+      <Toaster position="top-right" reverseOrder={false} />
+      {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
 
-        <div className="app">
-          <Navbar setShowLogin={setShowLogin} />
-          <ScrollToTop />
-          <ScrollToBottom/>
+      <div className="app">
+        <Navbar setShowLogin={setShowLogin} />
+        <ScrollToTop />
+        <ScrollToBottom/>
 
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
-             <Route
-            path="/order"
-            element={
-              isLoggedIn ? (
-                <PlaceOrder />
-              ) : (
-                <div style={{ padding: "2rem", textAlign: "center" }}>
-                  <h2
-                    style={{
-                      color: "#f97316", // Tailwind's orange-500
-                      fontSize: "2rem",
-                      fontWeight: "bold",
-                      textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    Please Log In To Proceed
-                  </h2>
-                  <p style={{ color: "#fdba74", fontSize: "1rem" }}>
-                    Your journey continues after login 🔐
-                  </p>
-                </div>
-              )
-            }
-        />
-            <Route path="/food/:id" element={<FoodDetail />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/wishlist/:userId" element={<SharedWishlist />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/restaurants" element={<Restaurants />} />
-            <Route path="/aboutpage" element={<AboutPage />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+           <Route
+          path="/order"
+          element={
+            isLoggedIn ? (
+              <PlaceOrder />
+            ) : (
+              <div style={{ padding: "2rem", textAlign: "center" }}>
+                <h2
+                  style={{
+                    color: "var(--title-color, #f97316)",
+                    fontSize: "2rem",
+                    fontWeight: "bold",
+                    textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  Please Log In To Proceed
+                </h2>
+                <p style={{ color: "var(--text-color, #fdba74)", fontSize: "1rem" }}>
+                  Your journey continues after login 🔐
+                </p>
+              </div>
+            )
+          }
+      />
+          <Route path="/food/:id" element={<FoodDetail />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/wishlist/:userId" element={<SharedWishlist />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/restaurants" element={<Restaurants />} />
+          <Route path="/aboutpage" element={<AboutPage />} />
 
-            <Route path="/restaurant/:id" element={<RestaurantDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Route path="/restaurant/:id" element={<RestaurantDetail />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
 
-          <ScrollToTopButton /> {/* floating button */}
-          <CartSummaryBar />
-          <AppDownload />
-          <FAQ />
-          <Footer />
-          <Chatbot /> {/* AI Food Assistant */}
-        </div>
-      </>
-    </ThemeContextProvider>
+        <ScrollToTopButton /> {/* floating button */}
+        <CartSummaryBar />
+        <AppDownload />
+        <FAQ />
+        <Footer />
+        <Chatbot /> {/* AI Food Assistant */}
+      </div>
+    </>
   );
 };
 
