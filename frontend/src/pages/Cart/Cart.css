@@ -28,7 +28,7 @@
 
 .cart hr{
     height: 1px;
-    background-color: #e2e2e2;
+    background-color: var(--border-color, #e2e2e2);
     border: none;
 }
 
@@ -53,7 +53,7 @@
 .cart-total-details{
     display: flex;
     justify-content: space-between;
-    color: #555;
+    color: var(--text-color, #555);
 }
 
 .cart-total hr{
@@ -76,7 +76,7 @@
 }
 
 .cart-promo-code p{
-    color: #555;
+    color: var(--text-color, #555);
 }
 
 .cart-promocode-input{
@@ -84,7 +84,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #eaeaea;
+    background-color: var(--bg-color, #eaeaea);
     border-radius: 4px;
 }
 

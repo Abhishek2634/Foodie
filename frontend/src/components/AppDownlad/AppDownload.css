@@ -5,12 +5,11 @@
   font-size: max(3vw, 20px);
   text-align: center;
   font-weight: 500;
-  /* background-color: var(--bg-color, #ffffff); */
-  background-color: #fff;
+  background-color: var(--bg-color, #ffffff);
 }
 
 .appdownload p {
-  color: #111111;
+  color: var(--text-color, #111111);
 }
 
 .app-download-platforms {
