@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+// App.jsx
+import React, { useState, useEffect } from "react"; 
 import Navbar from "./components/Navbar/Navbar";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
@@ -27,6 +28,7 @@ import AboutPage from "./pages/AboutPage/AboutPage";
 import StoreContextProvider from "./components/context/StoreContext";
 import ScrollToBottom from "./components/ScrollToBottomButton/ScrollToBottomButton";
 import ReferralProgram from "./components/Referrals/ReferralProgram";
+import AboutUs from "./pages/AboutUs/AboutUs";// ✅ About Us page
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -46,43 +48,45 @@ const App = () => {
 
   return (
     <ThemeContextProvider>
-      <StoreContextProvider> {/* ✅ Wrap the app with StoreContextProvider */}
+      <StoreContextProvider>
         <Toaster position="top-right" reverseOrder={false} />
         {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
 
         <div className="app">
-          <Navbar setShowLogin={setShowLogin} />
+          {/* ✅ Navbar already handles About Us before Home */}
+          <Navbar setShowLogin={setShowLogin} /> 
           <ScrollToTop />
           <ScrollToBottom/>
 
           <Routes>
+            <Route path="/about" element={<AboutUs />} /> {/* ✅ About Us route first */}
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
-             <Route
-            path="/order"
-            element={
-              isLoggedIn ? (
-                <PlaceOrder />
-              ) : (
-                <div style={{ padding: "2rem", textAlign: "center" }}>
-                  <h2
-                    style={{
-                      color: "#f97316", // Tailwind's orange-500
-                      fontSize: "2rem",
-                      fontWeight: "bold",
-                      textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    Please Log In To Proceed
-                  </h2>
-                  <p style={{ color: "#fdba74", fontSize: "1rem" }}>
-                    Your journey continues after login 🔐
-                  </p>
-                </div>
-              )
-            }
-        />
+            <Route
+              path="/order"
+              element={
+                isLoggedIn ? (
+                  <PlaceOrder />
+                ) : (
+                  <div style={{ padding: "2rem", textAlign: "center" }}>
+                    <h2
+                      style={{
+                        color: "#f97316",
+                        fontSize: "2rem",
+                        fontWeight: "bold",
+                        textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
+                      Please Log In To Proceed
+                    </h2>
+                    <p style={{ color: "#fdba74", fontSize: "1rem" }}>
+                      Your journey continues after login 🔐
+                    </p>
+                  </div>
+                )
+              }
+            />
             <Route path="/food/:id" element={<FoodDetail />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/wishlist/:userId" element={<SharedWishlist />} />
@@ -94,12 +98,12 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
 
-          <ScrollToTopButton /> {/* floating button */}
+          <ScrollToTopButton />
           <CartSummaryBar />
           <AppDownload />
           <FAQ />
           <Footer />
-          <Chatbot /> {/* AI Food Assistant */}
+          <Chatbot />
         </div>
       </StoreContextProvider>
     </ThemeContextProvider>

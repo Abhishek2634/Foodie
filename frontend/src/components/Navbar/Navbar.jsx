@@ -20,8 +20,7 @@ import {
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
-  const { cartItems, wishlistItems, toggleWishlist, getTotalCartAmount } =
-    useContext(StoreContext);
+  const { cartItems = {}, wishlistItems = {} } = useContext(StoreContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [user, setUser] = useState(null);
 
@@ -29,9 +28,22 @@ const Navbar = ({ setShowLogin }) => {
   const location = useLocation();
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    setUser(storedUser);
+    try {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      setUser(storedUser);
+    } catch (e) {
+      setUser(null);
+    }
   }, []);
+
+  useEffect(() => {
+    if (location.pathname.startsWith("/about")) setMenu("about");
+    else if (location.pathname === "/") setMenu("home");
+    else if (location.pathname.startsWith("/restaurants")) setMenu("restaurants");
+    else if (location.pathname.startsWith("/wishlist")) setMenu("wishlist");
+    else if (location.pathname.startsWith("/contact")) setMenu("contact-us");
+    else if (location.pathname.startsWith("/referral")) setMenu("referral");
+  }, [location.pathname]);
 
   const handleNavMenuClick = (event, menuName, id) => {
     event.preventDefault();
@@ -54,8 +66,22 @@ const Navbar = ({ setShowLogin }) => {
     window.location.reload();
   };
 
+  const totalCartItems = Object.values(cartItems || {}).reduce(
+    (sum, qty) => sum + qty,
+    0
+  );
+
   const navMenu = (
     <>
+      <Link
+        to="/about"
+        onClick={() => setMenu("about")}
+        className={`nav-item ${menu === "about" ? "active" : ""}`}
+      >
+        <HelpCircle size={18} />
+        <span>About Us</span>
+      </Link>
+
       <Link
         to="/"
         onClick={() => setMenu("home")}
@@ -64,6 +90,7 @@ const Navbar = ({ setShowLogin }) => {
         <Home size={18} />
         <span>Home</span>
       </Link>
+
       <Link
         to="/restaurants"
         onClick={() => setMenu("restaurants")}
@@ -72,6 +99,7 @@ const Navbar = ({ setShowLogin }) => {
         <Utensils size={18} />
         <span>Restaurant</span>
       </Link>
+
       <a
         href="#explore-menu"
         className={`nav-item ${menu === "menu" ? "active" : ""}`}
@@ -80,6 +108,7 @@ const Navbar = ({ setShowLogin }) => {
         <Menu size={18} />
         <span>Menu</span>
       </a>
+
       <a
         href="#appdownload"
         className={`nav-item ${menu === "mobile-app" ? "active" : ""}`}
@@ -88,6 +117,7 @@ const Navbar = ({ setShowLogin }) => {
         <Smartphone size={18} />
         <span>Mobile App</span>
       </a>
+
       <Link
         to="/wishlist"
         onClick={() => setMenu("wishlist")}
@@ -95,11 +125,11 @@ const Navbar = ({ setShowLogin }) => {
       >
         <Heart size={18} />
         <span>Wishlist</span>
-        {Object.keys(wishlistItems).length > 0 && (
-  <div className="wishlist-badge">{Object.keys(wishlistItems).length}</div>
-)}
-
+        {Object.keys(wishlistItems || {}).length > 0 && (
+          <div className="wishlist-badge">{Object.keys(wishlistItems).length}</div>
+        )}
       </Link>
+
       <Link
         to="/contact"
         onClick={() => setMenu("contact-us")}
@@ -108,7 +138,8 @@ const Navbar = ({ setShowLogin }) => {
         <Phone size={18} />
         <span>Contact</span>
       </Link>
-       <Link
+
+      <Link
         to="/referral"
         onClick={() => setMenu("referral")}
         className={`nav-item ${menu === "referral" ? "active" : ""}`}
@@ -119,26 +150,16 @@ const Navbar = ({ setShowLogin }) => {
     </>
   );
 
-  const totalCartItems = Object.values(cartItems || {}).reduce(
-    (sum, qty) => sum + qty,
-    0
-  );
-
   return (
     <>
-      {/* Top Navigation Bar */}
       <div className={`navbar ${theme === "dark" ? "navbar-dark" : ""}`}>
-        {/* Logo */}
         <Link to="/" className="navbar-logo">
-          <img src={assets.foodie_icon} alt="app icon" className="app-icon" />
+          <img src={assets.foodie_icon} alt="Foodie Logo" className="app-icon" />
         </Link>
 
-        {/* Desktop menu (center, hidden on mobile) */}
         <nav className="navbar-menu navbar-menu-desktop">{navMenu}</nav>
 
-        {/* Right action buttons */}
         <div className="navbar-right">
-          {/* Theme Toggle */}
           <button
             className="theme-toggle"
             onClick={toggleTheme}
@@ -147,7 +168,6 @@ const Navbar = ({ setShowLogin }) => {
             {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
           </button>
 
-          {/* Cart */}
           <div className="navbar-cart">
             <Link to="/cart" className="icon-button" aria-label="Go to cart">
               <ShoppingCart size={18} />
@@ -157,12 +177,9 @@ const Navbar = ({ setShowLogin }) => {
             </Link>
           </div>
 
-          {/* User / Auth */}
           {user ? (
             <div className="user-info">
-              <div className="user-avatar">
-                {user.name?.charAt(0).toUpperCase()}
-              </div>
+              <div className="user-avatar">{user.name?.charAt(0).toUpperCase()}</div>
               <span>{user.name}</span>
               <button className="signin-button" onClick={handleLogout}>
                 Logout
@@ -177,7 +194,6 @@ const Navbar = ({ setShowLogin }) => {
         </div>
       </div>
 
-      {/* Mobile bottom nav */}
       <nav className="navbar-menu-mobile">{navMenu}</nav>
     </>
   );

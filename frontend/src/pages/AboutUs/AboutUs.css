@@ -1,0 +1,198 @@
+/* frontend/src/pages/AboutUs/AboutUs.css */
+
+.aboutus {
+  /* respect fixed navbar space already set on body; add small breathing room */
+  padding: 12px 16px 64px;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: var(--bg-color);
+  color: var(--text-color);
+  position: relative;
+  z-index: 0;
+}
+
+/* ---- HERO ---- */
+.aboutus__hero {
+  text-align: center;
+  padding: 44px 18px 36px;
+  background:
+    radial-gradient(1200px 400px at 50% -10%, rgba(255,99,71,0.12), transparent),
+    var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+}
+
+.aboutus__logo {
+  display: inline-block;
+  border-radius: 12px;
+  box-shadow: 0 6px 28px rgba(0,0,0,0.12);
+  margin-bottom: 10px;
+}
+
+.aboutus__title {
+  font-size: 2.2rem;
+  margin: 6px 0 8px;
+  line-height: 1.2;
+}
+
+.aboutus__subtitle {
+  max-width: 760px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+.aboutus__cta {
+  margin-top: 18px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Buttons (theme-aware) */
+.btn {
+  border: 1px solid var(--border-color);
+  background: var(--navbar-bg);
+  color: var(--text-color);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(0,0,0,0.12); }
+
+.btn--primary {
+  background: var(--accent-color);
+  color: #fff;
+  border-color: transparent;
+}
+.btn--primary:hover { filter: brightness(0.96); }
+
+.btn--ghost {
+  background: transparent;
+}
+.btn--small { padding: 8px 12px; font-size: 0.95rem; }
+
+/* ---- STATS ---- */
+.aboutus__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.stat {
+  background: var(--navbar-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 16px 14px;
+  text-align: center;
+  transition: transform .18s ease, box-shadow .18s ease;
+  will-change: transform;
+}
+.stat:hover { transform: translateY(-4px); box-shadow: 0 12px 26px rgba(0,0,0,0.12); }
+
+.stat__icon {
+  display: inline-block;
+  margin-bottom: 6px;
+  opacity: 0.9;
+}
+.stat__num {
+  font-weight: 800;
+  font-size: 1.45rem;
+}
+.stat__label {
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+/* ---- CARD BASE ---- */
+.card {
+  background: var(--navbar-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 22px 18px;
+  margin-top: 16px;
+}
+
+.card__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #fff;
+  background: var(--accent-color);
+  padding: 6px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+/* ---- MISSION ---- */
+.aboutus__mission h2 {
+  margin: 6px 0 8px;
+  font-size: 1.6rem;
+}
+.bullets {
+  margin-top: 10px;
+  padding-left: 18px;
+  line-height: 1.7;
+}
+.bullets li { margin-bottom: 6px; }
+
+/* ---- VALUES ---- */
+.aboutus__values {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 14px;
+}
+.value {
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.value:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,0.12); }
+.value__icon {
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  border-radius: 10px;
+  background: rgba(255,99,71,0.15);
+  color: var(--accent-color);
+  margin-bottom: 10px;
+}
+
+/* ---- HOW IT WORKS ---- */
+.aboutus__how h2 {
+  margin: 6px 0 14px;
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 12px;
+}
+.step {
+  background: var(--bg-color);
+  border: 1px dashed var(--border-color);
+  border-radius: 12px;
+  padding: 14px;
+}
+.step__dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: var(--accent-color);
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* ---- TEAM ---- */
+.aboutus__team h2 { margin: 6px 0 8px; }
+
+/* ---- Responsive ---- */
+@media (max-width: 960px) {
+  .aboutus__stats { grid-template-columns: repeat(2, 1fr); }
+  .aboutus__values { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+}
