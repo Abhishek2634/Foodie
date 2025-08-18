@@ -21,7 +21,12 @@ import ContactPage from "./pages/Contactpage";
 import { Toaster } from "react-hot-toast";
 import LoadingAnimation from "./components/LoadingAnimation";
 import ScrollToTop from "../utility/ScrollToTop";
+import "./components/FoodDetail/print.css";
 import NotFound from "./pages/Notfound";
+import AboutPage from "./pages/AboutPage/AboutPage";
+import StoreContextProvider from "./components/context/StoreContext";
+import ScrollToBottom from "./components/ScrollToBottomButton/ScrollToBottomButton";
+import ReferralProgram from "./components/Referrals/ReferralProgram";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -41,13 +46,15 @@ const App = () => {
 
   return (
     <ThemeContextProvider>
-      <>
+      <StoreContextProvider> {/* ✅ Wrap the app with StoreContextProvider */}
         <Toaster position="top-right" reverseOrder={false} />
         {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
 
         <div className="app">
           <Navbar setShowLogin={setShowLogin} />
           <ScrollToTop />
+          <ScrollToBottom/>
+
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
@@ -81,7 +88,8 @@ const App = () => {
             <Route path="/wishlist/:userId" element={<SharedWishlist />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/restaurants" element={<Restaurants />} />
-
+            <Route path="/aboutpage" element={<AboutPage />} />
+            <Route path="/referral" element={<ReferralProgram />} />
             <Route path="/restaurant/:id" element={<RestaurantDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -93,7 +101,7 @@ const App = () => {
           <Footer />
           <Chatbot /> {/* AI Food Assistant */}
         </div>
-      </>
+      </StoreContextProvider>
     </ThemeContextProvider>
   );
 };

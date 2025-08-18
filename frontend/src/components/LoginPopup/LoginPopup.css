@@ -121,3 +121,26 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.password-strength-checker p {
+  font-size: 0.9em;
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+}
+
+.password-strength-checker .valid {
+  color: green;
+}
+
+.password-strength-checker .invalid {
+  color: red;
+}
+
+.password-checker-box {
+  background-color: #f7f7f7; /* Light gray background */
+  border: 1px solid #ddd;    /* Light gray border */
+  border-radius: 8px;        /* Rounded corners */
+  padding: 10px;             /* Spacing inside the box */
+  margin-top: 3px;          /* Space between input and box */
+}

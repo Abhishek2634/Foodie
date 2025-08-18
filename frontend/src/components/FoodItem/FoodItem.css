@@ -9,6 +9,7 @@
   background-color: var(--bg-color, #fff);
   color: var(--text-color, #111);
   border: 2px solid var(--border-color, #e2e8f0);
+  position: relative;
 }
 
 .food-item:hover {
@@ -36,17 +37,39 @@
   padding: 20px;
 }
 
-.food-item-name-rating {
+/* ✅ Header: Name + Wishlist button inline */
+.food-item-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  justify-content: space-between;
+  margin-bottom: 6px;
 }
 
-.food-item-name-rating p {
+.food-item-name {
   font-size: 20px;
   font-weight: 600;
   color: var(--title-color, #111);
+}
+
+/* ✅ Wishlist button inline */
+.wishlist-inline-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.wishlist-inline-btn.active svg {
+  color: #ff4d6d;
+  fill: #ff4d6d;
+}
+
+/* ✅ Rating stars below name */
+.food-item-rating {
+  margin-top: 4px;
+  margin-bottom: 10px;
 }
 
 .food-item-desc {
@@ -86,30 +109,64 @@
   background-color: #e5533d;
 }
 
-.add {
-  background-color: tomato;
-  padding: 6px;
-  border-radius: 50%;
+/* ✅ Buttons at bottom */
+.action-buttons {
   position: absolute;
   bottom: 15px;
   right: 15px;
-  cursor: pointer;
+  display: flex;
+  gap: 10px;
+}
+
+/* ✅ Common style for both buttons */
+.wishlist-btn,
+.cart-btn {
+  background-color: white;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
+.wishlist-btn:hover,
+.cart-btn:hover {
+  transform: scale(1.05);
+  background-color: #f9f9f9;
+}
+
+/* ✅ Wishlist Active State */
+.wishlist-btn.active {
+  background-color: #ffebef;
+  border-color: #ff6384;
+}
+
+/* ✅ Cart Counter */
 .food-item-counter {
   position: absolute;
   bottom: 15px;
   right: 15px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   border-radius: 50px;
   background-color: white;
   padding: 6px 12px;
   box-shadow: 0px 0px 8px #00000030;
+}
+
+.food-item-counter button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: tomato;
+  cursor: pointer;
 }
 
 .food-item-counter p {
@@ -117,15 +174,7 @@
   color: #111;
 }
 
-.wishlist-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  z-index: 2;
-}
-
-/* Shared wishlist item styles */
+/* ✅ Shared wishlist item style */
 .food-item.shared {
   border: 2px solid #f093fb;
   position: relative;

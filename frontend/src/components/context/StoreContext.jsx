@@ -1,72 +1,92 @@
 import { createContext, useState } from "react";
-import { toast } from 'react-toastify'; // Assuming you are using react-toastify
+import { toast } from "react-toastify";
 import { food_list } from "../../assets/frontend_assets/assets";
 
-export const StoreContext = createContext(null);
+export const StoreContext = createContext();
 
-const StoreContextProvider = (props) => {
-    const [cartItems, setCartItems] = useState({});
+const StoreContextProvider = ({ children }) => {
+  const [cartItems, setCartItems] = useState({});
+  const [wishlistItems, setWishlistItems] = useState({});
 
-    /**
-     * Adds an item to the cart or increments its quantity if it already exists.
-     * @param {string} itemId - The ID of the food item to add.
-     */
-    const addToCart = (itemId) => {
-        // Check if the item is not already in the cart
-        if (!cartItems[itemId]) {
-            // Add the item to the cart with a quantity of 1
-            setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
-        } else {
-            // If the item is already in the cart, increment its quantity
-            setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-        }
-        // Optional: Add a success notification
-        toast.success("Item added to cart!");
-    };
+  /** Add an item to the cart or increment quantity */
+  const addToCart = (itemId) => {
+    setCartItems((prev) => ({
+      ...prev,
+      [itemId]: prev[itemId] ? prev[itemId] + 1 : 1,
+    }));
+    toast.success("Item added to cart!");
+  };
 
-    /**
-     * Removes an item from the cart by decrementing its quantity.
-     * @param {string} itemId - The ID of the food item to remove.
-     */
-    const removeFromCart = (itemId) => {
-        if (cartItems[itemId] > 0) {
-            setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
-            toast.error("Item removed from cart!");
-        }
-    };
+  /** Remove an item from the cart or delete if quantity is 1 */
+  const removeFromCart = (itemId) => {
+    setCartItems((prev) => {
+      if (!prev[itemId]) return prev; // nothing to remove
+      const updated = { ...prev };
+      if (updated[itemId] > 1) updated[itemId] -= 1;
+      else delete updated[itemId];
+      return updated;
+    });
+    toast.error("Item removed from cart!");
+  };
 
-    /**
-     * Calculates the total amount for all items in the cart.
-     * @returns {number} - The total cart amount.
-     */
-    const getTotalCartAmount = () => {
-        let totalAmount = 0;
-        for (const item in cartItems) {
-            if (cartItems[item] > 0) {
-                // Find the item details from the master food list
-                let itemInfo = food_list.find((product) => product._id === item);
-                if (itemInfo) {
-                    totalAmount += itemInfo.price * cartItems[item];
-                }
-            }
-        }
-        return totalAmount;
-    };
+  /** Get total cart amount based on quantity & price */
+  const getTotalCartAmount = () => {
+    return Object.entries(cartItems).reduce((total, [itemId, qty]) => {
+      const itemInfo = food_list.find((p) => p._id === itemId);
+      return itemInfo ? total + itemInfo.price * qty : total;
+    }, 0);
+  };
 
-    const contextValue = {
-        food_list,
-        cartItems,
-        setCartItems,
-        addToCart,
-        removeFromCart,
-        getTotalCartAmount,
-    };
+  /** Add an item to wishlist */
+  const addToWishlist = (itemId) => {
+    if (!wishlistItems[itemId]) {
+      setWishlistItems((prev) => ({ ...prev, [itemId]: true }));
+      toast.info("Item added to wishlist!");
+    }
+  };
 
-    return (
-        <StoreContext.Provider value={contextValue}>
-            {props.children}
-        </StoreContext.Provider>
-    );
+  /** Remove an item from wishlist */
+  const removeFromWishlist = (itemId) => {
+    if (wishlistItems[itemId]) {
+      setWishlistItems((prev) => {
+        const updated = { ...prev };
+        delete updated[itemId];
+        return updated;
+      });
+      toast.warn("Item removed from wishlist!");
+    }
+  };
+
+  /** Toggle wishlist state for an item */
+  const toggleWishlist = (itemId) => {
+    isInWishlist(itemId) ? removeFromWishlist(itemId) : addToWishlist(itemId);
+  };
+
+  /** Check if item is in wishlist */
+  const isInWishlist = (itemId) => !!wishlistItems[itemId];
+
+  /** Total wishlist count */
+  const getWishlistCount = () => Object.keys(wishlistItems).length;
+
+  const contextValue = {
+    food_list,
+    cartItems,
+    addToCart,
+    removeFromCart,
+    getTotalCartAmount,
+    wishlistItems,
+    addToWishlist,
+    removeFromWishlist,
+    toggleWishlist,
+    isInWishlist,
+    getWishlistCount,
+  };
+
+  return (
+    <StoreContext.Provider value={contextValue}>
+      {children}
+    </StoreContext.Provider>
+  );
 };
 
 export default StoreContextProvider;

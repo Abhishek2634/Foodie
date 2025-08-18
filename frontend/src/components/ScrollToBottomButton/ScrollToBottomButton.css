@@ -1,9 +1,9 @@
-.scroll-to-top-btn {
+.scroll-to-bottom-btn {
   position: fixed;
-  bottom: 20px; /* ⬅️ bottom left corner */
-  left: 20px; /* ⬅️ changed from right to left */
+  bottom: 80px; /* above the scroll-to-top button */
+  left: 20px;
   z-index: 999;
-  background-color: #FC4B32;
+  background-color: #fc4b32;
   color: white;
   border-radius: 50%;
   width: 40px;height: 40px;
@@ -15,12 +15,11 @@
   transition: transform 0.2s ease;
 }
 
-.scroll-to-top-btn:hover {
+.scroll-to-bottom-btn:hover {
   transform: scale(1.1);
 }
-
 @media screen and (max-width:750px) {
   .scroll-to-top-btn{
-    bottom: 65px;
+    bottom: 135px;
   }
 }

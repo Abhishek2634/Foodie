@@ -1,12 +1,14 @@
 import React from 'react'
 import './Footer.css'
 import { assets } from '../../assets/frontend_assets/assets'
-import { IoHome } from "react-icons/io5";
+import { IoHome, IoLogoGithub } from "react-icons/io5";
 import { SlSpeech } from "react-icons/sl";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { MdPrivacyTip } from "react-icons/md";
 import { MdAddCall } from "react-icons/md";
 import { IoIosMail } from "react-icons/io";
+import { Link } from "react-router-dom";
+
 
 const Footer = () => {
   return (
@@ -29,13 +31,16 @@ Order fresh, tasty meals with just a few taps.
                         <img src={assets.twitter_icon} alt="Twitter" /></a>
                     <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
                         <img src={assets.linkedin_icon} alt="LinkedIn" /></a>
+                    <a  href="https://github.com/Abhishek2634/Foodie" target="_blank" >
+                        <img src="/github(20).png" alt="Github" /></a>     
                 </div>
             </div>
             <div className='footer-content-center'>
                 <h2 className='text'>COMPANY</h2>
                 <ul>
-                    <li><IoHome className='icon' /><span>Home</span></li>
-                    <li><SlSpeech className='icon' /><span>About Us</span></li>
+
+                    <li><IoHome className='icon' /><Link to="/"><span>Home</span></Link></li>
+                    <li><SlSpeech className='icon'  /><span>About Us</span></li>
                     <li><CiDeliveryTruck className='icon' /><span>Delivery</span></li>
                     <li><MdPrivacyTip className='icon' /><span>Privacy Policy</span></li>
                 </ul>

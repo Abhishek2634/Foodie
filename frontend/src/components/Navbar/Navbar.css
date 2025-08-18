@@ -123,6 +123,10 @@ body {
   background: var(--accent-color);
   color: #fff;
   transform: rotate(180deg);
+
+  width: 40px;height: 40px;
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
 .signin-button {
@@ -356,7 +360,7 @@ body {
 
   .theme-toggle {
     padding:10px ;
-    width: 50px; height: 50px;
+    width: 40px; height: 40px;
   }
   .navbar-cart {
     width: 100%;
@@ -577,4 +581,49 @@ body {
   border: none;
   color: red;
   cursor: pointer;
+}
+/* Wishlist icon container */
+.navbar-wishlist {
+  position: relative;
+  margin-right: 12px;
+}
+
+/* Wishlist icon button */
+.navbar-wishlist .icon-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--card-bg, #fff);
+  color: var(--text-color, #333);
+  transition: background 0.3s ease;
+}
+
+.navbar-wishlist .icon-button:hover {
+  background: var(--hover-bg, #f3f3f3);
+}
+
+/* Wishlist badge (same style as cart badge) */
+.wishlist-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px; /* initial position */
+  background-color: #ff4d6d;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 50%;
+  padding: 2px 6px;
+  min-width: 18px;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+/* Shift 2px right on hover of wishlist icon */
+.navbar-right .nav-item:hover .wishlist-badge,
+.navbar-menu-desktop .nav-item:hover .wishlist-badge {
+  transform: translateX(2px);
 }

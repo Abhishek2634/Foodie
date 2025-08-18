@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "vite":"7.1.1",
+    "html2pdf.js": "^0.10.3",
+    "react-to-print": "^3.1.1"
+  }
+}

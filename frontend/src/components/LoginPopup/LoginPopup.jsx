@@ -17,6 +17,17 @@ const LoginPopup = ({ setShowLogin }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate=useNavigate();
 
+  const [password, setPassword] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState({
+    length: false,
+    uppercase: false,
+    lowercase: false,
+    number: false,
+    special: false,
+  });
+
+  const [showPasswordChecker, setShowPasswordChecker] = useState(false);
+
   const popupRef = useRef();
   const otpRefs = useRef([]);
 
@@ -64,6 +75,27 @@ const LoginPopup = ({ setShowLogin }) => {
     }
   };
 
+  useEffect(() => {
+    if (password) {
+      const newStrength = {
+        length: password.length >= 8,
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number: /[0-9]/.test(password),
+        special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password),
+      };
+      setPasswordStrength(newStrength);
+    } else {
+      setPasswordStrength({
+        length: false,
+        uppercase: false,
+        lowercase: false,
+        number: false,
+        special: false,
+      });
+    }
+  }, [password]);
+
   const handleSendOTP = (e) => {
     e.preventDefault();
     if (!email) return toast.error("Enter email");
@@ -97,14 +129,14 @@ const LoginPopup = ({ setShowLogin }) => {
     const password = formData.get("password");
 
     if (!email || !password || (currState === "Sign Up" && !name)) {
-      return toast.error("Please fill all fields");
-    }
+        return toast.error("Please fill all fields");
+      }
 
     const endpoint =
       currState === "Sign Up" ? "/api/auth/register" : "/api/auth/login";
 
     try {
-      const { data } = await apiRequest.post(endpoint, { name, email, password });
+        const { data } = await apiRequest.post(endpoint, { name, email, password });
 
       toast.success(`${currState} successful!`);
 
@@ -140,7 +172,54 @@ const LoginPopup = ({ setShowLogin }) => {
           {!forgotFlow && (
             <>
               <input type="email" name="email" placeholder="Your Email" required />
-              <input type="password" name="password" placeholder="Your Password" required />
+              {currState === "Sign Up" && (
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Your Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onFocus={() => setShowPasswordChecker(true)}
+                  required
+                />
+              )}
+              {currState === "Sign Up" && showPasswordChecker && (
+                <div className="password-checker-box">
+                  <div className="password-strength-checker">
+                    <p className={passwordStrength.length ? 'valid' : 'invalid'}>
+                      {passwordStrength.length ? '✔️' : '❌'} At least 8 characters long
+                    </p>
+                    <p className={passwordStrength.uppercase ? 'valid' : 'invalid'}>
+                      {passwordStrength.uppercase ? '✔️' : '❌'} Contains at least one uppercase letter
+                    </p>
+                    <p className={passwordStrength.lowercase ? 'valid' : 'invalid'}>
+                      {passwordStrength.lowercase ? '✔️' : '❌'} Contains at least one lowercase letter
+                    </p>
+                    <p className={passwordStrength.number ? 'valid' : 'invalid'}>
+                      {passwordStrength.number ? '✔️' : '❌'} Contains at least one number
+                    </p>
+                    <p className={passwordStrength.special ? 'valid' : 'invalid'}>
+                      {passwordStrength.special ? '✔️' : '❌'} Contains at least one special character
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {currState === "Sign Up" && (
+                <div className="login-popup-condition">
+                  <input type="checkbox" required />
+                  <p>By continuing, I agree to the terms of use & privacy policy.</p>
+                </div>
+              )}
+
+              {currState === "Login" && (
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Your Password"
+                  required
+                />
+              )}
               <button type="submit">{currState === 'Sign Up' ? "Create Account" : "Login"}</button>
               {currState === "Login" && (
                 <p className="forgot-password-link" onClick={() => {
@@ -215,13 +294,6 @@ const LoginPopup = ({ setShowLogin }) => {
             </>
           )}
         </div>
-
-        {!forgotFlow && (
-          <div className="login-popup-condition">
-            <input type="checkbox" required />
-            <p>By continuing, I agree to the terms of use & privacy policy.</p>
-          </div>
-        )}
 
         {!forgotFlow && (
           currState === "Login" ? (

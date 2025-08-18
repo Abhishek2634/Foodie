@@ -106,3 +106,17 @@ li {
   color: var(--text-color);
 }
 
+html, body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s ease, color 0.3s ease;
+  font-family: "Inter", sans-serif;
+}
+
+/* Text defaults */
+h1, h2, h3, h4, h5, h6, p, a, span, li {
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}

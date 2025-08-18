@@ -16,7 +16,7 @@
   font-size: max(2vw, 24px);
   font-weight: 600;
   margin: 30px;
-  color: var(--text-color, #111111); /* Dark color for heading */
+  color: var(--title-color, #fff); /* Use theme variable for color */
 }
 
 /* === Grid Layout === */
