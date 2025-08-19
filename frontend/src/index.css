@@ -7,6 +7,9 @@ body,
   margin: 0;
   padding: 0;
 }
+html, body {
+  background-color: var(--bg-color) !important;
+}
 
 * {
   margin: 0;

@@ -1,6 +1,15 @@
+.restaurant-card:hover .restaurant-details,
+.restaurant-card:hover .detail-item,
+.restaurant-card:hover .detail-item span {
+  color: #111 !important;
+}
+.restaurant-card:hover .restaurant-details,
+.restaurant-card:hover .detail-item {
+  color: #222 !important;
+}
 .restaurants-page {
   padding: 20px;
-  max-width: 1200px;
+  max-width: 100%; /* remove fixed container width */
   margin: 0 auto;
   min-height: 100vh;
   background-color: var(--bg-color, #fff);
@@ -29,18 +38,17 @@
 
 .restaurants-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
-  padding: 20px 0;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* fluid grid */
+  gap: 20px;
+  width: 100%;
 }
 
 .restaurant-card {
   width: 100%;
-  max-width: 400px;
-  margin: auto;
+  max-width: 100%; /* remove 400px restriction */
   border-radius: 15px;
   box-shadow: 0px 0px 10px #00000015;
-  transition: 0.4s ease-in-out;
+  transition: box-shadow 0.4s cubic-bezier(.4,0,.2,1), background-color 0.3s, color 0.3s;
   animation: FadeIn 0.8s ease;
   background-color: var(--bg-color, #fff);
   color: var(--text-color, #111);
@@ -50,6 +58,24 @@
 .restaurant-card:hover {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   transform: translateY(-5px);
+  background-color: #f9f6f2;
+  color: #d35400;
+}
+
+.restaurant-card:hover .restaurant-name {
+  color: #d35400;
+  transition: color 0.3s;
+}
+
+.restaurant-card:hover .discount-badge {
+  background-color: #e67e22;
+  transition: background-color 0.3s;
+}
+
+.restaurant-card:hover .order-now-btn {
+  background-color: #d35400;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .restaurant-image-container {

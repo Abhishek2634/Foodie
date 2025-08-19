@@ -8,7 +8,7 @@ import { MdPrivacyTip } from "react-icons/md";
 import { MdAddCall } from "react-icons/md";
 import { IoIosMail } from "react-icons/io";
 import { Link } from "react-router-dom";
-
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -27,9 +27,10 @@ Order fresh, tasty meals with just a few taps.
                     <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"> 
                         <img src={assets.facebook_icon} alt="Facebook" />
                         </a>
-                    <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+
+                    <a href="https://x.com/Abhishek899620etc" target="_blank" rel="noopener noreferrer">
                         <img src={assets.twitter_icon} alt="Twitter" /></a>
-                    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com/in/abhishekfarswal/" target="_blank" rel="noopener noreferrer">
                         <img src={assets.linkedin_icon} alt="LinkedIn" /></a>
                     <a  href="https://github.com/Abhishek2634/Foodie" target="_blank" >
                         <img src="/github(20).png" alt="Github" /></a>     

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Restaurants.css";
 import { Star, MapPin, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Restaurants = () => {
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
 
   const restaurants = [
     {
@@ -53,6 +54,11 @@ const Restaurants = () => {
     },
   ];
 
+  // Filter restaurants by cuisine search
+  const filteredRestaurants = restaurants.filter((restaurant) =>
+    restaurant.cuisine.toLowerCase().includes(search.toLowerCase())
+  );
+
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -63,7 +69,9 @@ const Restaurants = () => {
     }
 
     if (hasHalfStar) {
-      stars.push(<Star key="half" size={16} fill="#FFD700" color="#FFD700" style={{ opacity: 0.5 }} />);
+      stars.push(
+        <Star key="half" size={16} fill="#FFD700" color="#FFD700" style={{ opacity: 0.5 }} />
+      );
     }
 
     const emptyStars = 5 - Math.ceil(rating);
@@ -81,46 +89,63 @@ const Restaurants = () => {
         <p>Explore the best restaurants in your area with exclusive offers</p>
       </div>
 
+      {/* 🔍 Search bar instead of buttons */}
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search cuisine (e.g., Italian, Indian, American)..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="search-input"
+        />
+      </div>
+
       <div className="restaurants-grid">
-        {restaurants.map((restaurant) => (
-          <div
-            key={restaurant.id}
-            className="restaurant-card"
-            onClick={() => navigate(`/restaurant/${restaurant.id}`)}
-            style={{ cursor: "pointer" }}
-          >
-            <div className="restaurant-image-container">
-              <img src={restaurant.image} alt={restaurant.name} className="restaurant-image" />
-              <div className="discount-badge">{restaurant.discount}</div>
-            </div>
-
-            <div className="restaurant-info">
-              <div className="restaurant-header">
-                <h3 className="restaurant-name">{restaurant.name}</h3>
-                <div className="rating-container">
-                  {renderStars(restaurant.rating)}
-                  <span className="rating-text">{restaurant.rating}</span>
-                </div>
+        {filteredRestaurants.length > 0 ? (
+          filteredRestaurants.map((restaurant) => (
+            <div
+              key={restaurant.id}
+              className="restaurant-card"
+              onClick={() => navigate(`/restaurant/${restaurant.id}`)}
+              style={{ cursor: "pointer" }}
+            >
+              <div className="restaurant-image-container">
+                <img src={restaurant.image} alt={restaurant.name} className="restaurant-image" />
+                <div className="discount-badge">{restaurant.discount}</div>
               </div>
 
-              <div className="restaurant-details">
-                <div className="detail-item">
-                  <MapPin size={14} />
-                  <span>{restaurant.location}</span>
+              <div className="restaurant-info">
+                <div className="restaurant-header">
+                  <h3 className="restaurant-name">{restaurant.name}</h3>
+                  <div className="rating-container">
+                    {renderStars(restaurant.rating)}
+                    <span className="rating-text">{restaurant.rating}</span>
+                  </div>
                 </div>
-                <div className="detail-item">
-                  <Clock size={14} />
-                  <span>{restaurant.deliveryTime}</span>
+
+                <div className="restaurant-details">
+                  <div className="detail-item">
+                    <MapPin size={14} />
+                    <span>{restaurant.location}</span>
+                  </div>
+                  <div className="detail-item">
+                    <Clock size={14} />
+                    <span>{restaurant.deliveryTime}</span>
+                  </div>
                 </div>
+
+                <p className="restaurant-cuisine">{restaurant.cuisine}</p>
+                <p className="restaurant-description">{restaurant.description}</p>
+
+                <button className="order-now-btn">Order Now</button>
               </div>
-
-              <p className="restaurant-cuisine">{restaurant.cuisine}</p>
-              <p className="restaurant-description">{restaurant.description}</p>
-
-              <button className="order-now-btn">Order Now</button>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p style={{ gridColumn: "1 / -1", textAlign: "center", color: "#555" }}>
+            No restaurants found for this cuisine.
+          </p>
+        )}
       </div>
     </div>
   );

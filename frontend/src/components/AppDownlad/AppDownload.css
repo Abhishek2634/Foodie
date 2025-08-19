@@ -1,16 +1,14 @@
 .appdownload {
   margin: auto auto;
   padding: 80px;
-  /* margin-bottom: 60px; */
   font-size: max(3vw, 20px);
   text-align: center;
   font-weight: 500;
-  /* background-color: var(--bg-color, #ffffff); */
-  background-color: #fff;
+  background-color: var(--bg-color); /* dynamic */
 }
 
 .appdownload p {
-  color: #111111;
+  color: var(--text-color); /* dynamic */
 }
 
 .app-download-platforms {
@@ -29,6 +27,5 @@
 
 .app-download-platforms img:hover {
   transform: scale(1.1);
-  box-shadow: 0 2px 8px #a1a1a18e;
+  box-shadow: 0 2px 8px var(--hover-box-shadow); /* dynamic */
 }
-
