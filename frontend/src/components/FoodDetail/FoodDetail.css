@@ -5,6 +5,30 @@
     font-family: "Segoe UI", Tahoma, sans-serif;
     color: #1c1c1c;
 }
+.tag {
+  display: inline-block;
+  padding: 4px 8px;
+  margin-left: 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.tag.veg {
+  background-color: #e6ffe6;
+  color: #006400;
+}
+
+.tag.non-veg {
+  background-color: #ffe6e6;
+  color: #8b0000;
+}
+
+.tag.vegan {
+  background-color: #e6ffe6;
+  color: #228b22;
+  font-style: italic;
+}
 
 .food-detail-container {
     display: flex;
