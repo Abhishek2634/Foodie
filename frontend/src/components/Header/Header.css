@@ -184,13 +184,13 @@
 .stat-number {
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--primary-orange);
+  color: var(--light-text) !important;
   display: block;
 }
 
 .stat-label {
   font-size: 0.8rem;
-  color: var(--gray-text);
+  color: var(--light-text) !important;
 }
 
 .stat-divider {

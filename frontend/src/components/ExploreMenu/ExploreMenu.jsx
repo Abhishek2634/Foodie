@@ -194,22 +194,24 @@ const ExploreMenu = ({ category, setCategory }) => {
         >
           {/* Triple the items for seamless infinite scroll */}
           {[...menu_list, ...menu_list, ...menu_list].map((item, index) => (
-            <div
-              onClick={() =>
-                setCategory(
-                  category === item.menu_name ? "All" : item.menu_name
-                )
-              }
-              key={`${item.menu_name}-${index}`}
-              className="explore-menu-list-item"
-            >
-              <img
-                className={category === item.menu_name ? "active" : ""}
-                src={item.menu_image}
-                alt={item.menu_name}
-              />
-              <p>{item.menu_name}</p>
-            </div>
+            <a href="#food-display">  
+              <div
+                onClick={() =>                                                                
+                  setCategory(
+                    category === item.menu_name ? "All" : item.menu_name
+                  )
+                }
+                key={`${item.menu_name}-${index}`}
+                className="explore-menu-list-item"
+              >
+                <img
+                  className={category === item.menu_name ? "active" : ""}
+                  src={item.menu_image}
+                  alt={item.menu_name}
+                />
+                <p>{item.menu_name}</p>
+              </div>
+            </a>
           ))}
         </div>
         

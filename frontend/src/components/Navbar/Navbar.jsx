@@ -16,6 +16,8 @@ import {
   Moon,
   HelpCircle,
   Utensils,
+  Users,
+  Info,
 } from "lucide-react";
 
 const Navbar = ({ setShowLogin }) => {
@@ -99,6 +101,24 @@ const Navbar = ({ setShowLogin }) => {
   <div className="wishlist-badge">{Object.keys(wishlistItems).length}</div>
 )}
 
+      </Link>
+
+      
+   <Link
+      to="/aboutus"
+      onClick={() => setMenu("aboutus")}
+      className={`nav-item ${menu === "aboutus" ? "active" : ""}`}
+    >
+      <HelpCircle size={18} />
+      <span>About Us</span>
+    </Link>
+      <Link
+        to="/aboutpage"
+        onClick={() => setMenu("about")}
+        className={`nav-item ${menu === "about" ? "active" : ""}`}
+      >
+        <Info size={18} />
+        <span>About Us</span>
       </Link>
       <Link
         to="/contact"

@@ -41,7 +41,7 @@ Order fresh, tasty meals with just a few taps.
                 <ul>
 
                     <li><IoHome className='icon' /><Link to="/"><span>Home</span></Link></li>
-                    <li><SlSpeech className='icon'  /><span>About Us</span></li>
+                    <li><SlSpeech className='icon'  /><Link to="/aboutus"><span>About Us</span></Link></li>
                     <li><CiDeliveryTruck className='icon' /><span>Delivery</span></li>
                     <li><MdPrivacyTip className='icon' /><span>Privacy Policy</span></li>
                 </ul>
