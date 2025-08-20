@@ -66,52 +66,59 @@ const FoodDetail = () => {
     return <div className="food-detail">No food item found.</div>;
   }
 
+  // Function to render tag text & emoji
+  const renderFoodTag = (type) => {
+    if (type === "veg") return <span className="tag veg">🟢 Veg</span>;
+    if (type === "non-veg") return <span className="tag non-veg">🔴 Non-Veg</span>;
+    if (type === "vegan") return <span className="tag vegan">🌱 Vegan</span>;
+    return null;
+  };
+
   return (
     <div className="food-detail-wrapper">
       {/* Action Buttons */}
-        <div className="no-print" style={{ marginBottom: "1rem", textAlign: "right" }}>
-  <button
-    onClick={handlePrint}
-    style={{
-      marginRight: "0.5rem",
-      padding: "0.5rem 1rem",
-      cursor: "pointer",
-      border: "none",
-      borderRadius: "5px",
-      background: "#ff0000",
-      color: "#fff",
-      fontWeight: "bold"
-    }}
-  >
-    🖨️ Print
-  </button>
-  <button
-    onClick={handleExportPdf}
-    style={{
-      padding: "0.5rem 1rem",
-      cursor: "pointer",
-      border: "none",
-      borderRadius: "5px",
-      background: "#ff0000",
-      color: "#fff",
-      fontWeight: "bold"
-    }}
-  >
-    ⬇️ Export PDF
-  </button>
-</div>
-
-
+      <div className="no-print" style={{ marginBottom: "1rem", textAlign: "right" }}>
+        <button
+          onClick={handlePrint}
+          style={{
+            marginRight: "0.5rem",
+            padding: "0.5rem 1rem",
+            cursor: "pointer",
+            border: "none",
+            borderRadius: "5px",
+            background: "#ff0000",
+            color: "#fff",
+            fontWeight: "bold"
+          }}
+        >
+          🖨️ Print
+        </button>
+        <button
+          onClick={handleExportPdf}
+          style={{
+            padding: "0.5rem 1rem",
+            cursor: "pointer",
+            border: "none",
+            borderRadius: "5px",
+            background: "#ff0000",
+            color: "#fff",
+            fontWeight: "bold"
+          }}
+        >
+          ⬇️ Export PDF
+        </button>
+      </div>
 
       <PrintableSection ref={printRef}>
-
         <div className="food-detail-container">
           <div className="food-detail-image">
             <img src={foodItem.image} alt={foodItem.name} crossOrigin="anonymous" />
           </div>
 
           <div className="food-detail-info">
-            <h1>{foodItem.name}</h1>
+            <h1>
+              {foodItem.name} {renderFoodTag(foodItem.foodType)}
+            </h1>
             <p className="description">{foodItem.description}</p>
 
             <div className="info-section">
