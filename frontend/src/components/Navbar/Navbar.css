@@ -185,7 +185,7 @@ body {
   white-space: nowrap;
 }
 .nav-item span {
-  font-size: clamp(12px, 1.1vw, 14px); /* Fluid font sizing */
+  font-size: clamp(12px, 1.1vw, 12.5px); 
 }
 
 .nav-item:hover {
@@ -238,7 +238,6 @@ body {
     padding: 0.5rem 0.6rem;
     border-radius: 8px;
     font-size: 16px;
-    padding: 8px clamp(6px, 0.7vw, 10px); 
   }
   .navbar-right{
     width: 200px;
