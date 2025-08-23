@@ -42,8 +42,7 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 65px;
-  padding-left: 32px;
-  padding-right: 48px;
+  padding: 0 32px;
 }
 
 .navbar-logo {
@@ -69,28 +68,17 @@ body {
   border-radius: 10px;
 }
 
-.navbar-menu,
-.navbar-menu-desktop {
-  width: 60%;
-  max-width: 550px;
-  display: flex;
-  align-items: center;
-  padding-right: 2rem;
-  /* gap: 0.75rem;
-  flex: 1;
-  margin: 0 24px; */
-}
 .navbar-menu-mobile {
   display: none;
 }
 
 .navbar-right {
   width: 20%;
-  max-width: 200px;
+  /* max-width: 200px; */
   display: flex;
   align-items: center;
+  justify-content: end;
   gap: 10px;
-  /* margin-right: 10px; */
 }
 
 /* ACTION BUTTONS */
@@ -109,6 +97,21 @@ body {
   flex-shrink: 0;
   flex-grow: 0;
 }
+
+.nav-left{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -130px;
+  /* background: red; */
+}
+
+@media (max-width: 768px) {
+  .nav-left {
+    display: none;
+  }
+}
+
 .theme-toggle:hover { background: var(--accent-color); color: #fff; transform: rotate(180deg); }
 
 .signin-button {

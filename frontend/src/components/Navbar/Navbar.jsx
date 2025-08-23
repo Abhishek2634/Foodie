@@ -57,7 +57,7 @@ const Navbar = ({ setShowLogin }) => {
   };
 
   const navMenu = (
-    <>
+    <div className="nav-left">
       <Link
         to="/"
         onClick={() => setMenu("home")}
@@ -118,7 +118,7 @@ const Navbar = ({ setShowLogin }) => {
         className={`nav-item ${menu === "about" ? "active" : ""}`}
       >
         <Info size={18} />
-        <span>About Us</span>
+        <span>About Page</span>
       </Link>
       <Link
         to="/contact"
@@ -136,7 +136,7 @@ const Navbar = ({ setShowLogin }) => {
         <Menu size={18} />
         <span>Refer & Earn</span>
       </Link>
-    </>
+    </div>
   );
 
   const totalCartItems = Object.values(cartItems || {}).reduce(
@@ -154,7 +154,7 @@ const Navbar = ({ setShowLogin }) => {
         </Link>
 
         {/* Desktop menu (center, hidden on mobile) */}
-        <nav className="navbar-menu navbar-menu-desktop">{navMenu}</nav>
+          {navMenu}
 
         {/* Right action buttons */}
         <div className="navbar-right">
