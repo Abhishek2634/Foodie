@@ -1,14 +1,26 @@
+import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import "./Home.css";
 import Header from "../../components/Header/Header";
 import ExploreMenu from "../../components/ExploreMenu/ExploreMenu";
 import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
+import { use } from "react";
 
 const Home = () => {
-
+  const location = useLocation();
   const [category, setCategory] = useState('All');
   const [showButton, setShowButton] = useState(false);
  
+  useEffect(() => {
+      if (location.state?.scrollTo){
+        const section = document.getElementById(location.state?.scrollTo);
+        if(section){
+          setTimeout(()=> {
+            section.scrollIntoView({behavior: "smooth"});
+          }, 200);
+        }
+      }
+    }, [location.state]);
 
   useEffect(() => {
     const handleScroll = () => {

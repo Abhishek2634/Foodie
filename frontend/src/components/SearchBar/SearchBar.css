@@ -56,12 +56,14 @@
   padding: 12px 0px 12px 36px;
   margin-left: 9px;
   font-family: inherit;
+  flex: 1;
 }
 
 .search-input::placeholder {
   color: var(--text-secondary, #64748b);
 }
 
+/* ❌ Clear Button */
 .clear-button {
   background: none;
   border: none;
@@ -70,10 +72,6 @@
   border-radius: 50%;
   color: var(--text-secondary, #64748b);
   transition: all 0.2s ease;
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,15 +82,15 @@
   color: var(--text-color, #2d3748);
 }
 
+/* 🔍 Search Button */
 .search-button {
   background: var(--accent-color, #ff6347);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 6px 14px;
+  border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
-  cursor: pointer;
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
@@ -107,7 +105,62 @@
   transform: translateY(0);
 }
 
-/* Dropdown Styles */
+/* 📌 Actions Container (❌ + 🎤) */
+.search-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* space between clear and mic */
+  position: absolute;
+  right: 110px; /* keeps both before the Search button */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 🎤 Voice Button */
+.voice-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.voice-button svg {
+  color: #ff6600; /* matches Search button */
+  font-size: 18px;
+}
+
+.voice-button:hover {
+  background-color: rgba(255, 102, 0, 0.1);
+  transform: scale(1.1);
+}
+
+/* Listening Glow Animation */
+.voice-button.listening svg {
+  color: #ff6600;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { text-shadow: 0 0 5px var(--accent-color, #ff6347); }
+  50% { text-shadow: 0 0 15px var(--accent-color, #ff6347); }
+  100% { text-shadow: 0 0 5px var(--accent-color, #ff6347); }
+}
+
+/* Dark Mode 🎤 */
+body.dark-mode .voice-button svg {
+  color: #ffa64d;
+}
+
+body.dark-mode .voice-button:hover {
+  background-color: rgba(255, 166, 77, 0.15);
+}
+
+/* 📌 Dropdown Styles */
 .search-dropdown {
   position: absolute;
   top: 100%;
@@ -119,11 +172,11 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   margin-top: 8px;
-
   max-height: 400px;
   overflow-y: auto;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
+  animation: fadeIn 0.2s ease-out;
 }
 
 .suggestions-section {
@@ -198,33 +251,43 @@
   overflow-y: auto;
 }
 
-/* Responsive Design */
+/* Scrollbar */
+.search-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+.search-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+.search-dropdown::-webkit-scrollbar-thumb {
+  background: var(--border-color, #e2e8f0);
+  border-radius: 3px;
+}
+.search-dropdown::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary, #64748b);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .search-bar-container {
     max-width: 100%;
   }
-
   .search-bar {
     border-radius: 10px;
     padding: 2px;
     margin: 0;
   }
-
   .search-input {
-    font-size: 16px; /* Prevents zoom on iOS */
+    font-size: 16px;
     padding: 10px 0;
   }
-
   .search-button {
     padding: 10px 16px;
     font-size: 13px;
   }
-
   .search-dropdown {
     border-radius: 10px;
     margin-top: 6px;
   }
-
   .suggestion-item {
     padding: 14px 16px;
   }
@@ -260,7 +323,14 @@
     font-size: 11px;
     border-radius: 6px;
   }
-  .clear-button {
+  .search-actions {
+    position: static;
+    transform: none;
+    gap: 4px;
+    margin-left: auto;
+  }
+  .clear-button,
+  .voice-button {
     padding: 2px;
   }
   .search-dropdown {
@@ -278,7 +348,7 @@
   }
 }
 
-/* Dark Theme Support */
+/* Dark Theme */
 [data-theme="dark"] .search-bar-container {
   --bg-color: #2d3748;
   --text-color: #e2e8f0;
@@ -287,33 +357,9 @@
   --border-light: #4a5568;
   --hover-bg: #4a5568;
   --shadow-color: #ffffff12;
-
   --accent-light: #744210;
   --blue-500: #63b3ed;
   --green-500: #68d391;
-}
-
-/* Custom scrollbar for dropdown */
-.search-dropdown::-webkit-scrollbar {
-  width: 6px;
-}
-
-.search-dropdown::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.search-dropdown::-webkit-scrollbar-thumb {
-  background: var(--border-color, #e2e8f0);
-  border-radius: 3px;
-}
-
-.search-dropdown::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary, #64748b);
-}
-
-/* Animation for dropdown appearance */
-.search-dropdown {
-  animation: fadeIn 0.2s ease-out;
 }
 
 @keyframes fadeIn {

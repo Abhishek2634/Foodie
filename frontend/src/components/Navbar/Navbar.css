@@ -42,8 +42,7 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 65px;
-  padding: 0 32px;
-}
+
 
 .navbar-logo {
   width: 10%;
@@ -74,11 +73,6 @@ body {
 
 .navbar-right {
   width: 20%;
-  /* max-width: 200px; */
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  gap: 10px;
 }
 
 /* ACTION BUTTONS */

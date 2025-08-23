@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
-import { Search, X, Clock, TrendingUp } from "lucide-react";
+import { Search, X, Clock, TrendingUp, Mic } from "lucide-react"; // ✅ Added Mic icon
 import "./SearchBar.css";
 
 const SearchBar = ({
@@ -16,6 +16,31 @@ const SearchBar = ({
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const searchRef = useRef(null);
   const inputRef = useRef(null);
+
+  // ✅ Voice search
+  const handleVoiceSearch = () => {
+    if (!("webkitSpeechRecognition" in window)) {
+      alert("Sorry, your browser does not support Speech Recognition.");
+      return;
+    }
+
+    const recognition = new window.webkitSpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setQuery(transcript); // Put speech text into input
+      onSearch && onSearch(transcript); // Auto search
+    };
+
+    recognition.onerror = (err) => {
+      console.error("Speech recognition error", err);
+    };
+
+    recognition.start();
+  };
 
   // Sample data for demonstration
   const defaultSuggestions = useMemo(
@@ -44,7 +69,6 @@ const SearchBar = ({
     []
   );
 
-  // Use useMemo to prevent recreation on every render
   const allSuggestions = useMemo(
     () => (suggestions.length > 0 ? suggestions : defaultSuggestions),
     [suggestions, defaultSuggestions]
@@ -138,6 +162,12 @@ const SearchBar = ({
             placeholder={placeholder}
             className="search-input"
           />
+
+          {/* ✅ Voice Search Button */}
+          <button className="voice-button" onClick={handleVoiceSearch}>
+            <Mic size={24} />
+          </button>
+
           {query && (
             <button className="clear-button" onClick={handleClear}>
               <X size={28} />

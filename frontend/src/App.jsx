@@ -16,7 +16,6 @@ import SharedWishlist from "./pages/wishlist/SharedWishlist";
 import Restaurants from "./pages/Restaurants/Restaurants";
 import RestaurantDetail from "./pages/Restaurants/RestaurantDetail";
 import Chatbot from "./components/Chatbot/Chatbot";
-import FAQ from "./components/FAQ/FAQ";
 import ContactPage from "./pages/Contactpage";
 import { Toaster } from "react-hot-toast";
 import LoadingAnimation from "./components/LoadingAnimation";
@@ -28,6 +27,8 @@ import StoreContextProvider from "./components/context/StoreContext";
 import ScrollToBottom from "./components/ScrollToBottomButton/ScrollToBottomButton";
 import ReferralProgram from "./components/Referrals/ReferralProgram";
 import AboutUs from "./components/Aboutus/Aboutus";
+import FAQ from "./components/FAQ/FAQ";
+import VoiceSearchButton from "./components/VoiceSearchButton/VoiceSearchButton";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -48,7 +49,7 @@ const App = () => {
   return (
     <ThemeContextProvider>
       <StoreContextProvider>
-        {" "}
+
         {/* ✅ Wrap the app with StoreContextProvider */}
         <Toaster position="top-right" reverseOrder={false} />
         {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
@@ -97,9 +98,14 @@ const App = () => {
           </Routes>
           <ScrollToTopButton /> {/* floating button */}
           <CartSummaryBar />
+          <VoiceSearchButton />
           <AppDownload />
-          <FAQ />
-          <Footer />
+          
+          {/* ✅ Footer now contains FAQ */}
+          <Footer>
+            <FAQ />
+          </Footer>
+
           <Chatbot /> {/* AI Food Assistant */}
         </div>
       </StoreContextProvider>
