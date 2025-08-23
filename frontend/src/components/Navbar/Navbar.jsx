@@ -120,14 +120,14 @@ const Navbar = ({ setShowLogin }) => {
       <HelpCircle size={18} />
       <span>About Us</span>
     </Link>
-      <Link
+      {/*<Link
         to="/aboutpage"
         onClick={() => setMenu("about")}
         className={`nav-item ${menu === "about" ? "active" : ""}`}
       >
         <Info size={18} />
         <span>About Us</span>
-      </Link>
+      </Link>*/}
       <Link
         to="/contact"
         onClick={() => setMenu("contact-us")}
