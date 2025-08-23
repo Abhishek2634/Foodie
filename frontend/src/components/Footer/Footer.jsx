@@ -9,64 +9,60 @@ import { MdAddCall } from "react-icons/md";
 import { IoIosMail } from "react-icons/io";
 import { BsQuestionCircle } from "react-icons/bs";  // ✅ FAQ icon
 import { Link } from "react-router-dom";
+import FacebookIcon from '../Icons/FacebookIcon';
+import TwitterIcon from '../Icons/TwitterIcon';
+import LinkedInIcon from '../Icons/LinkedInIcon';
+import GithubIcon from '../Icons/GithubIcon';
 
 const Footer = () => {
-  return (
-    <div className='footer' id='footer'> 
-        <div className="footer-content">
-            {/* Left side (logo + description + social) */}
-            <div className="footer-content-left">
-                <img src={assets.foodie_icon} alt="" />
-                <p>
-                  Enjoy delicious food from your favorite restaurants.  
-                  Fast delivery, easy to use, and always satisfying.  
-                  <br /><br />
-                  No more waiting in lines or cooking at home.  
-                  Order fresh, tasty meals with just a few taps.
-                </p>
-                <div className="footer-social-icons">
-                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"> 
-                        <img src={assets.facebook_icon} alt="Facebook" />
-                    </a>
-                    <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
-                        <img src={assets.twitter_icon} alt="Twitter" />
-                    </a>
-                    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-                        <img src={assets.linkedin_icon} alt="LinkedIn" />
-                    </a>
-                    <a href="https://github.com/Abhishek2634/Foodie" target="_blank" >
-                        <img src="/github(20).png" alt="Github" />
-                    </a>     
+    return (
+        <div className='footer' id='footer'>
+            <div className="footer-content">
+                {/* Left side (logo + description + social) */}
+                <div className="footer-content-left">
+                    <img src={assets.foodie_icon} alt="" />
+                    <p>
+                        Enjoy delicious food from your favorite restaurants.
+                        Fast delivery, easy to use, and always satisfying.
+                        <br /><br />
+                        No more waiting in lines or cooking at home.
+                        Order fresh, tasty meals with just a few taps.
+                    </p>
+                    <div>
+                        <FacebookIcon />
+                        <TwitterIcon />
+                        <LinkedInIcon />
+                        <GithubIcon />
+                    </div>
+                </div>
+
+                {/* Company Links */}
+                <div className='footer-content-center'>
+                    <h2 className='text'>COMPANY</h2>
+                    <ul>
+                        <li><IoHome className='icon' /><Link to="/"><span>Home</span></Link></li>
+                        <li><SlSpeech className='icon' /><Link to="/aboutpage"><span>About Us</span></Link></li>
+                        <li><CiDeliveryTruck className='icon' /><span>Delivery</span></li>
+                        <li><MdPrivacyTip className='icon' /><span>Privacy Policy</span></li>
+                        <li><BsQuestionCircle className='icon' /><Link to="/faq"><span>FAQ</span></Link></li> {/* ✅ Added FAQ */}
+                    </ul>
+                </div>
+
+                {/* Contact Info */}
+                <div className='footer-content-right'>
+                    <h2 className='text'>Get In Touch</h2>
+                    <ul>
+                        <li><MdAddCall className='icon' /><span>+1-214-723-889</span></li>
+                        <li><IoIosMail className='icon' /><span>Contact@foodie.com</span></li>
+                    </ul>
                 </div>
             </div>
-
-            {/* Company Links */}
-            <div className='footer-content-center'>
-                <h2 className='text'>COMPANY</h2>
-                <ul>
-                    <li><IoHome className='icon' /><Link to="/"><span>Home</span></Link></li>
-                    <li><SlSpeech className='icon' /><Link to="/aboutpage"><span>About Us</span></Link></li>
-                    <li><CiDeliveryTruck className='icon' /><span>Delivery</span></li>
-                    <li><MdPrivacyTip className='icon' /><span>Privacy Policy</span></li>
-                    <li><BsQuestionCircle className='icon' /><Link to="/faq"><span>FAQ</span></Link></li> {/* ✅ Added FAQ */}
-                </ul>
-            </div>
-
-            {/* Contact Info */}
-            <div className='footer-content-right'>
-                <h2 className='text'>Get In Touch</h2>
-                <ul>
-                    <li><MdAddCall className='icon' /><span>+1-214-723-889</span></li>
-                    <li><IoIosMail className='icon' /><span>Contact@foodie.com</span></li>
-                </ul>
-            </div>
+            <hr />
+            <p className="footer-copyright">
+                Copyright {new Date().getFullYear()} &nbsp; &copy; &nbsp; foodie.com - All Right Reserved
+            </p>
         </div>
-        <hr />
-        <p className="footer-copyright">
-          Copyright {new Date().getFullYear()} &nbsp; &copy; &nbsp; foodie.com - All Right Reserved
-        </p>
-    </div>
-  )
+    )
 }
 
 export default Footer

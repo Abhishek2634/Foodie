@@ -89,21 +89,9 @@
     -webkit-text-fill-color: rgb(243, 113, 38);
 }
 
-.footer-social-icons img{
-    width: 40px;
-    margin-right: 15px;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 0.5s;
-    color: #555;
-    background-color: transparent;
-    transition: all 0.3s ease;
-}
-
-.footer-social-icons img:hover{
-    background-color: rgb(243, 113, 38);
-    color: #fff;
+.footer-social-icons{
+    display: 'flex';
+    align-items: 'center';
 }
 
 .footer hr{
