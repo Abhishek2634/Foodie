@@ -42,10 +42,7 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 65px;
-  padding-left: 32px;
-  padding-right: 48px;
-  padding: 0.6rem 1.2rem;
-}
+
 
 .navbar-logo {
   width: 10%;
@@ -70,32 +67,12 @@ body {
   border-radius: 10px;
 }
 
-.navbar-menu,
-.navbar-menu-desktop {
-  width: 60%;
-  max-width: 550px;
-  display: flex;
-  align-items: center;
-  padding-right: 2rem;
-  justify-content: center;
-  gap: 1.5rem;
-  flex: 1;
-  /* gap: 0.75rem;
-  margin: 0 24px; */
-}
 .navbar-menu-mobile {
   display: none;
 }
 
 .navbar-right {
   width: 20%;
-  max-width: 200px;
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  /* gap: 10px; */
-  /* margin-right: 10px; */
 }
 
 /* ACTION BUTTONS */
@@ -114,6 +91,21 @@ body {
   flex-shrink: 0;
   flex-grow: 0;
 }
+
+.nav-left{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -130px;
+  /* background: red; */
+}
+
+@media (max-width: 768px) {
+  .nav-left {
+    display: none;
+  }
+}
+
 .theme-toggle:hover { background: var(--accent-color); color: #fff; transform: rotate(180deg); }
 
 .signin-button {

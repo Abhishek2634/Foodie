@@ -49,15 +49,14 @@ const App = () => {
   return (
     <ThemeContextProvider>
       <StoreContextProvider>
+
         {/* ✅ Wrap the app with StoreContextProvider */}
         <Toaster position="top-right" reverseOrder={false} />
         {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
-
         <div className="app">
           <Navbar setShowLogin={setShowLogin} />
           <ScrollToTop />
           <ScrollToBottom />
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
@@ -97,7 +96,6 @@ const App = () => {
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-
           <ScrollToTopButton /> {/* floating button */}
           <CartSummaryBar />
           <VoiceSearchButton />
