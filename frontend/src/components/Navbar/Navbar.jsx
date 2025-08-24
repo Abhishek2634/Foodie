@@ -37,12 +37,12 @@ const Navbar = ({ setShowLogin }) => {
 
   const handleNavMenuClick = (menuName, id) => {
     setMenu(menuName);
-      if (location.pathname !== "/") {
-        navigate("/", {state: {scrollTo: id } });
-      } else {
-        const section = document.getElementById(id);
-        if (section) section.scrollIntoView({ behavior: "smooth" });
-      }
+    if (location.pathname !== "/") {
+      navigate("/", { state: { scrollTo: id } });
+    } else {
+      const section = document.getElementById(id);
+      if (section) section.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const handleLogout = () => {
@@ -59,11 +59,11 @@ const Navbar = ({ setShowLogin }) => {
         onClick={(e) => {
           e.preventDefault();
           setMenu("home");
-          if(location.pathname === "/"){
+          if (location.pathname === "/") {
             // already on home, just scroll to top
-            window.scrollTo({top: 0, behavior: "smooth"});
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
-          else{
+          else {
             navigate("/");
           }
         }}
@@ -82,8 +82,8 @@ const Navbar = ({ setShowLogin }) => {
       </Link>
       <Link
         to="/"
-        state={{scrollTo: "explore-menu"}}
-        onClick={()=> setMenu("menu")}
+        state={{ scrollTo: "explore-menu" }}
+        onClick={() => setMenu("menu")}
         className={`nav-item ${menu === "menu" ? "active" : ""}`}
       >
         <Menu size={18} />
@@ -91,8 +91,8 @@ const Navbar = ({ setShowLogin }) => {
       </Link>
       <Link
         to="/"
-        state={{scrollTo: "appdownload"}}
-        onClick={()=> setMenu("mobile-app")}
+        state={{ scrollTo: "appdownload" }}
+        onClick={() => setMenu("mobile-app")}
         className={`nav-item ${menu === "mobile-app" ? "active" : ""}`}
       >
         <Smartphone size={18} />
@@ -106,20 +106,20 @@ const Navbar = ({ setShowLogin }) => {
         <Heart size={18} />
         <span>Wishlist</span>
         {Object.keys(wishlistItems).length > 0 && (
-  <div className="wishlist-badge">{Object.keys(wishlistItems).length}</div>
-)}
+          <div className="wishlist-badge">{Object.keys(wishlistItems).length}</div>
+        )}
 
       </Link>
 
-      
-   <Link
-      to="/aboutus"
-      onClick={() => setMenu("aboutus")}
-      className={`nav-item ${menu === "aboutus" ? "active" : ""}`}
-    >
-      <HelpCircle size={18} />
-      <span>About Us</span>
-    </Link>
+
+      <Link
+        to="/aboutus"
+        onClick={() => setMenu("aboutus")}
+        className={`nav-item ${menu === "aboutus" ? "active" : ""}`}
+      >
+        <HelpCircle size={18} />
+        <span>About Us</span>
+      </Link>
       <Link
         to="/aboutpage"
         onClick={() => setMenu("about")}
@@ -136,7 +136,7 @@ const Navbar = ({ setShowLogin }) => {
         <Phone size={18} />
         <span>Contact</span>
       </Link>
-       <Link
+      <Link
         to="/referral"
         onClick={() => setMenu("referral")}
         className={`nav-item ${menu === "referral" ? "active" : ""}`}
