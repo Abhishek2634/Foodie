@@ -76,16 +76,52 @@ body {
 
 .navbar-menu,
 .navbar-menu-desktop {
-  width: 60%;
-  max-width: 550px;
   display: flex;
   align-items: center;
-  padding-right: 2rem;
-  justify-content: center;
   gap: 1.5rem;
   flex: 1;
+
+  /* 👇 scrolling magic */
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: thin; /* Firefox */
+  padding: 0.5rem 1rem;;
   /* gap: 0.75rem;
   margin: 0 24px; */
+}
+
+
+.navbar-menu::-webkit-scrollbar,
+.navbar-menu-desktop::-webkit-scrollbar {
+  height: 6px; /* thin scrollbar */
+}
+
+.navbar-menu::-webkit-scrollbar-thumb,
+.navbar-menu-desktop::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+.nav-item {
+  flex-shrink: 0;  /* prevent shrinking */
+}
+
+
+/* Dark mode */
+[data-theme="dark"] .navbar-menu,
+[data-theme="dark"] .navbar-menu-desktop {
+  scrollbar-color: #555 #11151d; /* Firefox */
+}
+
+[data-theme="dark"] .navbar-menu::-webkit-scrollbar-thumb,
+[data-theme="dark"] .navbar-menu-desktop::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+[data-theme="dark"] .navbar-menu::-webkit-scrollbar-track,
+[data-theme="dark"] .navbar-menu-desktop::-webkit-scrollbar-track {
+  background: #11151d;
 }
 
 .navbar-menu-mobile {

@@ -51,6 +51,11 @@ const Navbar = ({ setShowLogin }) => {
     setUser(null);
     window.location.reload();
   };
+  
+  // to trigger the dark theme on scroll bar
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   const navMenu = (
     <>
