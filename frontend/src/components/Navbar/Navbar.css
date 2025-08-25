@@ -226,6 +226,10 @@ body {
   cursor: pointer;
   white-space: nowrap;
 }
+.nav-item span {
+  font-size: clamp(12px, 1.1vw, 12.5px); 
+}
+
 .nav-item:hover {
   background: var(--hover-bg);
   color: var(--accent-color);
