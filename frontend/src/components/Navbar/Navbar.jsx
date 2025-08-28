@@ -1,4 +1,8 @@
+my-feature
+import React, { useContext, useEffect, useState } from "react";
+
 import React, { useContext, useState, useEffect } from "react";
+main
 import "./Navbar.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
@@ -25,6 +29,9 @@ const Navbar = ({ setShowLogin }) => {
   const { cartItems, wishlistItems, toggleWishlist, getTotalCartAmount } =
     useContext(StoreContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
+  my-feature
+  const [scrolled, setScrolled] = useState(false);
+
   const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
@@ -35,6 +42,28 @@ const Navbar = ({ setShowLogin }) => {
     setUser(storedUser);
   }, []);
 
+ my-feature
+  main
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  //Handle scrollbar effect on navbar to make it transperant onscroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // Handles smooth scroll or navigation for # links
+
+  main
+  const handleNavMenuClick = (event, menuName, id) => {
+    event.preventDefault();
   const handleNavMenuClick = (menuName, id) => {
     setMenu(menuName);
       if (location.pathname !== "/") {
@@ -129,6 +158,9 @@ const Navbar = ({ setShowLogin }) => {
         to="/contact"
         onClick={() => setMenu("contact-us")}
         className={`nav-item ${menu === "contact-us" ? "active" : ""}`}
+        my-feature
+        onClick={(e) => handleNavMenuClick(e, "contact-us", "footer")}
+        main
       >
         <Phone size={18} />
         <span>Contact</span>

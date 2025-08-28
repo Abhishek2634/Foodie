@@ -34,13 +34,15 @@ body {
 .navbar {
   width: 100%;
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
   z-index: 1000;
+  width: 100%;
   background: var(--navbar-bg);
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: transparent;
   height: 65px;
   padding-left: 32px;
   padding-right: 48px;
@@ -52,6 +54,15 @@ body {
   max-width: 80px;
   display: flex;
   align-items: center;
+
+  margin-left: 0;
+  margin-right: 15%;
+  transition: transform 0.14s cubic-bezier(0.4, 0.1, 0.6, 0.9);
+}
+.navbar-logo:hover {
+  transform: scale(1.03);
+}
+
     /* margin-left: 0;
   margin-right: 15%; */
   transition: transform 0.14s cubic-bezier(0.4,0.1,0.6,0.9);
@@ -147,11 +158,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+.theme-toggle:hover {
+  background: var(--accent-color);
+  color: #fff;
+  transform: rotate(180deg);
+
   width: 40px;height: 40px;
   flex-shrink: 0;
   flex-grow: 0;
 }
-.theme-toggle:hover { background: var(--accent-color); color: #fff; transform: rotate(180deg); }
 
 .signin-button {
   background: var(--accent-color);
@@ -160,13 +178,16 @@ body {
   padding: 10px 18px;
   border-radius: 8px;
   cursor: pointer;
-  display: flex; align-items: center; gap: 6px;
-  font-size: 14px; font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
   transition: all 0.3s;
 }
 .signin-button:hover {
   background: var(--accent-hover);
-  box-shadow: 0 4px 12px rgba(255,99,71,0.2);
+  box-shadow: 0 4px 12px rgba(255, 99, 71, 0.2);
   transform: translateY(-1px);
 }
 
@@ -177,6 +198,11 @@ body {
 /* Add to Navbar.css */
 .cart-badge {
   position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-color);
   top: 2px;
   right: 2px;
   background: #fc4b32;
@@ -195,21 +221,33 @@ body {
 
 
 @keyframes pulse {
-  0% {transform: scale(1);}
-  50% {transform: scale(1.25);}
-  100% {transform: scale(1);}
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .icon-button {
   background: transparent;
   border: none;
   color: var(--text-color);
-  padding: 10px; border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.3s;
 }
-.icon-button:hover { background: var(--hover-bg); color: var(--accent-color); }
+.icon-button:hover {
+  background: var(--hover-bg);
+  color: var(--accent-color);
+}
 
 .nav-item {
   display: flex;
@@ -235,17 +273,53 @@ body {
   background: var(--active-bg);
 }
 .nav-item.active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 20px; height: 2px;
+  width: 20px;
+  height: 2px;
   background: var(--accent-color);
   border-radius: 1px;
 }
 
 /* DESKTOP / TABLET RESPONSIVE ADJUSTMENTS */
+@media (max-width: 1200px) {
+  .navbar {
+    padding-left: 18px;
+    padding-right: 24px;
+  }
+}
+
+@media (max-width: 990px) {
+  .navbar {
+    height: 54px;
+  }
+  .app-icon {
+    height: 48px;
+    width: 48px;
+  }
+  .navbar-logo {
+    margin-right: 9%;
+  }
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    padding: 0 8px;
+  }
+  .nav-item {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+  .navbar-logo {
+    margin-right: 5%;
+  }
+  .app-icon {
+    height: 42px;
+    width: 42px;
+=======
 
 @media screen and (min-width: 1200px) {
   .navbar{
@@ -404,6 +478,9 @@ body {
 }
 
 @media (max-width: 750px) {
+  body {
+    padding-top: 44px;
+    padding-bottom: 64px;
   /* Hide inline menu, show mobile bottom nav */
   .navbar-menu, .navbar-menu-desktop {
     display: none !important;
@@ -419,6 +496,28 @@ body {
     justify-content: space-between;
     padding-inline: 1.5rem;
   }
+  .app-icon {
+    height: 32px;
+    width: 32px;
+  }
+  .navbar-logo {
+    margin-right: 0;
+  }
+  .navbar-right .theme-toggle,
+  .icon-button {
+    width: 34px;
+    height: 34px;
+    padding: 8px;
+  }
+  .signin-button {
+    font-size: 12px;
+    padding: 7px 9px;
+  }
+
+  /* Hide inline menu, show mobile bottom nav */
+  .navbar-menu,
+  .navbar-menu-desktop {
+    display: none !important;
   .app-icon { height: 32px; width: 32px; }
   /* .navbar-logo { margin-right: 0; } */
 
@@ -434,11 +533,13 @@ body {
   .navbar-menu-mobile {
     display: flex !important;
     position: fixed;
-    left: 0; right: 0; bottom: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 1101;
     background: var(--navbar-bg);
     border-top: 1px solid var(--border-color);
-    box-shadow: 0 -2px 18px 0 rgba(0,0,0,0.04);
+    box-shadow: 0 -2px 18px 0 rgba(0, 0, 0, 0.04);
     margin: 0;
     padding: 0;
     gap: 0.25rem;
@@ -467,7 +568,8 @@ body {
     transition: all 0.3s;
   }
   .navbar-menu-mobile .nav-item svg {
-    width: 20px; height: 20px;
+    width: 20px;
+    height: 20px;
     margin-bottom: 0;
     display: block;
     margin-left: auto;
@@ -487,7 +589,7 @@ body {
     background: none;
     transform: translateY(-2px);
   }
-  .navbar-menu-mobile .nav-item.active::after, 
+  .navbar-menu-mobile .nav-item.active::after,
   .navbar-menu-mobile .nav-item:hover::after {
     display: none;
   }
