@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
-import { Search, X, Clock, TrendingUp, Mic } from "lucide-react"; // ✅ Added Mic icon
+import { Search, X, Clock, TrendingUp, Mic } from "lucide-react";
 import "./SearchBar.css";
 
 const SearchBar = ({
@@ -17,13 +17,12 @@ const SearchBar = ({
   const searchRef = useRef(null);
   const inputRef = useRef(null);
 
-  // ✅ Voice search
+  // Voice Search
   const handleVoiceSearch = () => {
     if (!("webkitSpeechRecognition" in window)) {
       alert("Sorry, your browser does not support Speech Recognition.");
       return;
     }
-
     const recognition = new window.webkitSpeechRecognition();
     recognition.lang = "en-US";
     recognition.continuous = false;
@@ -31,8 +30,9 @@ const SearchBar = ({
 
     recognition.onresult = (event) => {
       const transcript = event.results[0][0].transcript;
-      setQuery(transcript); // Put speech text into input
-      onSearch && onSearch(transcript); // Auto search
+      setQuery(transcript);
+      setIsOpen(true); // Keep dropdown open after voice input
+      onSearch && onSearch(transcript);
     };
 
     recognition.onerror = (err) => {
@@ -42,7 +42,7 @@ const SearchBar = ({
     recognition.start();
   };
 
-  // Sample data for demonstration
+  // Default suggestions
   const defaultSuggestions = useMemo(
     () => [
       "Pizza Margherita",
@@ -59,32 +59,14 @@ const SearchBar = ({
     []
   );
 
-  const defaultRecentSearches = useMemo(
-    () => ["Pizza", "Chinese food", "Desserts"],
-    []
-  );
+  const defaultRecentSearches = useMemo(() => ["Pizza", "Chinese food", "Desserts"], []);
+  const defaultPopularSearches = useMemo(() => ["Pizza", "Burger", "Sushi", "Biryani", "Pasta"], []);
 
-  const defaultPopularSearches = useMemo(
-    () => ["Pizza", "Burger", "Sushi", "Biryani", "Pasta"],
-    []
-  );
+  const allSuggestions = suggestions.length ? suggestions : defaultSuggestions;
+  const allRecentSearches = recentSearches.length ? recentSearches : defaultRecentSearches;
+  const allPopularSearches = popularSearches.length ? popularSearches : defaultPopularSearches;
 
-  const allSuggestions = useMemo(
-    () => (suggestions.length > 0 ? suggestions : defaultSuggestions),
-    [suggestions, defaultSuggestions]
-  );
-
-  const allRecentSearches = useMemo(
-    () => (recentSearches.length > 0 ? recentSearches : defaultRecentSearches),
-    [recentSearches, defaultRecentSearches]
-  );
-
-  const allPopularSearches = useMemo(
-    () =>
-      popularSearches.length > 0 ? popularSearches : defaultPopularSearches,
-    [popularSearches, defaultPopularSearches]
-  );
-
+  // Filter suggestions based on query
   useEffect(() => {
     if (query.trim()) {
       const filtered = allSuggestions.filter((item) =>
@@ -96,13 +78,13 @@ const SearchBar = ({
     }
   }, [query, allSuggestions]);
 
+  // Click outside to close
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -115,8 +97,8 @@ const SearchBar = ({
   const handleSearch = (searchQuery = query) => {
     if (searchQuery.trim()) {
       onSearch && onSearch(searchQuery.trim());
-      setIsOpen(false);
-      inputRef.current?.blur();
+      setIsOpen(true); // Keep dropdown open to show results
+      inputRef.current?.focus();
     }
   };
 
@@ -127,7 +109,7 @@ const SearchBar = ({
 
   const handleClear = () => {
     setQuery("");
-    setIsOpen(false);
+    setIsOpen(true);
     inputRef.current?.focus();
   };
 
@@ -163,7 +145,6 @@ const SearchBar = ({
             className="search-input"
           />
 
-          {/* ✅ Voice Search Button */}
           <button className="voice-button" onClick={handleVoiceSearch}>
             <Mic size={24} />
           </button>
@@ -212,12 +193,12 @@ const SearchBar = ({
                 </>
               ) : (
                 <div className="no-results">
-                  <span>No suggestions found for "{query}"</span>
+                  <span>No results found for "{query}"</span>
                 </div>
               )}
             </div>
           ) : (
-            <div className="default-suggestions">
+            <>
               {allRecentSearches.length > 0 && (
                 <div className="suggestions-section">
                   <div className="section-header">
@@ -236,7 +217,6 @@ const SearchBar = ({
                   ))}
                 </div>
               )}
-
               {allPopularSearches.length > 0 && (
                 <div className="suggestions-section">
                   <div className="section-header">
@@ -255,7 +235,7 @@ const SearchBar = ({
                   ))}
                 </div>
               )}
-            </div>
+            </>
           )}
         </div>
       )}
