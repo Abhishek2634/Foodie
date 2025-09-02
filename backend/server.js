@@ -9,6 +9,11 @@ import paymentRoute from "./routes/paymentRoute.js";
 import restaurantRoutes from "./routes/restaurantRoutes.js";
 import authRoutes from './routes/authRoute.js';
 
+import userRoutes from './routes/userRoute.js';
+
+import cookieParser from 'cookie-parser';
+
+
 import "dotenv/config";
 // app config
 const app = express();
@@ -16,7 +21,14 @@ const port = 4000;
 
 // middleware
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
+
+// CORS setup for cookies
+app.use(cors({
+  origin: "http://localhost:5173", // frontend URL
+  credentials: true // allow cookies to be sent
+}));
+
 
 // db connection
 await connectDB();
@@ -29,6 +41,7 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/payment", paymentRoute);
 app.use("/api/restaurant", restaurantRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes); 
 
 
 app.get("/", (req, res) => {

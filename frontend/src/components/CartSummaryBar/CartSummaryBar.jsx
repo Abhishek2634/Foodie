@@ -3,7 +3,7 @@ import "./CartSummaryBar.css";
 import { StoreContext } from "../context/StoreContext";
 import { useNavigate, useLocation } from "react-router-dom"; //  import useLocation
 import { food_list } from "../../assets/frontend_assets/assets";
-import { ShoppingCart, IndianRupee } from "lucide-react"; // Add Lucide icons
+import { ShoppingCart, DollarSign } from "lucide-react"; // Add Lucide icons
 
 const FREE_DELIVERY_THRESHOLD = 150; // You can adjust this value as needed
 
@@ -55,8 +55,8 @@ const CartSummaryBar = () => {
         </div>
         <div className="cart-info-divider"></div>
         <div className="cart-info-item">
-          <IndianRupee size={18} className="price-icon" />
-          <span className="cart-text">Total: ₹{totalAmount.toFixed(2)}</span>
+          <DollarSign size={18} className="price-icon" />
+          <span className="cart-text">Total: ${totalAmount.toFixed(2)}</span>
         </div>
       </div>
       {/* Free Delivery Progress Bar */}
@@ -70,7 +70,7 @@ const CartSummaryBar = () => {
         <div className="free-delivery-progress-text">
           {deliveryProgress < 1 ? (
             <span>
-              Add <b>₹{amountLeft.toFixed(2)}</b> more for <b>Free Delivery</b>!
+              Add <b>${amountLeft.toFixed(2)}</b> more for <b>Free Delivery</b>!
             </span>
           ) : (
             <span>
@@ -99,13 +99,13 @@ const CartSummaryBar = () => {
                     />
                     <span>{item.name}</span>
                     <span>x{item.qty}</span>
-                    <span>₹{item.price * item.qty}</span>
+                    <span>${item.price * item.qty}</span>
                   </li>
                 ))}
               </ul>
               <div className="mini-cart-footer">
                 <div className="mini-cart-total">
-                  <span>Total: ₹{totalAmount}</span>
+                  <span>Total: ${totalAmount}</span>
                 </div>
                 <button
                   className="proceed-checkout-btn"
