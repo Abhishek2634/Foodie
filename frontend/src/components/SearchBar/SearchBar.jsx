@@ -1,76 +1,113 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { Search, X, Clock, TrendingUp } from 'lucide-react';
-import './SearchBar.css';
+import React, { useState, useRef, useEffect, useMemo } from "react";
+import { Search, X, Clock, TrendingUp, Mic } from "lucide-react"; // ✅ Added Mic icon
+import "./SearchBar.css";
 
-const SearchBar = ({ 
+const SearchBar = ({
   placeholder = "Search for food, restaurants, cuisines...",
   onSearch,
   suggestions = [],
   recentSearches = [],
   popularSearches = [],
   showSuggestions = true,
-  className = ""
+  className = "",
 }) => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
+  const [debounceQuery, setDebounceQuery] = useState("")
   const [isOpen, setIsOpen] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const searchRef = useRef(null);
   const inputRef = useRef(null);
 
+  // debouncing
+  useEffect(()=> {
+    const timer = setTimeout(()=> {
+      setDebounceQuery(query);
+      console.log("✅ Debounced value set:", query);
+    },400);                   // 400ms delay
+    return () => {
+      clearTimeout(timer)       // to avoid memory leak
+    }
+  },[query])
+
+  // ✅ Voice search
+  const handleVoiceSearch = () => {
+    if (!("webkitSpeechRecognition" in window)) {
+      alert("Sorry, your browser does not support Speech Recognition.");
+      return;
+    }
+
+    const recognition = new window.webkitSpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setQuery(transcript); // Put speech text into input
+      onSearch && onSearch(transcript); // Auto search
+    };
+
+    recognition.onerror = (err) => {
+      console.error("Speech recognition error", err);
+    };
+
+    recognition.start();
+  };
+
   // Sample data for demonstration
-  const defaultSuggestions = useMemo(() => [
-    'Pizza Margherita',
-    'Chicken Biryani',
-    'Pasta Carbonara',
-    'Sushi Roll',
-    'Burger Deluxe',
-    'Thai Green Curry',
-    'Caesar Salad',
-    'Fish and Chips',
-    'Tacos',
-    'Ramen Noodles'
-  ], []);
+  const defaultSuggestions = useMemo(
+    () => [
+      "Pizza Margherita",
+      "Chicken Biryani",
+      "Pasta Carbonara",
+      "Sushi Roll",
+      "Burger Deluxe",
+      "Thai Green Curry",
+      "Caesar Salad",
+      "Fish and Chips",
+      "Tacos",
+      "Ramen Noodles",
+    ],
+    []
+  );
 
-  const defaultRecentSearches = useMemo(() => [
-    'Pizza',
-    'Chinese food',
-    'Desserts'
-  ], []);
+  const defaultRecentSearches = useMemo(
+    () => ["Pizza", "Chinese food", "Desserts"],
+    []
+  );
 
-  const defaultPopularSearches = useMemo(() => [
-    'Pizza',
-    'Burger',
-    'Sushi',
-    'Biryani',
-    'Pasta'
-  ], []);
+  const defaultPopularSearches = useMemo(
+    () => ["Pizza", "Burger", "Sushi", "Biryani", "Pasta"],
+    []
+  );
 
-  // Use useMemo to prevent recreation on every render
-  const allSuggestions = useMemo(() => 
-    suggestions.length > 0 ? suggestions : defaultSuggestions, 
+  const allSuggestions = useMemo(
+    () => (suggestions.length > 0 ? suggestions : defaultSuggestions),
     [suggestions, defaultSuggestions]
   );
-  
-  const allRecentSearches = useMemo(() => 
-    recentSearches.length > 0 ? recentSearches : defaultRecentSearches,
+
+  const allRecentSearches = useMemo(
+    () => (recentSearches.length > 0 ? recentSearches : defaultRecentSearches),
     [recentSearches, defaultRecentSearches]
   );
-  
-  const allPopularSearches = useMemo(() => 
-    popularSearches.length > 0 ? popularSearches : defaultPopularSearches,
+
+  const allPopularSearches = useMemo(
+    () =>
+      popularSearches.length > 0 ? popularSearches : defaultPopularSearches,
     [popularSearches, defaultPopularSearches]
   );
 
+  // debounced search filter
   useEffect(() => {
-    if (query.trim()) {
-      const filtered = allSuggestions.filter(item =>
-        item.toLowerCase().includes(query.toLowerCase())
+    if (debounceQuery.trim()) {
+      const filtered = allSuggestions.filter((item) =>
+        item.toLowerCase().includes(debounceQuery.toLowerCase())
       );
       setFilteredSuggestions(filtered.slice(0, 8));
     } else {
       setFilteredSuggestions([]);
     }
-  }, [query, allSuggestions]);
+  }, [debounceQuery, allSuggestions]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -79,8 +116,8 @@ const SearchBar = ({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleInputChange = (e) => {
@@ -88,7 +125,7 @@ const SearchBar = ({
     setIsOpen(true);
   };
 
-  const handleSearch = (searchQuery = query) => {
+  const handleSearch = (searchQuery = debounceQuery) => {
     if (searchQuery.trim()) {
       onSearch && onSearch(searchQuery.trim());
       setIsOpen(false);
@@ -102,15 +139,15 @@ const SearchBar = ({
   };
 
   const handleClear = () => {
-    setQuery('');
+    setQuery("");
     setIsOpen(false);
     inputRef.current?.focus();
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch();
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       setIsOpen(false);
       inputRef.current?.blur();
     }
@@ -124,7 +161,10 @@ const SearchBar = ({
     <div className={`search-bar-container ${className}`} ref={searchRef}>
       <div className="search-bar">
         <div className="search-input-wrapper">
-          <Search className="search-icon" size={20} />
+          <div className="search-icon-sb">
+            <Search size={20} />
+          </div>
+
           <input
             ref={inputRef}
             type="text"
@@ -135,9 +175,15 @@ const SearchBar = ({
             placeholder={placeholder}
             className="search-input"
           />
+
+          {/* ✅ Voice Search Button */}
+          <button className="voice-button" onClick={handleVoiceSearch}>
+            <Mic size={24} />
+          </button>
+
           {query && (
             <button className="clear-button" onClick={handleClear}>
-              <X size={18} />
+              <X size={28} />
             </button>
           )}
         </div>
@@ -164,13 +210,15 @@ const SearchBar = ({
                     >
                       <Search size={16} className="suggestion-icon" />
                       <span className="suggestion-text">
-                        {suggestion.split(new RegExp(`(${query})`, 'gi')).map((part, i) =>
-                          part.toLowerCase() === query.toLowerCase() ? (
-                            <mark key={i}>{part}</mark>
-                          ) : (
-                            part
-                          )
-                        )}
+                        {suggestion
+                          .split(new RegExp(`(${query})`, "gi"))
+                          .map((part, i) =>
+                            part.toLowerCase() === query.toLowerCase() ? (
+                              <mark key={i}>{part}</mark>
+                            ) : (
+                              part
+                            )
+                          )}
                       </span>
                     </div>
                   ))}
@@ -201,7 +249,7 @@ const SearchBar = ({
                   ))}
                 </div>
               )}
-              
+
               {allPopularSearches.length > 0 && (
                 <div className="suggestions-section">
                   <div className="section-header">

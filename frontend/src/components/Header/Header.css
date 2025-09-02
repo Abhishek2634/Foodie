@@ -15,9 +15,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   overflow: hidden;
   background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 50%, #1a1a1a 100%);
-  padding: 1.5rem;
+  padding: 2.5rem 1.5rem;
   /* border-radius: 32px; */
 }
 
@@ -27,7 +28,6 @@
   background: url("/header_img.png") no-repeat center center / cover;
   opacity: 0.3;
   z-index: 1;
-  border-radius: 32px;
   overflow: hidden;
 }
 
@@ -35,8 +35,12 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(45, 24, 16, 0.8) 50%, rgba(26, 26, 26, 0.9) 100%);
-  border-radius: 32px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 107, 53, 0.1) 0%,
+    rgba(45, 24, 16, 0.8) 50%,
+    rgba(26, 26, 26, 0.9) 100%
+  );
 }
 
 .hero-content {
@@ -51,10 +55,12 @@
   margin: 0 auto;
   padding: 2rem 2rem;
   background: rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   border-radius: 32px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 20px 40px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
   position: relative;
 }
 
@@ -62,7 +68,12 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 50%, rgba(0, 0, 0, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
   border-radius: 32px;
   pointer-events: none;
 }
@@ -81,7 +92,7 @@
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 800;
   line-height: 1.1;
-  margin: 0;
+  margin: 20px 1.5rem;
   animation: slideInUp 1s ease-out 0.2s both;
 }
 
@@ -96,7 +107,11 @@
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-yellow) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-orange) 0%,
+    var(--secondary-yellow) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -111,7 +126,11 @@
   transform: translateX(-50%);
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, var(--primary-orange), var(--secondary-yellow));
+  background: linear-gradient(
+    90deg,
+    var(--primary-orange),
+    var(--secondary-yellow)
+  );
   border-radius: 24px;
   animation: expandWidth 1s ease-out 1s both;
 }
@@ -165,13 +184,13 @@
 .stat-number {
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--primary-orange);
+  color: var(--light-text) !important;
   display: block;
 }
 
 .stat-label {
   font-size: 0.8rem;
-  color: var(--gray-text);
+  color: var(--light-text) !important;
 }
 
 .stat-divider {
@@ -203,9 +222,17 @@
   overflow: hidden;
 }
 
+.cta-primary span {
+  color: white;
+}
+
 .cta-primary,
 .cta-secondary {
-  background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+  background: linear-gradient(
+    135deg,
+    var(--primary-orange),
+    var(--primary-orange-light)
+  );
   color: white;
   box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
 }
@@ -232,7 +259,12 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
   transition: left 0.6s ease;
 }
 
@@ -271,6 +303,8 @@
 
   .hero-title {
     font-size: clamp(1.8rem, 5vw, 2.5rem);
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
   }
 
   .hero-actions {
@@ -312,33 +346,33 @@
   }
 
   .hero-stats {
-    gap: 1rem; 
+    gap: 1rem;
     padding: 0.8rem 0;
   }
 
   .stat-item {
-    gap: 0.2rem; 
+    gap: 0.2rem;
   }
 
   .stat-icon {
-    width: 24px; 
+    width: 24px;
     height: 24px;
     border-radius: 12px;
   }
 
   .stat-number {
-    font-size: 1rem; 
+    font-size: 1rem;
     font-weight: 700;
   }
 
   .stat-label {
-    font-size: 0.65rem; 
+    font-size: 0.65rem;
     line-height: 1.2;
   }
 
   .stat-divider {
     width: 1px;
-    height: 25px; 
+    height: 25px;
   }
 
   .hero-main {
