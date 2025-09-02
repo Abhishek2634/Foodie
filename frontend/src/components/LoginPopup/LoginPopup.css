@@ -9,7 +9,9 @@
   display: grid;
 }
 
-
+h2,p{
+  color: black;
+}
 .login-popup-container {
   place-self: center;
   width: max(23vw, 330px);
