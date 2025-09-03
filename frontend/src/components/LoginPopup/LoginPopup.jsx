@@ -96,31 +96,53 @@ const LoginPopup = ({ setShowLogin }) => {
     }
   }, [password]);
 
-  const handleSendOTP = (e) => {
+  const handleSendOTP = async (e) => {
     e.preventDefault();
     if (!email) return toast.error("Enter email");
-    toast.success("OTP sent to your email");
-    setStage(2);
-    setTimer(60);
+    try {
+        await apiRequest.post("/api/auth/forgot-password", { email });
+        toast.success("OTP sent to your email");
+        setStage(2);
+        setTimer(60);
+    } catch (err) {
+        toast.error(err.response?.data?.message || "Failed to send OTP.");
+    }
   };
 
-  const handleVerifyOTP = (e) => {
+  const handleVerifyOTP = async (e) => {
     e.preventDefault();
-    if (otp.join("").length !== 6) return toast.error("Enter 6-digit OTP");
-    toast.success("OTP verified");
-    setStage(3);
+    const otpCode = otp.join("");
+    if (otpCode.length !== 6) return toast.error("Enter 6-digit OTP");
+    try {
+      await apiRequest.post("/api/auth/verify-otp", { email, otp: otpCode });
+      toast.success("OTP verified. You can now reset your password.");
+      setStage(3);
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Invalid OTP.");
+    }
   };
 
-  const handleResetPassword = (e) => {
+  const handleResetPassword = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) return toast.error("Passwords do not match");
+
+    try {
+      await apiRequest.patch("/api/auth/reset-password", {
+        email,
+        otp: otp.join(""),
+        newPassword,
+      });
       toast.success("Password reset successfully!");
       setForgotFlow(false);
       setStage(1);
       setOtp(Array(6).fill(""));
       setCurrState("Login");
-    };
-    const handleSubmit = async (e) => {
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to reset password.");
+    }
+  };
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -158,12 +180,10 @@ const LoginPopup = ({ setShowLogin }) => {
     }
   };
 
-
-
   return (
     <div className='LoginPopup'>
       <Toaster />
-      <form ref={popupRef} className="login-popup-container" onSubmit={handleSubmit}>
+      <form ref={popupRef} className="login-popup-container" onSubmit={forgotFlow && stage === 3 ? handleResetPassword : handleSubmit}>
         <div className="login-popup-title">
           <h2>{forgotFlow ? "Reset Password" : currState}</h2>
           <img onClick={() => setShowLogin(false)} src={assets.cross_icon} alt="close" />
@@ -303,7 +323,7 @@ const LoginPopup = ({ setShowLogin }) => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
-              <button onClick={handleResetPassword}>Reset Password</button>
+              <button type="submit">Reset Password</button>
             </>
           )}
         </div>
