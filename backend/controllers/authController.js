@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 import OTP from '../models/otpModel.js';
-import { asyncHandler } from '../utils/asyncHandler.js';
+import asyncHandler from '../utils/asyncHandler.js';
 import crypto from 'crypto';
 
 const generateToken = (id) => {
@@ -11,12 +11,10 @@ const generateToken = (id) => {
 
 export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
-
   const userExists = await User.findOne({ email });
   if (userExists) {
     return res.status(400).json({ message: 'User already exists' });
   }
-
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await User.create({ name, email, password: hashedPassword });
   const token = generateToken(user._id);
@@ -35,17 +33,14 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
-
   const user = await User.findOne({ email });
   if (!user) {
     return res.status(401).json({ message: 'User not found' });
   }
-
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
     return res.status(401).json({ message: 'Invalid password' });
   }
-
   const token = generateToken(user._id);
 
   res.cookie('token', token, {
@@ -67,11 +62,8 @@ export const logoutUser = async (req, res) => {
     sameSite: 'strict',
     expires: new Date(0),
   });
-
   res.status(200).json({ message: 'User logged out successfully' });
 };
-
-// ---------------------- New Functions for Password Reset ----------------------
 
 export const sendOtp = asyncHandler(async (req, res) => {
   const { email } = req.body;
@@ -88,7 +80,6 @@ export const sendOtp = asyncHandler(async (req, res) => {
   await OTP.create({ email, otp });
 
   // TODO: Integrate email service to send the OTP to the user
-  // For now, log to console for development/testing
   console.log(`OTP for ${email}: ${otp}`);
 
   res.status(200).json({
@@ -104,11 +95,7 @@ export const verifyOtp = asyncHandler(async (req, res) => {
   if (!otpRecord) {
     return res.status(400).json({ message: "Invalid or expired OTP." });
   }
-
-  // OTP is valid. Proceed to password reset.
-  // Note: We don't delete the OTP here; it will expire naturally after 5 mins.
-  // This allows the user to re-enter if they make a mistake on the next step.
-
+  
   res.status(200).json({
     success: true,
     message: "OTP verified. You can now reset your password.",
@@ -133,11 +120,9 @@ export const resetPassword = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "New password must be at least 6 characters long." });
   }
 
-  // Update the user's password
   user.password = await bcrypt.hash(newPassword, 10);
   await user.save();
 
-  // Invalidate the OTP to prevent reuse
   await OTP.deleteOne({ email, otp });
 
   res.status(200).json({
