@@ -59,7 +59,11 @@
 .restaurant-card:hover {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   transform: translateY(-5px);
-  background-color: #f9f6f2;
+  background-color: #fff;
+}
+
+[data-theme="dark"] .restaurant-card:hover {
+  background-color: #222;
   color: #d35400;
 }
 

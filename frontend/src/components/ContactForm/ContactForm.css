@@ -24,7 +24,9 @@ html, body {
   flex-wrap: nowrap;
   transition: all 0.3s ease;
 }
-
+[data-theme="dark"] .contact-container {
+  background-color: #222;
+}
 .contact-details {
   flex: 1;
   max-width: 400px;

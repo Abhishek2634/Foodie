@@ -4,6 +4,7 @@ import { FaDollarSign, FaListUl, FaStar, FaShoppingCart } from "react-icons/fa";
 import { StoreContext } from "../context/StoreContext";
 import { useReactToPrint } from "react-to-print";
 import html2pdf from "html2pdf.js";
+import FoodItem from "../FoodItem/FoodItem";
 import "./FoodDetail.css";
 import "./print.css"; 
 
@@ -12,7 +13,7 @@ const PrintableSection = React.forwardRef(({ children }, ref) => (
 ));
 
 const FoodDetail = () => {
-  const { addToCart, food_list } = useContext(StoreContext);
+  const { addToCart, removeFromCart, cartItems, food_list } = useContext(StoreContext);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -65,6 +66,11 @@ const FoodDetail = () => {
   if (!foodItem) {
     return <div className="food-detail">No food item found.</div>;
   }
+
+  // Get related products from the same category, excluding the current item
+  const relatedProducts = food_list
+    .filter(item => item.category === foodItem.category && item._id !== foodItem._id)
+    .slice(0, 5); // Limit to 5 related products
 
   return (
     <div className="food-detail-wrapper">
@@ -126,12 +132,48 @@ const FoodDetail = () => {
               </div>
             </div>
 
-            <button className="add-to-cart" onClick={() => addToCart(id)}>
-              <FaShoppingCart /> Add to Cart
-            </button>
+            <div className="food-detail-cart-section">
+              {!cartItems[id] ? (
+                <button className="add-to-cart" onClick={() => addToCart(id)}>
+                  <FaShoppingCart /> Add to Cart
+                </button>
+              ) : (
+                <div className="quantity-controls">
+                  <button className="quantity-btn" onClick={() => removeFromCart(id)}>
+                    -
+                  </button>
+                  <span className="quantity-display">{cartItems[id]}</span>
+                  <button className="quantity-btn" onClick={() => addToCart(id)}>
+                    +
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </PrintableSection>
+
+      {/* Related Products Section */}
+      {relatedProducts.length > 0 && (
+        <div className="related-products-section">
+          <h2 className="related-products-title">Related Products</h2>
+          <p className="related-products-subtitle">
+            Other {foodItem.category.toLowerCase()} items you might like
+          </p>
+          <div className="related-products-grid">
+            {relatedProducts.map((item) => (
+              <FoodItem
+                key={item._id}
+                id={item._id}
+                name={item.name}
+                description={item.description}
+                price={item.price}
+                image={item.image}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
