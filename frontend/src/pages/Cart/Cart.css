@@ -76,7 +76,7 @@
 }
 
 .cart-promo-code p{
-    color: #555;
+    color: var(--text-color);
 }
 
 .cart-promocode-input{
@@ -89,10 +89,17 @@
 }
 
 .cart-promocode-input input{
+    width: 72%;
     background: transparent;
-    border: none;
+    border: 2px solid transparent;
     outline: none;
-    padding-left: 10px;
+    padding: 10px;
+}
+
+.cart-promocode-input input:focus {
+    outline: 2px solid #FF6347;
+    border-radius: 5px;   
+    box-shadow: 0 0 6px 2px #FF6347;
 }
 
 .cart-promocode-input button{
@@ -100,7 +107,7 @@
     color: white;
     padding: 12px 5px;
     border-radius: 6px;
-    background-color: black;
+    background-color: #FF6347;
     border: none;
     cursor: pointer;
 }
