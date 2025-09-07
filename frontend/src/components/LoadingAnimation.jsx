@@ -252,9 +252,9 @@ const LoadingAnimation = () => {
       </div>
 
       {/* Enhanced Typewriter Loading Message */}
-      <div>
+      <div  className="text">
           <TextType 
-            text={["Food At Your Doorstep....."]}
+            text={["Food At Your Doorstep.........."]}
             typingSpeed={75}
             pauseDuration={1500}
             showCursor={true}
