@@ -98,6 +98,63 @@
     transform: scale(1.05);
 }
 
+/* Food Detail Cart Section */
+.food-detail-cart-section {
+    margin-top: 32px;
+}
+
+/* Quantity Controls for Food Detail */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid #f0f0f0;
+    width: fit-content;
+}
+
+.quantity-btn {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(255, 99, 71, 0.3);
+}
+
+.quantity-btn:hover {
+    background-color: #e5533d;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(255, 99, 71, 0.4);
+}
+
+.quantity-btn:active {
+    transform: scale(0.95);
+}
+
+.quantity-display {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    min-width: 30px;
+    text-align: center;
+    background-color: #f8f9fa;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #e9ecef;
+}
+
 .food-item-footer {
     display: flex;
     justify-content: space-between;
@@ -181,4 +238,71 @@
 [data-theme="dark"] .add-to-cart:hover,
 [data-theme="dark"] .view-btn:hover {
   background-color: var(--hover-red);
+}
+
+/* Related Products Section */
+.related-products-section {
+  margin-top: 80px;
+  padding: 40px 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.related-products-title {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 12px;
+  color: #1c1c1c;
+}
+
+.related-products-subtitle {
+  font-size: 16px;
+  text-align: center;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.related-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Dark theme support for related products */
+[data-theme="dark"] .related-products-section {
+  border-top-color: #333;
+}
+
+[data-theme="dark"] .related-products-title {
+  color: var(--text-color-dark);
+}
+
+[data-theme="dark"] .related-products-subtitle {
+  color: #aaa;
+}
+
+/* Responsive design for related products */
+@media (max-width: 768px) {
+  .related-products-section {
+    margin-top: 60px;
+    padding: 30px 0;
+  }
+  
+  .related-products-title {
+    font-size: 28px;
+  }
+  
+  .related-products-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .related-products-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
 }

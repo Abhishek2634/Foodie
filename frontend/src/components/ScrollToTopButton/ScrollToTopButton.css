@@ -5,8 +5,11 @@
   z-index: 999;
   background-color: #FC4B32;
   color: white;
-  padding: 10px;
   border-radius: 50%;
+  width: 40px;height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   box-shadow: 0 0 10px #00000040;
   transition: transform 0.2s ease;
@@ -14,4 +17,10 @@
 
 .scroll-to-top-btn:hover {
   transform: scale(1.1);
+}
+
+@media screen and (max-width:750px) {
+  .scroll-to-top-btn{
+    bottom: 65px;
+  }
 }

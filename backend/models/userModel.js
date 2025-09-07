@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { type: String, enum: ["user", "admin"], default: "user" },
   favoriteRestaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" },
+  favoriteFoods: [{ type: mongoose.Schema.Types.ObjectId, ref: "food" }]
 }, { timestamps: true });
 
 
