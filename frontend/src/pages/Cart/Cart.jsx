@@ -116,7 +116,6 @@ const Cart = () => {
                   <div className="cart-quantity-controls">
                     <button
                       onClick={() => removeFromCart(item._id)}
-                      disabled={cartItems[item._id] <= 1}   // disable minus if quantity is going less than 1
                     >-</button>
                     <span>{cartItems[item._id]}</span>
                     <button
