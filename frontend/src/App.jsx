@@ -48,7 +48,7 @@ const App = () => {
   return (
 
    <ThemeContextProvider>
-  <>
+  
     <Toaster position="top-right" reverseOrder={false} />
     {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
     
@@ -69,7 +69,7 @@ const App = () => {
       <Footer />
       <Chatbot /> {/* AI Food Assistant */}
     </div>
-  </>
+  
 </ThemeContextProvider>
 
     <ThemeContextProvider>
