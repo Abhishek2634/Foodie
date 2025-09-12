@@ -2,6 +2,7 @@ import SearchBar from "../SearchBar/SearchBar";
 
 import "./Header.css";
 import { Star, Clock, MapPin, ArrowRight, Play } from "lucide-react";
+import SearchBar from "./../SearchBar/SearchBar";
 const Header = () => {
   return (
     <div className="hero-container">
@@ -9,6 +10,7 @@ const Header = () => {
       <div className="hero-background"></div>
 
       <div className="hero-content">
+         <SearchBar className="hero-search" />
         <div className="hero-main">
           <h1 className="hero-title">
             <span className="title-line-1">Craving Something</span>

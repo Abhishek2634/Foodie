@@ -10,6 +10,28 @@
   display: grid;
   backdrop-filter: blur(8px);
 }
+.google-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+}
+
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: white;
+  border: 1px solid #ddd;
+  /* padding: 10px 15px; */
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+  width: 100%;
+  justify-content: center;
+}
 
 /* ===== Popup Container ===== */
 .login-popup-container {

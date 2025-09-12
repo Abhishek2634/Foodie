@@ -46,11 +46,38 @@ const App = () => {
   }
 
   return (
+
+   <ThemeContextProvider>
+  
+    <Toaster position="top-right" reverseOrder={false} />
+    {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
+    
+    <div className="app">
+      <Navbar setShowLogin={setShowLogin} />
+     
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/order" element={<PlaceOrder />} />
+        <Route path="/food/:id" element={<FoodDetail />} />
+        <Route path="/wishlist" element={<Wishlist />} />
+      </Routes>
+       
+      <ScrollToTopButton />   {/* floating button */}
+      <CartSummaryBar />
+      <AppDownload />
+      <Footer />
+      <Chatbot /> {/* AI Food Assistant */}
+    </div>
+  
+</ThemeContextProvider>
+
     <ThemeContextProvider>
       <StoreContextProvider>
         {/* ✅ Wrap the app with StoreContextProvider */}
         <Toaster position="top-right" reverseOrder={false} />
         {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
+
 
         <div className="app">
           <Navbar setShowLogin={setShowLogin} />

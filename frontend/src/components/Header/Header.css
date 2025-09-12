@@ -10,8 +10,10 @@
 }
 
 .hero-container {
+  margin-top: 90px;
+  padding: 0;
   position: relative;
-  min-height: 50vh;
+ height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -378,4 +380,11 @@
   .hero-main {
     gap: 1rem;
   }
+}
+.hero-search {
+  margin: 0 auto 30px auto;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  max-width: 700px;
 }

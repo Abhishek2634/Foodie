@@ -1,6 +1,9 @@
 .search-bar-container {
   position: relative;
   width: 100%;
+  padding-top: 4px;
+  max-width: 600px;
+
   max-width: 700px;
   margin: 0 auto;
   /* padding-top: 20px; */
@@ -19,8 +22,14 @@
   border-radius: 12px;
   padding: 4px;
   transition: all 0.3s ease;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin: 40px;
+  width: 100%;
+
   box-shadow: 0 2px 8px var(--shadow-color);
   margin: 0;
+
 }
 
 .search-bar:focus-within {
@@ -52,9 +61,15 @@
   background: transparent;
   font-size: 16px;
   color: var(--text-color, #2d3748);
+
+  width: 100%;
+  margin: 4px;
+  padding: 4px;
+
   width: 80%;
   padding: 12px 0px 12px 36px;
   margin-left: 9px;
+
   font-family: inherit;
   flex: 1;
 }
@@ -93,6 +108,7 @@
   font-weight: 600;
   transition: all 0.3s ease;
   flex-shrink: 0;
+  margin-right: px;
 }
 
 .search-button:hover {
