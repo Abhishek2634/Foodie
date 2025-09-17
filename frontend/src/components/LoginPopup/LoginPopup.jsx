@@ -27,13 +27,7 @@ const LoginPopup = ({ setShowLogin }) => {
   });
 
   const [signUpConfirmPassword, setSignUpConfirmPassword] = useState('');
-  const [signUpConfirmPasswordStrength, setSignUpConfirmPasswordStrength] = useState({
-    length: false,
-    uppercase: false,
-    lowercase: false,
-    number: false,
-    special: false,
-  });
+  const [passwordMatch, setPasswordMatch] = useState(false);
 
   const [showPasswordChecker, setShowPasswordChecker] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
@@ -87,6 +81,7 @@ const LoginPopup = ({ setShowLogin }) => {
     }
   };
 
+  // Password strength check
   useEffect(() => {
     if (password) {
       const newStrength = {
@@ -108,26 +103,12 @@ const LoginPopup = ({ setShowLogin }) => {
     }
   }, [password]);
 
+  // Check if passwords match
   useEffect(() => {
-    if (signUpConfirmPassword) {
-      const newStrength = {
-        length: signUpConfirmPassword.length >= 8,
-        uppercase: /[A-Z]/.test(signUpConfirmPassword),
-        lowercase: /[a-z]/.test(signUpConfirmPassword),
-        number: /[0-9]/.test(signUpConfirmPassword),
-        special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(signUpConfirmPassword),
-      };
-      setSignUpConfirmPasswordStrength(newStrength);
-    } else {
-      setSignUpConfirmPasswordStrength({
-        length: false,
-        uppercase: false,
-        lowercase: false,
-        number: false,
-        special: false,
-      });
-    }
-  }, [signUpConfirmPassword]);
+    setPasswordMatch(password === signUpConfirmPassword && signUpConfirmPassword !== '');
+  }, [password, signUpConfirmPassword]);
+
+
 
   const handleSendOTP = (e) => {
     e.preventDefault();
@@ -178,8 +159,11 @@ const LoginPopup = ({ setShowLogin }) => {
 
       toast.success(`${currState} successful!`);
 
-      // Store user info locally (no token)
+      // Store user info and auth token locally
       localStorage.setItem("user", JSON.stringify(data.user));
+      if (data.token) {
+        localStorage.setItem("authToken", data.token);
+      }
 
       setShowLogin(false);
       window.location.reload();
@@ -228,7 +212,7 @@ const LoginPopup = ({ setShowLogin }) => {
                   required
                 />
               )}
-              {currState === "Sign Up" && (
+              {/*{currState === "Sign Up" && (*/}
                 <input
                   type="password"
                   name="confirmPassword"
@@ -245,33 +229,35 @@ const LoginPopup = ({ setShowLogin }) => {
                   }}
                   required
                 />
-              )}
+              {/*})}*/}
               {currState === "Sign Up" && showPasswordChecker && (
                 <div className="password-checker-box">
-                  <div className="password-strength-checker">
-                    {(() => {
-                      const currentStrength = passwordFocused ? passwordStrength : signUpConfirmPasswordStrength;
-                      return (
-                        <>
-                          <p className={currentStrength.length ? 'valid' : 'invalid'}>
-                            {currentStrength.length ? '✔️' : '❌'} At least 8 characters long
-                          </p>
-                          <p className={currentStrength.uppercase ? 'valid' : 'invalid'}>
-                            {currentStrength.uppercase ? '✔️' : '❌'} Contains at least one uppercase letter
-                          </p>
-                          <p className={currentStrength.lowercase ? 'valid' : 'invalid'}>
-                            {currentStrength.lowercase ? '✔️' : '❌'} Contains at least one lowercase letter
-                          </p>
-                          <p className={currentStrength.number ? 'valid' : 'invalid'}>
-                            {currentStrength.number ? '✔️' : '❌'} Contains at least one number
-                          </p>
-                          <p className={currentStrength.special ? 'valid' : 'invalid'}>
-                            {currentStrength.special ? '✔️' : '❌'} Contains at least one special character
-                          </p>
-                        </>
-                      );
-                    })()}
-                  </div>
+                  {passwordFocused && (
+                    <div className="password-strength-checker">
+                      <p className={passwordStrength.length ? 'valid' : 'invalid'}>
+                        {passwordStrength.length ? '✔️' : '❌'} At least 8 characters long
+                      </p>
+                      <p className={passwordStrength.uppercase ? 'valid' : 'invalid'}>
+                        {passwordStrength.uppercase ? '✔️' : '❌'} Contains at least one uppercase letter
+                      </p>
+                      <p className={passwordStrength.lowercase ? 'valid' : 'invalid'}>
+                        {passwordStrength.lowercase ? '✔️' : '❌'} Contains at least one lowercase letter
+                      </p>
+                      <p className={passwordStrength.number ? 'valid' : 'invalid'}>
+                        {passwordStrength.number ? '✔️' : '❌'} Contains at least one number
+                      </p>
+                      <p className={passwordStrength.special ? 'valid' : 'invalid'}>
+                        {passwordStrength.special ? '✔️' : '❌'} Contains at least one special character
+                      </p>
+                    </div>
+                  )}
+                  {confirmFocused && signUpConfirmPassword && (
+                    <div className="password-match-checker">
+                      <p className={passwordMatch ? 'valid' : 'invalid'}>
+                        {passwordMatch ? '✅ Passwords match' : '❌ Passwords do not match'}
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 

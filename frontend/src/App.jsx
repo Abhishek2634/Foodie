@@ -34,7 +34,8 @@ const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return !!localStorage.getItem("authToken");
+    // Check for either authToken or user in localStorage
+    return !!localStorage.getItem("authToken") || !!localStorage.getItem("user");
   });
 
   useEffect(() => {

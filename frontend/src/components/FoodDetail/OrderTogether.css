@@ -13,6 +13,11 @@
     gap: 1vmax;
     padding: 1vmax
 }
+.contain-checkbox-itemName{
+    display: flex;
+    align-items: center; 
+    gap: 8px;
+}
 .order-with-original-food > input{
     position: absolute;
     margin-top: 0.5vmax;
@@ -21,6 +26,7 @@
     width: 20px;
     height: 20px;
 }
+
 .order-process{
     display: flex;
     flex-direction: column;

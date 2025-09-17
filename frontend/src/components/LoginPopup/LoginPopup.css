@@ -153,10 +153,10 @@
 
 /* ===== Password Checker ===== */
 .password-checker-box {
-  background: rgba(255, 255, 255, 0.12);
+  /*background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 8px;
-  padding: 12px;
+  padding: 12px;*/
   font-size: 0.9em;
   color: #eee;
 }
@@ -173,6 +173,14 @@
 
 .password-strength-checker .invalid {
   color: #ff5252;
+}
+
+.password-match-checker .valid{
+  color: #4caf50;
+}
+
+.password-match-checker .invalid{
+  color: #ff5252
 }
 
 /* ===== Terms Condition ===== */

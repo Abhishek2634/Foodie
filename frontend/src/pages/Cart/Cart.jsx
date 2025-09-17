@@ -1,9 +1,12 @@
 import "./Cart.css";
 import React, { useContext, useState } from "react";
 import { StoreContext } from "../../components/context/StoreContext";
+import AddressSection from "../../components/AddressSection/AddressSection.jsx"
 import { useNavigate, Link } from "react-router-dom";
+import AddressSection from "../../components/AddressSection/AddressSection.jsx"
 
 const Cart = () => {
+  const [checkoutBtnClicked, setCheckoutBtnClick] = useState(false);
   const { cartItems, food_list, removeFromCart, getTotalCartAmount, addToCart } = useContext(StoreContext);
   const navigate = useNavigate();
 
@@ -160,7 +163,8 @@ const Cart = () => {
             <b><p>Total</p></b>
             <b><p>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}</p></b>
           </div>
-          <button onClick={() => navigate('/order')}>PROCEED TO CHECKOUT</button>
+          {/*<button onClick={() => navigate('/order')}>PROCEED TO CHECKOUT</button>*/}
+          <button onClick={() => setCheckoutBtnClick(true)}>PROCEED TO CHECKOUT</button>
         </div>
         <div className="cart-promo-code">
           <div>
@@ -171,6 +175,11 @@ const Cart = () => {
             </div>
             {err && <p id="promo-err" style={{color:'red'}}>{err}</p>}
           </div>
+
+          {checkoutBtnClicked && (<AddressSection />)
+            
+          }
+
         </div>
       </div>
     </div>

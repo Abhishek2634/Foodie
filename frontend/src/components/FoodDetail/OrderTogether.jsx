@@ -49,13 +49,17 @@ const OrderTogether = () => {
                         frequentlyOrdered.map((item) => (
                             <div className="order-with-original-food" key={item._id}>
                                 <img src={item.image} alt={item.name} loading='lazy' width={250} />
-                                <h4>{item.name}</h4>
-                                <p>$ {item.price}</p>
-                                <input
+                                <div className='contain-checkbox-itemName'>
+                                    <input
                                     type="checkbox"
                                     checked={selected.includes(item._id)}
                                     onChange={() => handleCheckboxChange(item._id)}
                                 />
+                                    <h4 id='food-heading'>{item.name}</h4>
+                                </div>
+                                
+                                <p>$ {item.price}</p>
+                                
                             </div>
                         ))
                     }
