@@ -207,7 +207,11 @@
 .order-now-btn:hover {
   background-color: #e5533d;
 }
-
+.share-restaurants{
+  display: flex;
+  align-items: center;
+  justify-content:space-between
+}
 @keyframes FadeIn {
   0% {
     opacity: 0;

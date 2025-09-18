@@ -2,10 +2,17 @@ import React, { useState } from "react";
 import "./Restaurants.css";
 import { Star, MapPin, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import SimilarRestaurants from "./SimilarRestaurants";
+import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
+import { FaSquareWhatsapp, FaSquareXTwitter, FaFacebook } from "react-icons/fa6";
+import { SiGmail } from "react-icons/si";
+import { LuShare2 } from "react-icons/lu";
+
 
 const Restaurants = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [open, setOpen] = useState(false);
 
   const restaurants = [
     {
@@ -53,6 +60,57 @@ const Restaurants = () => {
       description: "Gourmet burgers and comfort food with premium ingredients.",
     },
   ];
+
+  const shareUrl = window.location.href;
+  const options = [
+    {
+      icon: <FaSquareWhatsapp
+        color="green"
+        size={50}
+        cursor={'pointer'}
+        onClick={() => window.open(`https://wa.me/?text=${encodeURIComponent(shareUrl)}`)}
+      />,
+      text: "WhatsApp"
+    },
+    {
+      icon: <FaFacebook
+        color="blue"
+        size={50}
+        cursor={'pointer'}
+        onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          shareUrl
+        )}`, "_blank")}
+      />,
+      text: "Instagram"
+    },
+    {
+      icon: <FaSquareXTwitter
+        size={50}
+        cursor={'pointer'}
+        color="black"
+        onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          shareUrl
+        )}`)}
+      />,
+      text: "Twitter"
+    },
+    {
+      icon: <SiGmail
+        size={50}
+        cursor={'pointer'}
+        color="red"
+        onClick={() => window.open(`mailto:?subject=${encodeURIComponent(
+          "Check out this food on Foodie!"
+        )}&body=${encodeURIComponent(
+          `I found this food item, thought you might like it: ${shareUrl}`
+        )}`)}
+      />,
+      text: "Mail"
+    }
+  ]
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   // Filter restaurants by cuisine search
   const filteredRestaurants = restaurants.filter((restaurant) =>
@@ -132,6 +190,34 @@ const Restaurants = () => {
                     <Clock size={14} />
                     <span>{restaurant.deliveryTime}</span>
                   </div>
+                  <div className='share-restaurants'>
+                    <p className="restaurant-cuisine">{restaurants.cuisine}</p>
+                    <IconButton
+                      onClick={(e) => {
+                        e.stopPropagation(); // prevent parent card onClick
+                        handleOpen();
+                      }}
+                    >
+                      <LuShare2 />
+                    </IconButton>
+                    <Dialog open={open} onClose={handleClose}>
+                      <DialogTitle align="center">Share this Food</DialogTitle>
+                      <DialogContent>
+                        <div style={{ display: "flex", alignItems: "center", gap: "1vmax" }}>
+                          {
+                            options.map((item, index) => {
+                              return (
+                                <div key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                                  <IconButton>{item.icon}</IconButton>
+                                  {item.text}
+                                </div>
+                              )
+                            })
+                          }
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
                 </div>
 
                 <p className="restaurant-cuisine">{restaurant.cuisine}</p>
@@ -147,6 +233,7 @@ const Restaurants = () => {
           </p>
         )}
       </div>
+      <SimilarRestaurants />
     </div>
   );
 };

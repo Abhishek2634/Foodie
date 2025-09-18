@@ -61,6 +61,7 @@ import React, { useContext, useState } from "react";
 import "./PlaceOrder.css";
 import { StoreContext } from "../../components/context/StoreContext";
 import Location from "./Location"; // Import the Location component
+import { Link } from 'react-router-dom'
 
 const PlaceOrder = () => {
     const { getTotalCartAmount } = useContext(StoreContext);
@@ -253,9 +254,11 @@ const PlaceOrder = () => {
                                 <p>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}</p>
                             </b>
                         </div>
+                        <Link to={'/order/confirm'}>
                         <button type="submit">
-                            PROCEED TO PAYMENT
+                            PROCEED TO CHECKOUT
                         </button>
+                        </Link>
                     </div>
                 </div>
             </form>

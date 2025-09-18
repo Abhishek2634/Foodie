@@ -53,7 +53,7 @@ export const loginUser = async (req, res) => {
   }
 
   // Generate JWT
-  const token = generateToken(user._id);
+  const token = generateToken(user._id);  
 
   // Set JWT in secure, HTTP-only cookie
   res.cookie('token', token, {

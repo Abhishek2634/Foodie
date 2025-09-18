@@ -1,0 +1,50 @@
+.my-order{
+    display: flex;
+    gap: 1vmax;
+    padding: 3vmax;
+    background-color: smoke-white
+}
+.my-order-filter{
+    display: flex;
+    flex-direction: column;
+    gap: 1vmax;
+    border: 1px solid rgba(234, 230, 230, 1);
+    padding: 2vmax;
+    border-radius: 10px;
+    background-color: rgba(250, 248, 248, 1)
+}
+.my-order-filter > p{
+    font-size: 1.5rem
+}
+hr{
+    margin-top: -0.6vmax;
+}
+.my-order-status, .my-order-delivery-time{
+    display: flex;
+    align-items: center;
+    gap: 1vmax;
+}
+.my-order-search-list{
+    
+}
+.my-order-search-list > input{
+    width: 60vw;
+    padding:1vmax;
+    outline: none;
+    border: 1px solid rgba(234, 230, 230, 1);
+    border-radius: 10px;
+    background-color: rgba(250, 248, 248, 1)
+}
+.my-order-items{
+    display: flex;
+    border: 1px solid rgba(234, 230, 230, 1);
+    border-radius: 10px;
+    background-color: rgba(250, 248, 248, 1);
+    margin-top: 1vmax;
+    padding: 1vmax;
+    justify-content: space-between;
+}
+.my-order-all{
+    height: 70vh;
+    overflow: auto
+}
