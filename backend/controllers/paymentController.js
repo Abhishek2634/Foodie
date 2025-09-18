@@ -22,7 +22,7 @@ export const createOrder = async (req, res) => {
     res.status(200).json({
       success: true,
       orderId: order.id,
-      amount: order.amount,
+      amount: order.amount, 
       currency: order.currency,
     });
   } catch (error) {

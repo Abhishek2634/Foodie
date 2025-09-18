@@ -136,9 +136,13 @@ body {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   /* gap: 10px; */
-  /* margin-right: 10px; */
+}
+.menu-item{
+  display:flex;
+  align-items: center;
+  gap:0.5vmax;
 }
 
 /* ACTION BUTTONS */

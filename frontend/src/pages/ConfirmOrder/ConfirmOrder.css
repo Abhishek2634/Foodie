@@ -1,0 +1,75 @@
+.order-confirm{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    width: 70vw;
+    margin: auto;
+    margin-top: 10vmax;
+    border: 1px solid rgba(234, 230, 230, 1);
+    border-radius: 10px;
+    background-color: rgba(250, 248, 248, 1);
+    padding: 2vmax
+}
+.order-confirm-left{
+    display: flex;
+    flex-direction: column;
+    gap: 2vmax;
+    width: 35vw
+}
+.order-confirm-user-details{
+    display: flex;
+    align-items:center;
+    gap: 3vmax
+}
+.order-confirm-btn{
+     display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background-color: tomato;
+    color: white;
+    padding: 18px 32px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-inline: 1vmax;
+    width: 20vmax
+}
+.order-confirm-btn:hover{
+    background-color: rgb(239, 17, 17);
+    transform: scale(1.05);
+}
+.order-confirm-right{
+    display: flex;
+    flex-direction: column;
+    gap: 2vmax;
+    width: 35vw;
+    border: 1px solid rgba(234, 230, 230, 1);
+    border-radius: 10px;
+    background-color: white;
+    padding: 2vmax;
+}
+.order-confirm-details, .order-confirm-order, .order-conform-subtotal, .order-conform-shipping, .order-conform-tax, .order-confirm-paytotal{
+    display: flex;
+    align-items:center;
+    justify-content: space-between
+}
+.order-conform-subtotal, .order-conform-shipping, .order-conform-tax{
+gap: 1vmax
+}
+
+@media (max-width: 768px) {
+    .order-confirm{
+        flex-direction:column;
+        width: 100vw;
+    }
+    .order-confirm-left, .order-confirm-right{
+        width: 100vw;
+        margin: auto;
+    }
+    .order-confirm-btn{
+        width: 90vw
+    }
+}

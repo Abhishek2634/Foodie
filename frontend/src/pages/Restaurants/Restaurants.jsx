@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Restaurants.css";
 import { Star, MapPin, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import SimilarRestaurants from "./SimilarRestaurants";
 
 const Restaurants = () => {
   const navigate = useNavigate();
@@ -147,6 +148,7 @@ const Restaurants = () => {
           </p>
         )}
       </div>
+      <SimilarRestaurants/>
     </div>
   );
 };
