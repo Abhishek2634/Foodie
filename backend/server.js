@@ -8,13 +8,15 @@ import reviewRoutes from "./routes/reviewRoutes.js";
 import paymentRoute from "./routes/paymentRoute.js";
 import restaurantRoutes from "./routes/restaurantRoutes.js";
 import authRoutes from './routes/authRoute.js';
-
+import oauthRoutes from './routes/oauthRoutes.js';
 import userRoutes from './routes/userRoute.js';
+import passport from "passport";
 
 import cookieParser from 'cookie-parser';
 
 
 import "dotenv/config";
+import "./config/passport.js"
 // app config
 const app = express();
 const port = 4000;
@@ -22,6 +24,7 @@ const port = 4000;
 // middleware
 app.use(express.json());
 app.use(cookieParser());
+app.use(passport.initialize());
 
 // CORS setup for cookies
 app.use(cors({
@@ -41,6 +44,7 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/payment", paymentRoute);
 app.use("/api/restaurant", restaurantRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/oauth",oauthRoutes);
 app.use("/api/user", userRoutes); 
 
 

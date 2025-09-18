@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './LoginPopup.css';
-import { assets } from '../../assets/frontend_assets/assets';
-import toast, { Toaster } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from "react";
+import "./LoginPopup.css";
+import { assets } from "../../assets/frontend_assets/assets";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import apiRequest from "../../lib/apiRequest";
 import { EyeIcon,EyeOffIcon } from "lucide-react";
-
 
 const LoginPopup = ({ setShowLogin }) => {
   const [currState, setCurrState] = useState("Sign Up");
@@ -21,7 +20,8 @@ const LoginPopup = ({ setShowLogin }) => {
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const navigate=useNavigate();
 
-  const [password, setPassword] = useState('');
+
+  const [password, setPassword] = useState("");
   const [passwordStrength, setPasswordStrength] = useState({
     length: false,
     uppercase: false,
@@ -29,9 +29,11 @@ const LoginPopup = ({ setShowLogin }) => {
     number: false,
     special: false,
   });
+  
 
   const [signUpConfirmPassword, setSignUpConfirmPassword] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(false);
+
 
   const [showPasswordChecker, setShowPasswordChecker] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
@@ -49,17 +51,17 @@ const LoginPopup = ({ setShowLogin }) => {
     };
 
     const handleEscapeKey = (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setShowLogin(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleEscapeKey);
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscapeKey);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscapeKey);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [setShowLogin]);
 
@@ -113,7 +115,6 @@ const LoginPopup = ({ setShowLogin }) => {
   }, [password, signUpConfirmPassword]);
 
 
-
   const handleSendOTP = (e) => {
     e.preventDefault();
     if (!email) return toast.error("Enter email");
@@ -131,14 +132,15 @@ const LoginPopup = ({ setShowLogin }) => {
 
   const handleResetPassword = (e) => {
     e.preventDefault();
-    if (newPassword !== confirmPassword) return toast.error("Passwords do not match");
-      toast.success("Password reset successfully!");
-      setForgotFlow(false);
-      setStage(1);
-      setOtp(Array(6).fill(""));
-      setCurrState("Login");
-    };
-    const handleSubmit = async (e) => {
+    if (newPassword !== confirmPassword)
+      return toast.error("Passwords do not match");
+    toast.success("Password reset successfully!");
+    setForgotFlow(false);
+    setStage(1);
+    setOtp(Array(6).fill(""));
+    setCurrState("Login");
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -148,8 +150,8 @@ const LoginPopup = ({ setShowLogin }) => {
     const confirmPassword = formData.get("confirmPassword");
 
     if (!email || !password || (currState === "Sign Up" && !name)) {
-        return toast.error("Please fill all fields");
-      }
+      return toast.error("Please fill all fields");
+    }
 
     if (currState === "Sign Up" && password !== confirmPassword) {
       return toast.error("Passwords do not match");
@@ -159,7 +161,11 @@ const LoginPopup = ({ setShowLogin }) => {
       currState === "Sign Up" ? "/api/auth/register" : "/api/auth/login";
 
     try {
-        const { data } = await apiRequest.post(endpoint, { name, email, password });
+      const { data } = await apiRequest.post(endpoint, {
+        name,
+        email,
+        password,
+      });
 
       toast.success(`${currState} successful!`);
 
@@ -179,15 +185,25 @@ const LoginPopup = ({ setShowLogin }) => {
     }
   };
 
-
+  const handleGoogleLogin=async ()=>{
+    window.location.href="http://localhost:4000/api/oauth/google";
+  }
 
   return (
-    <div className='LoginPopup'>
+    <div className="LoginPopup">
       <Toaster />
-      <form ref={popupRef} className="login-popup-container" onSubmit={handleSubmit}>
+      <form
+        ref={popupRef}
+        className="login-popup-container"
+        onSubmit={handleSubmit}
+      >
         <div className="login-popup-title">
           <h2>{forgotFlow ? "Reset Password" : currState}</h2>
-          <img onClick={() => setShowLogin(false)} src={assets.cross_icon} alt="close" />
+          <img
+            onClick={() => setShowLogin(false)}
+            src={assets.cross_icon}
+            alt="close"
+          />
         </div>
 
         <div className="login-popup-inputs">
@@ -197,7 +213,12 @@ const LoginPopup = ({ setShowLogin }) => {
 
           {!forgotFlow && (
             <>
-              <input type="email" name="email" placeholder="Your Email" required />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                required
+              />
               {currState === "Sign Up" && (
                 <div className="password-input-container">
                   <input
@@ -286,7 +307,9 @@ const LoginPopup = ({ setShowLogin }) => {
               {currState === "Sign Up" && (
                 <div className="login-popup-condition">
                   <input type="checkbox" required />
-                  <p>By continuing, I agree to the terms of use & privacy policy.</p>
+                  <p>
+                    By continuing, I agree to the terms of use & privacy policy.
+                  </p>
                 </div>
               )}
 
@@ -306,13 +329,18 @@ const LoginPopup = ({ setShowLogin }) => {
                   </span>
                 </div>
               )}
+       
               
               <button type="submit">{currState === 'Sign Up' ? "Create Account" : "Login"}</button>
+\
               {currState === "Login" && (
-                <p className="forgot-password-link" onClick={() => {
-                  setForgotFlow(true);
-                  setStage(1);
-                }}>
+                <p
+                  className="forgot-password-link"
+                  onClick={() => {
+                    setForgotFlow(true);
+                    setStage(1);
+                  }}
+                >
                   Forgot Password?
                 </p>
               )}
@@ -341,7 +369,7 @@ const LoginPopup = ({ setShowLogin }) => {
                     type="text"
                     maxLength={1}
                     value={digit}
-                    ref={(el) => otpRefs.current[i] = el}
+                    ref={(el) => (otpRefs.current[i] = el)}
                     onChange={(e) => handleOTPChange(e, i)}
                   />
                 ))}
@@ -350,7 +378,7 @@ const LoginPopup = ({ setShowLogin }) => {
               <button
                 type="button"
                 disabled={timer > 0}
-                className={`resend-otp-btn ${timer > 0 ? 'disabled' : ''}`}
+                className={`resend-otp-btn ${timer > 0 ? "disabled" : ""}`}
                 onClick={() => {
                   setTimer(60);
                   toast.success("OTP resent!");
@@ -382,13 +410,55 @@ const LoginPopup = ({ setShowLogin }) => {
           )}
         </div>
 
-        {!forgotFlow && (
-          currState === "Login" ? (
-            <p style={{color: '#ddd'}}>Create a new account? <span onClick={() => setCurrState("Sign Up")}>Click Here</span></p>
+        <div
+          style={{ display: "flex", alignItems:'center'}}
+        >
+          <hr
+            style={{
+              flex: 1,
+              border: "none",
+              height: "1px",
+              marginBottom: "26px",
+              backgroundColor: "#ccc",
+            }}
+          />
+          <span style={{ margin: "0 10px", color: "#999" }}>OR</span>
+          <hr
+            style={{
+              flex: 1,
+              border: "none",
+              height: "1px",
+              marginBottom: "26px",
+              backgroundColor: "#ccc",
+            }}
+          />
+        </div>
+
+        <div style={{ textAlign: "center", width:'100%'}}>
+          <button id="google-btn" type="button"
+            onClick={handleGoogleLogin}
+          >
+            <img
+              src="https://developers.google.com/identity/images/g-logo.png"
+              alt="Google logo"
+              style={{ width: "18px", height: "18px" }}
+            />
+            Continue with Google
+          </button>
+        </div>
+
+        {!forgotFlow &&
+          (currState === "Login" ? (
+            <p style={{ color: "#ddd" }}>
+              Create a new account?{" "}
+              <span onClick={() => setCurrState("Sign Up")}>Click Here</span>
+            </p>
           ) : (
-            <p style={{color: '#ddd'}}>Already have an account? <span onClick={() => setCurrState("Login")}>Login Here</span></p>
-          )
-        )}
+            <p style={{ color: "#ddd" }}>
+              Already have an account?{" "}
+              <span onClick={() => setCurrState("Login")}>Login Here</span>
+            </p>
+          ))}
       </form>
     </div>
   );
