@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { food_list } from "../../assets/frontend_assets/assets";
 
@@ -7,6 +7,43 @@ export const StoreContext = createContext();
 const StoreContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [wishlistItems, setWishlistItems] = useState({});
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check authentication status on app load
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    const storedToken = localStorage.getItem("authToken");
+    
+    if (storedUser && storedToken) {
+      try {
+        setUser(JSON.parse(storedUser));
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error("Error parsing stored user data:", error);
+        localStorage.removeItem("user");
+        localStorage.removeItem("authToken");
+      }
+    }
+  }, []);
+
+  // Login function
+  const login = (userData, token) => {
+    setUser(userData);
+    setIsAuthenticated(true);
+    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("authToken", token);
+  };
+
+  // Logout function
+  const logout = () => {
+    setUser(null);
+    setIsAuthenticated(false);
+    localStorage.removeItem("user");
+    localStorage.removeItem("authToken");
+    setCartItems({});
+    setWishlistItems({});
+  };
 
  /** Add an item to the cart or increment quantity (with max limit) */
 const addToCart = (itemId) => {
@@ -87,6 +124,10 @@ const addToCart = (itemId) => {
     toggleWishlist,
     isInWishlist,
     getWishlistCount,
+    user,
+    isAuthenticated,
+    login,
+    logout,
   };
 
   return (

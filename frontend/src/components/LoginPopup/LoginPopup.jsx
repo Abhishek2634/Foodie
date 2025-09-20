@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import './LoginPopup.css';
 import { assets } from '../../assets/frontend_assets/assets';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import apiRequest from "../../lib/apiRequest";
 import { EyeIcon,EyeOffIcon } from "lucide-react";
+import { StoreContext } from '../context/StoreContext';
 
 
 const LoginPopup = ({ setShowLogin }) => {
+  const { login } = useContext(StoreContext);
   const [currState, setCurrState] = useState("Sign Up");
   const [forgotFlow, setForgotFlow] = useState(false);
   const [stage, setStage] = useState(1);
@@ -147,35 +149,47 @@ const LoginPopup = ({ setShowLogin }) => {
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
 
-    if (!email || !password || (currState === "Sign Up" && !name)) {
-        return toast.error("Please fill all fields");
-      }
-
-    if (currState === "Sign Up" && password !== confirmPassword) {
-      return toast.error("Passwords do not match");
+    // Basic validation
+    if (!email || !password) {
+        return toast.error("Email and password are required");
     }
 
-    const endpoint =
-      currState === "Sign Up" ? "/api/auth/register" : "/api/auth/login";
+    if (currState === "Sign Up") {
+      if (!name) {
+        return toast.error("Name is required");
+      }
+      if (password !== confirmPassword) {
+        return toast.error("Passwords do not match");
+      }
+      if (password.length < 6) {
+        return toast.error("Password must be at least 6 characters");
+      }
+    }
+
+    const endpoint = currState === "Sign Up" ? "/api/auth/register" : "/api/auth/login";
+    const userData = currState === "Sign Up" 
+      ? { name, email, password } 
+      : { email, password };
 
     try {
-        const { data } = await apiRequest.post(endpoint, { name, email, password });
+        const { data } = await apiRequest.post(endpoint, userData);
 
-      toast.success(`${currState} successful!`);
+        toast.success(data.message || `${currState} successful!`);
 
-      // Store user info and auth token locally
-      localStorage.setItem("user", JSON.stringify(data.user));
-      if (data.token) {
-        localStorage.setItem("authToken", data.token);
-      }
+        // Use the context login function
+        login(data.user, data.token);
 
-      setShowLogin(false);
-      window.location.reload();
+        setShowLogin(false);
+        
+        // Reset form
+        e.target.reset();
+        setPassword('');
+        setSignUpConfirmPassword('');
+        
     } catch (err) {
-      const message =
-        err.response?.data?.message || `${currState} failed. Please try again.`;
+      const message = err.response?.data?.message || `${currState} failed. Please try again.`;
       toast.error(message);
-      console.error(err);
+      console.error(`${currState} error:`, err);
     }
   };
 

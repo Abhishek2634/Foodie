@@ -81,48 +81,24 @@ const FoodDetail = () => {
 
   const options = [
     {
-      icon: <FaSquareWhatsapp
-        color="green"
-        size={50}
-        cursor={'pointer'}
-        onClick={() => window.open(`https://wa.me/?text=${encodeURIComponent(shareUrl)}`)}
-      />,
-      text: "WhatsApp"
+      icon: <FaSquareWhatsapp color="green" size={50} />,
+      text: "WhatsApp",
+      onClick: () => window.open(`https://wa.me/?text=${encodeURIComponent(shareUrl)}`)
     },
     {
-      icon: <FaFacebook
-        color="blue"
-        size={50}
-        cursor={'pointer'}
-        onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-          shareUrl
-        )}`, "_blank")}
-      />,
-      text: "Instagram"
+      icon: <FaFacebook color="blue" size={50} />,
+      text: "Instagram",
+      onClick: () => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, "_blank")
     },
     {
-      icon: <FaSquareXTwitter
-        size={50}
-        cursor={'pointer'}
-        color="black"
-        onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-          shareUrl
-        )}`)}
-      />,
-      text: "Twitter"
+      icon: <FaSquareXTwitter size={50} color="black" />,
+      text: "Twitter",
+      onClick: () => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}`)
     },
     {
-      icon: <SiGmail
-        size={50}
-        cursor={'pointer'}
-        color="red"
-        onClick={() => window.open(`mailto:?subject=${encodeURIComponent(
-          "Check out this food on Foodie!"
-        )}&body=${encodeURIComponent(
-          `I found this food item, thought you might like it: ${shareUrl}`
-        )}`)}
-      />,
-      text: "Mail"
+      icon: <SiGmail size={50} color="red" />,
+      text: "Mail",
+      onClick: () => window.open(`mailto:?subject=${encodeURIComponent("Check out this food on Foodie!")}&body=${encodeURIComponent(`I found this food item, thought you might like it: ${shareUrl}`)}`)
     }
   ]
   const handleOpen = () => setOpen(true);
@@ -174,7 +150,9 @@ const FoodDetail = () => {
                 options.map((item, index) => {
                   return (
                     <div key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                      <IconButton>{item.icon}</IconButton>
+                      <IconButton onClick={item.onClick} style={{ cursor: 'pointer' }}>
+                        {item.icon}
+                      </IconButton>
                       {item.text}
                     </div>
                   )

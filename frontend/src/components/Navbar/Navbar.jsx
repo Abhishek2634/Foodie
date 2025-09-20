@@ -19,22 +19,24 @@ import {
   Users,
   Info,
   CircleDollarSign,
+  Gift,
 } from "lucide-react";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
-  const { cartItems, wishlistItems, toggleWishlist, getTotalCartAmount } =
-    useContext(StoreContext);
+  const { 
+    cartItems, 
+    wishlistItems, 
+    toggleWishlist, 
+    getTotalCartAmount,
+    user,
+    isAuthenticated,
+    logout
+  } = useContext(StoreContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
   const location = useLocation();
-
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    setUser(storedUser);
-  }, []);
 
   const handleNavMenuClick = (menuName, id) => {
     setMenu(menuName);
@@ -47,10 +49,8 @@ const Navbar = ({ setShowLogin }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    setUser(null);
-    window.location.reload();
+    logout();
+    navigate("/");
   };
   
   // to trigger the dark theme on scroll bar
@@ -115,6 +115,15 @@ const Navbar = ({ setShowLogin }) => {
   <div className="wishlist-badge">{Object.keys(wishlistItems).length}</div>
 )}
 
+      </Link>
+
+      <Link
+        to="/rewards"
+        onClick={() => setMenu("rewards")}
+        className={`nav-item ${menu === "rewards" ? "active" : ""}`}
+      >
+        <Gift size={18} />
+        <span>Rewards</span>
       </Link>
 
       
@@ -185,7 +194,7 @@ const Navbar = ({ setShowLogin }) => {
           </div>
 
           {/* User / Auth */}
-          {user ? (
+          {isAuthenticated && user ? (
             <div className="user-info">
               <div className="user-avatar">
                 {user.name?.charAt(0).toUpperCase()}
