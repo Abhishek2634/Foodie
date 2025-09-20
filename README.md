@@ -350,7 +350,7 @@ The application uses the following environment variables:
 We welcome contributions to the Foodie project! If you find this project helpful, consider starring the repo or opening an issue.
 
 * 📖 Help improve documentation
-* 🚀 For more info go to [CONTRIBUTING.md](CONTRIBUTING.md)
+* 🚀 For more info go to [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 
 ### Development Workflow
 
