@@ -54,7 +54,6 @@ const FoodItem = ({ id, name, price, description, image, isShared = false }) => 
             <div className="food-item-counter">
               <button
                 onClick={() => removeFromCart(id)}
-                disabled={cartItems[id] <= 1}
               >-</button>
               <p>{cartItems[id]}</p>
               <button

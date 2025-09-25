@@ -11,8 +11,12 @@
     "start": "serve -s dist -l 5173"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^7.3.2",
     "axios": "^1.11.0",
     "react": "^19.1.0",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^7.7.1",
     "react-toastify": "^11.0.5"
   },
@@ -20,7 +24,7 @@
     "@eslint/js": "^9.30.1",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react": "^4.6.0",
+    "@vitejs/plugin-react": "^4.7.0",
     "eslint": "^9.30.1",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",

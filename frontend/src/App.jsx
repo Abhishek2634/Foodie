@@ -28,12 +28,14 @@ import ReferralProgram from "./components/Referrals/ReferralProgram";
 import AboutUs from "./components/Aboutus/Aboutus";
 import FAQ from "./components/FAQ/FAQ";
 import Privacy from "./components/Privacy/privacy";
+import FeedbackReviews from "./components/FeedbackReviews/FeedbackReviews";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return !!localStorage.getItem("authToken");
+    // Check for either authToken or user in localStorage
+    return !!localStorage.getItem("authToken") || !!localStorage.getItem("user");
   });
 
   useEffect(() => {
@@ -85,6 +87,7 @@ const App = () => {
                 )
               }
             />
+            <Route path="/faq" element={<FAQ />} />
             <Route path="/food/:id" element={<FoodDetail />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/wishlist/:userId" element={<SharedWishlist />} />
@@ -100,11 +103,12 @@ const App = () => {
           <ScrollToTopButton /> {/* floating button */}
           <CartSummaryBar />
           <AppDownload />
+          <FeedbackReviews />
           
           {/* ✅ Footer now contains FAQ */}
-          <Footer>
-            <FAQ />
-          </Footer>
+          <Footer />
+            {/* <FAQ /> */}
+          {/* </Footer> */}
 
           <Chatbot /> {/* AI Food Assistant */}
         </div>

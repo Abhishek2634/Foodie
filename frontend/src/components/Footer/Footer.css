@@ -1,6 +1,6 @@
 .footer{
     color: #d9d9d9;
-    background-color: #323232;
+    background-color: #1c1410;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -137,3 +137,15 @@
     color: inherit;          
   }
   
+  .logo-head {
+  fill: #c14f21;
+  transition: 0.3s;
+}
+
+.logo-head:hover {
+  fill: rgb(243, 113, 38);
+}
+
+.logo-text {
+  fill: rgb(243, 113, 38);
+}
