@@ -15,6 +15,7 @@ import Wishlist from "./pages/wishlist/wishlist";
 import SharedWishlist from "./pages/wishlist/SharedWishlist";
 import Restaurants from "./pages/Restaurants/Restaurants";
 import RestaurantDetail from "./pages/Restaurants/RestaurantDetail";
+import RestaurantRecommendations from "./components/RestaurantRecommendations/RestaurantRecommendations";
 import Chatbot from "./components/Chatbot/Chatbot";
 import ContactPage from "./pages/Contactpage";
 import { Toaster } from "react-hot-toast";
@@ -62,6 +63,33 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
+
+            <Route path="/recommendations" element={<RestaurantRecommendations />} />
+             <Route
+            path="/order"
+            element={
+              isLoggedIn ? (
+                <PlaceOrder />
+              ) : (
+                <div style={{ padding: "2rem", textAlign: "center" }}>
+                  <h2
+                    style={{
+                      color: "#f97316", // Tailwind's orange-500
+                      fontSize: "2rem",
+                      fontWeight: "bold",
+                      textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    Please Log In To Proceed
+                  </h2>
+                  <p style={{ color: "#fdba74", fontSize: "1rem" }}>
+                    Your journey continues after login 🔐
+                  </p>
+                </div>
+              )
+            }
+        />
             <Route
               path="/order"
               element={

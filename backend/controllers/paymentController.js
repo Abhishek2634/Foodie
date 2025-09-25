@@ -2,13 +2,28 @@ import Razorpay from "razorpay";
 import dotenv from "dotenv";
 dotenv.config();
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
+// Initialize Razorpay only if credentials are available
+let razorpay = null;
+try {
+  if (process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
+    razorpay = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
+  }
+} catch (error) {
+  console.log("Razorpay not configured - payment features will be disabled");
+}
 
 export const createOrder = async (req, res) => {
   try {
+    if (!razorpay) {
+      return res.status(503).json({
+        success: false,
+        message: "Payment service not configured. Please contact support.",
+      });
+    }
+
     const { amount } = req.body;
 
     const options = {

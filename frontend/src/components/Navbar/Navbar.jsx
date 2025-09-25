@@ -14,9 +14,8 @@ import {
   User,
   Sun,
   Moon,
-  HelpCircle,
   Utensils,
-  Users,
+  Star,
   Info,
   CircleDollarSign,
 } from "lucide-react";
@@ -86,15 +85,27 @@ const Navbar = ({ setShowLogin }) => {
         <Utensils size={18} />
         <span>Restaurant</span>
       </Link>
+            <Link
+        to="/recommendations"
+        onClick={() => setMenu("recommendations")}
+        className={`nav-item ${menu === "recommendations" ? "active" : ""}`}
+      >
+        <Star size={18} />
+        <span>Top Picks</span>
+      </Link>
+
       <Link
         to="/"
-        state={{scrollTo: "explore-menu"}}
-        onClick={()=> setMenu("menu")}
+        state={{ scrollTo: "explore-menu" }}
+        onClick={() => setMenu("menu")}
         className={`nav-item ${menu === "menu" ? "active" : ""}`}
       >
         <Menu size={18} />
         <span>Menu</span>
       </Link>
+
+ 
+
       <Link
         to="/"
         state={{scrollTo: "appdownload"}}
@@ -123,9 +134,11 @@ const Navbar = ({ setShowLogin }) => {
       onClick={() => setMenu("aboutus")}
       className={`nav-item ${menu === "aboutus" ? "active" : ""}`}
     >
-      <HelpCircle size={18} />
-      <span>About Us</span>
-    </Link>
+
+        <Info size={18} />
+        <span>About Us</span>
+      </Link>
+      
       <Link
         to="/contact"
         onClick={() => setMenu("contact-us")}

@@ -1,5 +1,6 @@
 import Review from "../models/reviewModel.js";
 import Food from "../models/foodModel.js";
+import { updateRestaurantRating } from "./restaurantController.js";
 
 export const createReview = async (req, res) => {
   try {
@@ -30,10 +31,15 @@ export const createReview = async (req, res) => {
     const total = reviews.reduce((acc, r) => acc + r.rating, 0);
     const avg = total / reviews.length;
 
-    await Food.findByIdAndUpdate(foodId, {
+    const updatedFood = await Food.findByIdAndUpdate(foodId, {
       averageRating: avg.toFixed(1),
       numReviews: reviews.length,
-    });
+    }, { new: true });
+
+    // Update restaurant rating
+    if (updatedFood && updatedFood.restaurantId) {
+      await updateRestaurantRating(updatedFood.restaurantId);
+    }
 
     res.status(201).json({ success: true, review });
   } catch (error) {
@@ -63,10 +69,15 @@ export const updateReview = async (req, res) => {
     const total = reviews.reduce((sum, r) => sum + r.rating, 0);
     const avg = reviews.length ? total / reviews.length : 0;
 
-    await Food.findByIdAndUpdate(review.food, {
+    const updatedFood = await Food.findByIdAndUpdate(review.food, {
       averageRating: avg.toFixed(1),
       numReviews: reviews.length,
-    });
+    }, { new: true });
+
+    // Update restaurant rating
+    if (updatedFood && updatedFood.restaurantId) {
+      await updateRestaurantRating(updatedFood.restaurantId);
+    }
 
     res.json({ success: true, updatedReview: review });
   } catch (err) {
@@ -98,10 +109,15 @@ export const deleteReview = async (req, res) => {
     const total = reviews.reduce((sum, r) => sum + r.rating, 0);
     const avg = reviews.length ? total / reviews.length : 0;
 
-    await Food.findByIdAndUpdate(foodId, {
+    const updatedFood = await Food.findByIdAndUpdate(foodId, {
       averageRating: avg.toFixed(1),
       numReviews: reviews.length,
-    });
+    }, { new: true });
+
+    // Update restaurant rating
+    if (updatedFood && updatedFood.restaurantId) {
+      await updateRestaurantRating(updatedFood.restaurantId);
+    }
 
     res.json({ success: true, message: "Review deleted" });
   } catch (err) {

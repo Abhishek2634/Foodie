@@ -6,6 +6,51 @@
   background-color: var(--bg-color, #ffffff);
 }
 
+/* Recommendations Section */
+.recommendations-section {
+  margin: 2rem 0;
+}
+
+.recommendations-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 15px;
+  margin: 0 1rem 2rem 1rem;
+}
+
+.recommendations-banner h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.recommendations-banner p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.explore-recommendations-btn {
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.explore-recommendations-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
 /* Floating back-to-top button */
 .back-to-top {
   position: fixed;
@@ -25,4 +70,25 @@
 
 .back-to-top:hover {
   background-color: #d43f3f;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .recommendations-banner {
+    margin: 0 0.5rem 1.5rem 0.5rem;
+    padding: 1.5rem;
+  }
+  
+  .recommendations-banner h2 {
+    font-size: 1.5rem;
+  }
+  
+  .recommendations-banner p {
+    font-size: 1rem;
+  }
+  
+  .explore-recommendations-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
 }
