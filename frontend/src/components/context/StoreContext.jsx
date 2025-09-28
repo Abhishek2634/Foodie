@@ -8,14 +8,21 @@ const StoreContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [wishlistItems, setWishlistItems] = useState({});
 
-  /** Add an item to the cart or increment quantity */
-  const addToCart = (itemId) => {
-    setCartItems((prev) => ({
+ /** Add an item to the cart or increment quantity (with max limit) */
+const addToCart = (itemId) => {
+  setCartItems((prev) => {
+    const currentQty = prev[itemId] || 0;
+    if (currentQty >= 20) {
+      toast.warning("You can only add up to 50 of this item.");
+      return prev; // don’t increase further
+    }
+    return {
       ...prev,
-      [itemId]: prev[itemId] ? prev[itemId] + 1 : 1,
-    }));
-    toast.success("Item added to cart!");
-  };
+      [itemId]: currentQty + 1,
+    };
+  });
+};
+
 
   /** Remove an item from the cart or delete if quantity is 1 */
   const removeFromCart = (itemId) => {

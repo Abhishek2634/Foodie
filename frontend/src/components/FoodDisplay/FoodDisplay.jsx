@@ -22,8 +22,7 @@ const FoodDisplay = ({ category }) => {
 
   return (
     <div className='food-display' id='food-display'>
-      <h2>Top Dishes Near You</h2>
-      
+      <h4 className="top-dishes-heading">Top Dishes Near You</h4>
       {/* Toggle Buttons */}
       <div className="filter-toggle">
         <button
@@ -45,7 +44,6 @@ const FoodDisplay = ({ category }) => {
           Non-Veg
         </button>
       </div>
-
       <div className='food-display-list'>
         {filteredFoodList.map((item, index) => (
           <FoodItem

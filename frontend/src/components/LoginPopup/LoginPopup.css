@@ -1,3 +1,4 @@
+/* ===== Base Overlay ===== */
 .LoginPopup {
   position: fixed;
   top: 0;
@@ -5,142 +6,242 @@
   width: 100vw;
   height: 100vh;
   z-index: 1000;
-  background-color: #00000090;
+  background: rgba(0, 0, 0, 0.7);
   display: grid;
+  backdrop-filter: blur(8px);
 }
 
-
+/* ===== Popup Container ===== */
 .login-popup-container {
   place-self: center;
-  width: max(23vw, 330px);
-  color: #808080;
-  background-color: white;
+  width: max(23vw, 340px);
+  background: rgba(255, 255, 255, 0.1); /* transparent glass */
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  padding: 25px 30px;
-  border-radius: 8px;
+  gap: 22px;
   font-size: 14px;
-  animation: FadeIn 1.3s;
+  color: #f1f1f1;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.6s ease forwards;
+  transition: background 0.3s, color 0.3s;
 }
 
+/* ===== Title ===== */
 .login-popup-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: black;
+}
+
+.login-popup-title h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
 }
 
 .login-popup-title img {
-  width: 16px;
+  width: 18px;
   cursor: pointer;
+  filter: invert(1); /* visible on dark */
+  transition: transform 0.2s ease;
+}
+.login-popup-title img:hover {
+  transform: scale(1.2);
 }
 
+/* ===== Inputs ===== */
 .login-popup-inputs {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .login-popup-inputs input {
   outline: none;
-  border: 1px solid #c9c9c9;
-  padding: 10px;
-  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  transition: border 0.2s, background 0.2s;
 }
 
+.login-popup-inputs input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.login-popup-inputs input:focus {
+  border-color: #ff8567;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 6px rgba(255, 99, 71, 0.4);
+}
+
+/* ===== Buttons ===== */
 .login-popup-container button {
   border: none;
-  padding: 10px;
-  border-radius: 4px;
+  padding: 12px;
+  border-radius: 8px;
   color: white;
-  background-color: tomato;
+  background: linear-gradient(135deg, #ff6347, #ff8567);
   font-size: 15px;
-  cursor: pointer;
-}
-
-/* Forgot Password Buttons */
-.resend-otp-btn {
-  background-color: #f08080;
-  margin-top: -10px;
-  font-size: 13px;
-  padding: 8px;
-}
-
-.login-popup-condition {
-  display: flex;
-  align-items: start;
-  gap: 8px;
-  margin-top: -15px;
-}
-
-.login-popup-condition input {
-  margin-top: 5px;
-}
-
-.LoginPopup p span {
-  color: tomato;
   font-weight: 500;
   cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.login-popup-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 99, 71, 0.4);
+}
+
+/* ===== Forgot Password ===== */
 .forgot-password-link {
   font-weight: 500;
-  margin-top: -15px;
-  text-align: right;
   font-size: 14px;
-  color: tomato;
+  color: #ff8567;
   cursor: pointer;
-  text-decoration: none;
+  text-align: right;
+  transition: color 0.2s;
+}
+.forgot-password-link:hover {
+  color: #ff9a82;
 }
 
+/* ===== OTP ===== */
 .otp-container {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   justify-content: center;
 }
 
 .otp-container input {
-  width: 35px;
-  height: 40px;
+  width: 40px;
+  height: 45px;
   text-align: center;
   font-size: 18px;
-  border: 1px solid #c9c9c9;
-  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  transition: border 0.2s;
+}
+.otp-container input:focus {
+  border-color: #ff6347;
 }
 
+/* OTP Resend */
 .resend-otp-btn {
-  background-color: #f08080;
+  background: linear-gradient(135deg, #f08080, #f4978e);
   font-size: 14px;
-  padding: 8px;
+  padding: 9px;
+  border-radius: 6px;
   margin-top: 5px;
   cursor: pointer;
+  transition: opacity 0.3s;
 }
-
 .resend-otp-btn.disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.password-strength-checker p {
+/* ===== Password Checker ===== */
+.password-checker-box {
+  /*background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 12px;*/
   font-size: 0.9em;
+  color: #eee;
+}
+
+.password-strength-checker p {
   margin: 5px 0;
   display: flex;
   align-items: center;
 }
 
 .password-strength-checker .valid {
-  color: green;
+  color: #4caf50;
 }
 
 .password-strength-checker .invalid {
-  color: red;
+  color: #ff5252;
 }
 
-.password-checker-box {
-  background-color: #f7f7f7; /* Light gray background */
-  border: 1px solid #ddd;    /* Light gray border */
-  border-radius: 8px;        /* Rounded corners */
-  padding: 10px;             /* Spacing inside the box */
-  margin-top: 3px;          /* Space between input and box */
+.password-match-checker .valid{
+  color: #4caf50;
+}
+
+.password-match-checker .invalid{
+  color: #ff5252
+}
+
+/* ===== Terms Condition ===== */
+.login-popup-condition {
+  display: flex;
+  align-items: start;
+  gap: 8px;
+  font-size: 13px;
+  color: #ddd;
+}
+
+.login-popup-condition p {
+  color: #ddd;
+}
+
+/* ===== Switch Text (Login <-> Signup) ===== */
+.LoginPopup p span {
+  color: #ff8567;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.LoginPopup p span:hover {
+  color: #ff9a82;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* ===== Password Input Container ===== */
+.password-input-container {
+  width: 100%;
+  position: relative;
+}
+
+.password-input-container input {
+   width: 100%;
+  padding-right: 45px !important;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle-btn svg {
+  width: 18px;
+  height: 18px;
 }

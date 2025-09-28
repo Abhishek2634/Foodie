@@ -401,7 +401,7 @@ body {
     background: var(--accent-color);
     color: #fff;
     border: none;
-    padding: 0.3rem 0.4rem;
+    padding: 8px 6px;
     border-radius: 8px;
     gap: 0.1rem;
     font-size: 12px; 
@@ -434,7 +434,7 @@ body {
   .theme-toggle, .icon-button { width: 34px; height: 34px; padding: 8px;}
   .signin-button { 
     font-size: 12px; 
-    padding: 7px 9px;
+    padding: 8px 6px;
   }
 
   .navbar-menu-mobile {

@@ -52,9 +52,14 @@ const FoodItem = ({ id, name, price, description, image, isShared = false }) => 
             </button>
           ) : (
             <div className="food-item-counter">
-              <button onClick={() => removeFromCart(id)}>-</button>
+              <button
+                onClick={() => removeFromCart(id)}
+              >-</button>
               <p>{cartItems[id]}</p>
-              <button onClick={() => addToCart(id)}>+</button>
+              <button
+                onClick={() => addToCart(id)}
+                disabled={cartItems[id] >= 20}
+              >+</button>
             </div>
           )}
         </div>
@@ -64,22 +69,22 @@ const FoodItem = ({ id, name, price, description, image, isShared = false }) => 
       <div className="food-item-info">
         {/* ✅ Heart + Name */}
         <div className="food-item-header">
-  <p className="food-item-name">{name}</p>
-  <button
-    className={`wishlist-inline-btn ${isWishlisted ? "active" : ""}`}
-    onClick={toggleWishlist}
-    aria-label="Add to Wishlist"
-  >
-    <Heart
-      size={20}
-      color={isWishlisted ? "#ff4d6d" : "#888"}
-      fill={isWishlisted ? "#ff4d6d" : "none"}
-    />
-  </button>
-</div>
-<div className="food-item-rating">
-  <img src={assets.rating_starts} alt="Rating" width={70} />
-</div>
+          <p className="food-item-name">{name}</p>
+          <button
+            className={`wishlist-inline-btn ${isWishlisted ? "active" : ""}`}
+            onClick={toggleWishlist}
+            aria-label="Add to Wishlist"
+          >
+            <Heart
+              size={20}
+              color={isWishlisted ? "#ff4d6d" : "#888"}
+              fill={isWishlisted ? "#ff4d6d" : "none"}
+            />
+          </button>
+        </div>
+        <div className="food-item-rating">
+          <img src={assets.rating_starts} alt="Rating" width={70} />
+        </div>
 
 
         {/* ✅ Description */}

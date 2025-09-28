@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Star } from "lucide-react";
+import { IconButton } from '@mui/material';
+import { MdDeleteOutline } from "react-icons/md";
 
 const RestaurantDetail = () => {
   const { id } = useParams();
@@ -64,11 +66,11 @@ const RestaurantDetail = () => {
     );
   }
 
-  const sampleReviews = [
+  const [sampleReviews, setSampleReviews] = useState([
     { id: 1, username: "JaneDoe", rating: 5, comment: "Amazing food and cozy atmosphere!" },
     { id: 2, username: "FoodLover99", rating: 4, comment: "Great taste but a bit slow service." },
     { id: 3, username: "ChefMaster", rating: 3, comment: "Decent flavors, but could be better." },
-  ];
+  ]);
 
   const [showReviews, setShowReviews] = useState(false);
 
@@ -93,25 +95,30 @@ const RestaurantDetail = () => {
     return stars;
   };
 
+  const handleDeleteReview = (id) => {
+    setSampleReviews((prev) => prev.filter((r) => r.id !== id))
+  }
+
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto", padding: "1rem" }}>
-      <button 
+      <button
         onClick={() => navigate("/restaurants")}
-         style={{
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-    backgroundColor: "#3b82f6",
-    border: "none",
-    borderRadius: "8px",
-    padding: "0.5rem 1rem",
-    color: "white",
-    fontSize: "1rem",
-    fontWeight: "500",
-    boxShadow: "0 4px 6px rgba(59, 130, 246, 0.3)",
-    cursor: "pointer",
-    transition: "all 0.3s ease",
-  }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          backgroundColor: "#3b82f6",
+          border: "none",
+          borderRadius: "8px",
+          padding: "0.5rem 1rem",
+          color: "white",
+          fontSize: "1rem",
+          fontWeight: "500",
+          boxShadow: "0 4px 6px rgba(59, 130, 246, 0.3)",
+          cursor: "pointer",
+          transition: "all 0.3s ease",
+          marginBottom: "0.8rem",
+        }}
       >
         Back to Restaurants
       </button>
@@ -173,6 +180,12 @@ const RestaurantDetail = () => {
                 <span>{review.rating}</span>
               </div>
               <p>{review.comment}</p>
+              <IconButton
+                style={{ float: "right", marginTop: "-3vmax" }}
+                onClick={() => handleDeleteReview(review.id)}
+                >
+                <MdDeleteOutline />
+              </IconButton>
             </div>
           ))}
         </div>

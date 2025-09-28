@@ -13,6 +13,7 @@ import FacebookIcon from '../Icons/FacebookIcon';
 import TwitterIcon from '../Icons/TwitterIcon';
 import LinkedInIcon from '../Icons/LinkedInIcon';
 import GithubIcon from '../Icons/GithubIcon';
+import FooterLogo from './FooterLogo';
 
 const Footer = () => {
   return (
@@ -21,7 +22,8 @@ const Footer = () => {
         
         {/* Left side (logo + description + social) */}
         <div className="footer-content-left">
-          <img src={assets.foodie_icon} alt="Foodie Logo" />
+          {/* <img src={assets.foodie_icon} alt="Foodie Logo" /> */}
+          <FooterLogo />
           <p>
             Enjoy delicious food from your favorite restaurants.  
             Fast delivery, easy to use, and always satisfying.  

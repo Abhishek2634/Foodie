@@ -1,4 +1,9 @@
 /* List.css */
+.list-table{
+     max-width:90%;
+    width:60vw;
+    margin-left: 5vmax;
+}
 
 .list.add.flex-col {
     width: 70%;

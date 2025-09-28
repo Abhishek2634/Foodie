@@ -122,6 +122,11 @@
   font-size: 16px;
   transition: background 0.2s;
 }
+.cart-quantity-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 
 .cart-quantity-controls button:hover {
   background-color: darkorange;

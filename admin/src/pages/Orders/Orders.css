@@ -1,0 +1,49 @@
+
+.order-table{
+    max-width:90%;
+    width:60vw;
+    margin-left: 5vmax;
+    margin-top: 1vmax
+}
+.order-heading{
+    background-color: rgba(228, 223, 223, 1);
+}
+.order-heading, .order-content{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding:1vmax;
+    border:1px solid rgb(202, 201, 201);
+}
+.icon{
+    cursor:pointer;
+    transition: all 0.4s;
+}
+.icon:hover{
+    color: tomato
+}
+.pagination{
+    margin-inline: 25vmax;
+    margin-top: 2vmax;
+    display: flex
+}
+.active{
+padding: 0.5vmax;
+padding-inline: 1vmax;
+outline: none;
+cursor: pointer;
+transition: all 0.4s;
+border: 1px solid grey;
+}
+.prev, .next{
+padding: 0.5vmax;
+padding-inline: 1vmax;
+background-color: black;
+color: white;
+outline: none;
+border:none;
+cursor: pointer;
+transition: all 0.4s;
+}
+.prev:hover, .next:hover{
+    background-color: rgba(49, 49, 49, 1)
+}

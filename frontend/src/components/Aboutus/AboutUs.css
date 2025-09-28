@@ -72,8 +72,13 @@
 }
 
 @keyframes marquee {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 /* Sections */
@@ -82,6 +87,8 @@
   border-radius: 15px;
   margin-bottom: 30px;
   transition: background 0.3s, border 0.3s;
+  display: flex;
+  flex-direction: column;
 }
 
 .about-container.light .section {
@@ -102,6 +109,7 @@
   font-weight: 600;
   position: relative;
   padding-bottom: 10px;
+  text-align: center;
 }
 
 .section-title::after {
@@ -118,14 +126,19 @@
 .about-text {
   font-size: 1.1rem;
   line-height: 1.8;
-  text-align: center;
+  text-align: justify;
   max-width: 800px;
-  margin: 0 auto;
+}
+
+p.about-text {
+  margin: 0;
 }
 
 /* Categories */
 .categories-list {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   margin-top: 30px;
@@ -140,15 +153,18 @@
   cursor: pointer;
   font-size: 1.1rem;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* keeps readable over gradients */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  /* keeps readable over gradients */
 }
 
 .about-container.light .category-card {
-  color: #222; /* dark text for light theme */
+  color: #222;
+  /* dark text for light theme */
 }
 
 .about-container.dark .category-card {
-  color: #fff; /* white text for dark theme */
+  color: #fff;
+  /* white text for dark theme */
 }
 
 .category-card:hover {
@@ -188,12 +204,15 @@
   color: #667eea;
 }
 
+
 /* Payment Section */
 .payment-section {
   text-align: center;
 }
 
+
 .payment-text {
+  margin: 0 auto !important;
   font-size: 1.2rem;
   padding: 20px;
   border-radius: 15px;
@@ -212,7 +231,31 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .about-title { font-size: 2rem; }
-  .section { padding: 25px; }
-  .categories-list { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .about-title {
+    font-size: 2rem;
+  }
+
+  .flow-diagram {
+    display: block;
+  }
+
+  .flow-arrow {
+    rotate: 90deg;
+    display: flex;
+    justify-content: center;
+  }
+
+  .section {
+    padding: 25px;
+  }
+
+  .section-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .categories-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
 }

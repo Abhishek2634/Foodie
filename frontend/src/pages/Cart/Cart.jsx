@@ -1,16 +1,29 @@
 import "./Cart.css";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { StoreContext } from "../../components/context/StoreContext";
+import AddressSection from "../../components/AddressSection/AddressSection.jsx"
 import { useNavigate, Link } from "react-router-dom";
 
 const Cart = () => {
+  const [checkoutBtnClicked, setCheckoutBtnClick] = useState(false);
   const { cartItems, food_list, removeFromCart, getTotalCartAmount, addToCart } = useContext(StoreContext);
   const navigate = useNavigate();
 
   // Check if cart is empty
   const isCartEmpty = getTotalCartAmount() === 0;
 
-  
+  const [promo,setPromo]=useState();
+  const [err,setErr] = useState();
+
+  const handlebtn=()=>{
+
+    if (!promo) {
+      setErr("Please enter a promo code");
+    } else {
+      setErr("");
+    }
+  };
+
   if (isCartEmpty) {
     return (
       <div className="cart">
@@ -70,7 +83,7 @@ const Cart = () => {
           }}>
             Start your food journey by adding some delicious items!
           </p>
-          <button 
+          <button
             onClick={() => navigate('/')}
             style={{
               border: 'none',
@@ -114,9 +127,14 @@ const Cart = () => {
                   <Link to={`/food/${item._id}`}>{item.name}</Link>
                   <p>${item.price}</p>
                   <div className="cart-quantity-controls">
-                    <button onClick={() => removeFromCart(item._id)}>-</button>
+                    <button
+                      onClick={() => removeFromCart(item._id)}
+                    >-</button>
                     <span>{cartItems[item._id]}</span>
-                    <button onClick={() => addToCart(item._id)}>+</button>
+                    <button
+                      onClick={() => addToCart(item._id)}
+                      disabled={cartItems[item._id] >= 20}   // disable plus if quantity goes above 20
+                    >+</button>
                   </div>
                   <p>${item.price * cartItems[item._id]}</p>
                 </div>
@@ -142,18 +160,25 @@ const Cart = () => {
           <hr />
           <div className="cart-total-details">
             <b><p>Total</p></b>
-            <b><p>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount()+2}</p></b>
+            <b><p>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}</p></b>
           </div>
-          <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>
+          {/*<button onClick={() => navigate('/order')}>PROCEED TO CHECKOUT</button>*/}
+          <button onClick={() => setCheckoutBtnClick(true)}>PROCEED TO CHECKOUT</button>
         </div>
         <div className="cart-promo-code">
           <div>
             <p>If you have a promo code, Enter it here</p>
             <div className="cart-promocode-input">
-              <input placeholder="Promo Code" type="text" />
-              <button>Submit</button>
+              <input placeholder="Promo Code" type="text" id="promo" onChange={(e)=>(setPromo(e.target.value))} />
+              <button onClick={()=>handlebtn()}>Submit</button>
             </div>
+            {err && <p id="promo-err" style={{color:'red'}}>{err}</p>}
           </div>
+
+          {checkoutBtnClicked && (<AddressSection />)
+            
+          }
+
         </div>
       </div>
     </div>
