@@ -379,4 +379,3 @@ export const getFavoriteFoods = async (req, res) => {
     res.status(500).json({ message: 'Error fetching favorite foods', error: error.message });
   }
 };
-
