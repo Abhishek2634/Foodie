@@ -70,6 +70,10 @@
 
 /* Form Styles */
 .feedback-form {
+  max-width: 600px;      
+  width: 80%;
+  min-width: 280px;   
+  margin-left: 15%;
   background: var(--bg-color, #ffffff);
   padding: 25px;
   border-radius: 16px;
@@ -168,12 +172,14 @@
 /* Button Group */
 .button-group {
   display: flex;
+  flex-direction: row;
   gap: 15px;
   align-items: stretch;
 }
 
 /* Submit Button */
 .submit-button {
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -184,7 +190,7 @@
   border: none;
   border-radius: 8px;
   color: white;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -196,6 +202,8 @@
   background: linear-gradient(135deg, #ff4f4f, #ff6b35);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+  color: rgb(70, 68, 68);
+  border: 1px solid rgb(188, 75, 4);
 }
 
 .submit-button:active {
@@ -208,6 +216,7 @@
 
 /* Cancel Button */
 .cancel-button {
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -218,7 +227,7 @@
   border: 2px solid var(--border-color);
   border-radius: 8px;
   color: var(--text-color);
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -272,7 +281,12 @@
   
   .submit-button,
   .cancel-button {
-    width: 100%;
+    width: 50%;
+    flex-direction: row;
+  }
+
+  .cancel-button {
+    margin-left: 25%;
   }
   
 }
