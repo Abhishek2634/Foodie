@@ -1,0 +1,74 @@
+
+.order-detail{
+    margin-top: 2vmax;
+    padding: 2vmax;
+    display: flex;
+    gap: 1vmax;
+}
+.my-order-details{
+    width: 60vw;
+    border: 1px solid rgba(234, 230, 230, 1);
+    border-radius: 10px;
+    background-color: rgba(250, 248, 248, 1);
+    padding: 2vmax;
+    padding-bottom: 4vmax
+}
+.my-order-detail-food-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+hr{
+    margin-top: 2vmax
+}
+b{
+   margin-inline: 24vmax;
+   position: absolute;
+   top: 17vmax;
+   border: 1px solid rgba(234, 230, 230, 1);
+   border-radius: 10px;
+   background-color:white;
+   padding: 1vmax
+}
+.my-order-address{
+    border: 1px solid rgba(234, 230, 230, 1);
+    border-radius: 10px;
+    background-color: rgba(250, 248, 248, 1);
+    width: 40vw;
+    padding: 2vmax;
+}
+.my-order-address-detail, .my-order-price-detail{
+    border: 1px solid rgba(234, 230, 230, 1);
+    border-radius: 10px;
+    background-color: white;
+    padding: 1vmax;
+    margin-top: 1vmax;
+    display: flex;
+    flex-direction: column;
+    gap: 2vmax;
+
+}
+.address, .price{
+    display:flex;
+    align-items: center;
+    gap: 1vmax;
+}
+.price{
+    justify-content: space-between
+}
+.invoice-btn{
+    border: 1px solid rgba(234, 230, 230, 1);
+    outline:none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-color: tomato;
+    color: white;
+    padding: 18px 32px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+}
+.invoice-btn:hover{
+     background-color: rgb(239, 17, 17);
+    transform: scale(1.05);
+    cursor:pointer
+}

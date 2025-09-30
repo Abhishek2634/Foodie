@@ -1,0 +1,116 @@
+.order-stepper {
+  position: relative;
+  padding-left: 56px; /* space for circles + track */
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  max-width: 720px;
+  margin: 20px;
+}
+
+/* Each row */
+.step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  position: relative;
+  padding-bottom: 28px; /* spacing between steps */
+}
+
+/* Circle */
+.circle {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border-radius: 50%;
+  background: #e6e6e6;
+  border: 3px solid #e6e6e6;
+  box-sizing: border-box;
+  z-index: 3; /* above track */
+  transition: background 300ms ease, border-color 300ms ease, transform 300ms ease;
+  position: relative;
+}
+
+/* inner green when completed */
+.circle.completed {
+  background: #22c55e;
+  border-color: #22c55e;
+}
+
+/* optional pulsing inner when active (before next is completed) */
+.inner-pulse {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.18);
+  z-index: -1;
+  animation: pulse 1200ms ease-out infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* The track (grey) - we position this with JS so top/left/height match circle centers */
+.track {
+  position: absolute;
+  width: 3px;
+  background: #e6e6e6;
+  z-index: 1;
+  border-radius: 2px;
+  left: 0px; /* adjusted by JS */
+  top: 0px;  /* adjusted by JS */
+  height: 0px;/* adjusted by JS */
+  transform-origin: top center;
+}
+
+/* The fill/progress that grows in height */
+.track-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 0; /* animated by JS */
+  background: #22c55e;
+  border-radius: 2px;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 360ms ease, transform 360ms ease;
+}
+
+.content.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.content h3 {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.content .date {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  margin-left: 10px;
+}
+
+.content p {
+  margin: 3px 0;
+  font-size: 14px;
+  color: #222;
+}
+
+.content small {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #777;
+}
