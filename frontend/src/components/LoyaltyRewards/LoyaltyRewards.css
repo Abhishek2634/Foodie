@@ -1,0 +1,276 @@
+/* Loyalty Rewards Component Styles */
+.loyalty-rewards {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.loyalty-rewards.light {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+}
+
+.loyalty-rewards.dark {
+  background: #2d2d2d;
+  border: 1px solid #404040;
+}
+
+/* Points Preview */
+.points-preview {
+  margin-bottom: 1rem;
+}
+
+.points-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+}
+
+.points-icon {
+  color: #ffd700;
+}
+
+.points-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.current-points {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.earning-points {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+/* Available Rewards */
+.available-rewards {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.loyalty-rewards.light .available-rewards {
+  border: 1px solid #dee2e6;
+}
+
+.loyalty-rewards.dark .available-rewards {
+  border: 1px solid #495057;
+}
+
+.rewards-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.loyalty-rewards.light .rewards-header {
+  background: white;
+}
+
+.loyalty-rewards.dark .rewards-header {
+  background: #333;
+}
+
+.rewards-header:hover {
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.rewards-header .gift-icon {
+  color: #ff6b6b;
+}
+
+.toggle-rewards {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.toggle-rewards:hover {
+  background: #ee5a24;
+}
+
+/* Rewards List */
+.rewards-list {
+  padding: 0.5rem;
+}
+
+.loyalty-rewards.light .rewards-list {
+  background: #f8f9fa;
+}
+
+.loyalty-rewards.dark .rewards-list {
+  background: #1a1a1a;
+}
+
+.reward-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.loyalty-rewards.light .reward-item {
+  background: white;
+}
+
+.loyalty-rewards.dark .reward-item {
+  background: #2d2d2d;
+}
+
+.reward-item:hover:not(.disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.reward-item.selected {
+  border-color: #4ecdc4;
+  background: rgba(78, 205, 196, 0.1);
+}
+
+.reward-item.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.reward-item .reward-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  flex-shrink: 0;
+}
+
+.reward-details {
+  flex: 1;
+}
+
+.reward-details h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.reward-details p {
+  margin: 0;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.reason-text {
+  display: block;
+  font-size: 0.75rem;
+  color: #dc3545;
+  font-style: italic;
+  margin-top: 0.25rem;
+}
+
+.apply-btn,
+.remove-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  min-width: 70px;
+}
+
+.apply-btn {
+  background: #4ecdc4;
+  color: white;
+}
+
+.apply-btn:hover:not(.disabled) {
+  background: #44a08d;
+  transform: translateY(-1px);
+}
+
+.apply-btn.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.remove-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.remove-btn:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+}
+
+/* Applied Reward */
+.applied-reward {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: rgba(78, 205, 196, 0.1);
+  border: 1px solid #4ecdc4;
+  color: #2c7a7b;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.applied-icon {
+  color: #4ecdc4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .loyalty-rewards {
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+  }
+  
+  .points-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .rewards-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .reward-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  
+  .reward-details {
+    text-align: center;
+  }
+}

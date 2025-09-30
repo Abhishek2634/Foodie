@@ -1,0 +1,627 @@
+/* ===================== */
+/* Rewards Page Styles   */
+/* ===================== */
+
+.rewards-page {
+  min-height: 100vh;
+  padding: 2rem 0;
+  transition: all 0.3s ease;
+  font-family: "Inter", sans-serif;
+}
+
+/* Light & Dark Backgrounds */
+.rewards-page.light {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #222;
+}
+
+.rewards-page.dark {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: #f5f5f5;
+}
+
+.rewards-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ===================== */
+/* Header Section        */
+/* ===================== */
+
+.rewards-header {
+  margin-bottom: 2rem;
+}
+
+.points-display {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+}
+
+.points-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.points-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 0.5rem;
+  color: #ffd700;
+}
+
+.points-count {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.points-info h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.points-info p {
+  margin: 0;
+  opacity: 0.95;
+  font-size: 1.1rem;
+}
+
+/* ===================== */
+/* Stats Section         */
+/* ===================== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.rewards-page.light .stat-card {
+  background: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.rewards-page.dark .stat-card {
+  background: #2b2b2b;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+  width: 32px;
+  height: 32px;
+  color: #ff6b6b;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: inherit;
+  opacity: 0.8;
+}
+
+/* ===================== */
+/* Tabs Navigation       */
+/* ===================== */
+
+.tab-navigation {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  padding: 0.5rem;
+}
+
+.rewards-page.light .tab-navigation {
+  background: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.rewards-page.dark .tab-navigation {
+  background: #2b2b2b;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.tab-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 500;
+  color: inherit;
+}
+
+.tab-button:hover {
+  background: rgba(255, 107, 107, 0.12);
+  color: #ff6b6b;
+}
+
+.tab-button.active {
+  background: #ff6b6b;
+  color: white;
+}
+
+/* ===================== */
+/* Rewards Grid          */
+/* ===================== */
+
+.tab-content {
+  margin-bottom: 2rem;
+}
+
+.tab-content h3 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.reward-card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.rewards-page.light .reward-card {
+  background: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.rewards-page.dark .reward-card {
+  background: #2b2b2b;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.reward-card:hover {
+  transform: translateY(-2px);
+  border-color: #ff6b6b;
+}
+
+.reward-card.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.reward-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.reward-info h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: inherit;
+}
+
+.reward-info p {
+  margin: 0 0 1rem 0;
+  font-size: 0.95rem;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.reward-cost {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  color: #ff6b6b !important;
+  font-weight: 600;
+}
+
+.redeem-btn {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: #ff6b6b;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.redeem-btn:hover:not(.disabled) {
+  background: #ee5a24;
+  transform: translateY(-1px);
+}
+
+.redeem-btn.disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+/* ===================== */
+/* Achievements Grid     */
+/* ===================== */
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.achievement-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.rewards-page.light .achievement-card {
+  background: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.rewards-page.dark .achievement-card {
+  background: #2b2b2b;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.achievement-card.unlocked {
+  border: 2px solid #4ecdc4;
+}
+
+.achievement-card.locked {
+  opacity: 0.6;
+}
+
+.achievement-icon {
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+}
+
+.achievement-emoji {
+  font-size: 1.5rem;
+}
+
+.achievement-info h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: inherit;
+}
+
+.achievement-info p {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.achievement-points {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #ffd700 !important;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.achievement-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.status-icon.unlocked {
+  color: #4ecdc4;
+}
+
+.status-icon.locked {
+  color: #aaa;
+}
+
+/* ===================== */
+/* History Section       */
+/* ===================== */
+
+.history-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.unused-rewards,
+.reward-history {
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.rewards-page.light .unused-rewards,
+.rewards-page.light .reward-history {
+  background: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.rewards-page.dark .unused-rewards,
+.rewards-page.dark .reward-history {
+  background: #2b2b2b;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.rewards-list,
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reward-item,
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.rewards-page.light .reward-item,
+.rewards-page.light .history-item {
+  background: #f8f9fa;
+}
+
+.rewards-page.dark .reward-item,
+.rewards-page.dark .history-item {
+  background: #3a3a3a;
+}
+
+.reward-item:hover,
+.history-item:hover {
+  transform: translateX(4px);
+}
+
+.reward-details h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+.reward-details p {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.9rem;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.reward-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.reward-status.active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.reward-status.used {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.no-rewards,
+.no-history {
+  text-align: center;
+  font-style: italic;
+  padding: 2rem;
+  opacity: 0.85;
+}
+
+/* ===================== */
+/* How it Works Section  */
+/* ===================== */
+
+.how-it-works {
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.rewards-page.light .how-it-works {
+  background: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.rewards-page.dark .how-it-works {
+  background: #2b2b2b;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.how-it-works h3 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.earning-methods {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.earning-method {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.rewards-page.light .earning-method {
+  background: #f8f9fa;
+}
+
+.rewards-page.dark .earning-method {
+  background: #3a3a3a;
+}
+
+.earning-method:hover {
+  transform: translateY(-2px);
+}
+
+.method-icon {
+  width: 32px;
+  height: 32px;
+  color: #ff6b6b;
+}
+
+.method-info h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+.method-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: inherit;
+  opacity: 0.85;
+}
+
+/* ===================== */
+/* Login / Loading       */
+/* ===================== */
+
+.login-required {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.login-icon {
+  color: #ff6b6b;
+  margin-bottom: 1rem;
+}
+
+.login-required h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.login-required p {
+  font-size: 1.1rem;
+  color: inherit;
+  opacity: 0.9;
+}
+
+.loading {
+  text-align: center;
+  padding: 4rem 2rem;
+  font-size: 1.2rem;
+  color: #ff6b6b;
+}
+
+/* ===================== */
+/* Responsive Design     */
+/* ===================== */
+
+@media (max-width: 768px) {
+  .rewards-container {
+    padding: 0 0.5rem;
+  }
+
+  .points-display {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tab-navigation {
+    flex-direction: column;
+  }
+
+  .rewards-grid,
+  .achievements-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .earning-methods {
+    grid-template-columns: 1fr;
+  }
+
+  .history-section {
+    gap: 1rem;
+  }
+}

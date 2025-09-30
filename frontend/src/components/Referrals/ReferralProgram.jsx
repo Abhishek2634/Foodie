@@ -74,7 +74,7 @@ const ReferralProgram = () => {
           <p>Referrals Pending</p>
         </div>
         <div className="stat-box">
-          <h3>₹500</h3>
+          <h3>$50</h3>
           <p>Rewards Earned</p>
         </div>
       </div>

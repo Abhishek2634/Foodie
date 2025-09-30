@@ -7,65 +7,114 @@ const generateToken = (id) => {
 };
 
 export const registerUser = async (req, res) => {
-  const { name, email, password } = req.body;
+  try {
+    const { name, email, password } = req.body;
 
-  // Check if user already exists
-  const userExists = await User.findOne({ email });
-  if (userExists) {
-    return res.status(400).json({ message: 'User already exists' });
+    // Validate required fields
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    // Check if user already exists
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create user with initial loyalty points and welcome achievement
+    const user = await User.create({ 
+      name, 
+      email, 
+      password: hashedPassword,
+      loyaltyPoints: 500,
+      totalPointsEarned: 500,
+      achievements: [{
+        id: 'welcome',
+        name: 'Welcome to Foodie!',
+        unlockedAt: new Date()
+      }]
+    });
+
+    // Generate JWT
+    const token = generateToken(user._id);
+
+    // Set JWT in secure, HTTP-only cookie
+    res.cookie('token', token, {
+      httpOnly: true,
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    res.status(201).json({
+      user: { 
+        _id: user._id, 
+        name: user.name, 
+        email: user.email,
+        loyaltyPoints: user.loyaltyPoints,
+        totalPointsEarned: user.totalPointsEarned,
+        achievements: user.achievements,
+        rewardHistory: user.rewardHistory
+      },
+      token: token,
+      message: 'Registration successful! Welcome bonus: 500 loyalty points added! 🎉',
+    });
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({ message: 'Server error during registration' });
   }
-
-  // Hash password
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  // Create user
-  const user = await User.create({ name, email, password: hashedPassword });
-
-  // Generate JWT
-  const token = generateToken(user._id);
-
-  // Set JWT in secure, HTTP-only cookie
-  res.cookie('token', token, {
-    httpOnly: true, // Prevent JS access (XSS protection)
-    sameSite: 'strict', // CSRF protection
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  });
-
-  res.status(201).json({
-    user: { _id: user._id, name: user.name, email: user.email },
-    message: 'Registration successful',
-  });
 };
 
 export const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  // Find user
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.status(401).json({ message: 'User not found' });
+    // Validate required fields
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    // Find user
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Compare password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Generate JWT
+    const token = generateToken(user._id);
+
+    // Set JWT in secure, HTTP-only cookie
+    res.cookie('token', token, {
+      httpOnly: true,
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.json({
+      user: { 
+        _id: user._id, 
+        name: user.name, 
+        email: user.email,
+        loyaltyPoints: user.loyaltyPoints || 0,
+        totalPointsEarned: user.totalPointsEarned || 0,
+        achievements: user.achievements || [],
+        rewardHistory: user.rewardHistory || []
+      },
+      token: token,
+      message: 'Login successful',
+    });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Server error during login' });
   }
-
-  // Compare password
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    return res.status(401).json({ message: 'Invalid password' });
-  }
-
-  // Generate JWT
-  const token = generateToken(user._id);
-
-  // Set JWT in secure, HTTP-only cookie
-  res.cookie('token', token, {
-    httpOnly: true,
-    sameSite: 'strict',
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
-
-  res.json({
-    user: { _id: user._id, name: user.name, email: user.email },
-    message: 'Login successful',
-  });
 };
 
 export const logoutUser = async (req, res) => {

@@ -15,6 +15,7 @@ const addFood = async (req, res) => {
       price: body.price,
       description: body.description,
       category: body.category,
+      foodType: body.foodType || 'main', // Default to 'main' if not provided
       restaurantId: body.restaurantId,
       image: req.file?.filename,
     });
@@ -52,5 +53,50 @@ const removeFood = async (req, res) => {
   }
 };
 
+// Get all available food types/categories
+const getFoodTypes = async (req, res) => {
+  try {
+    const foodTypes = ['appetizer', 'main', 'dessert', 'beverage', 'snack', 'side'];
+    res.status(200).json({ success: true, foodTypes });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// Get foods by food type
+const getFoodsByType = async (req, res) => {
+  try {
+    const { foodType } = req.params;
+    const { restaurantId } = req.query;
+    
+    let query = { foodType };
+    if (restaurantId) {
+      query.restaurantId = restaurantId;
+    }
+    
+    const foods = await Food.find(query).populate('restaurantId', 'name');
+    res.status(200).json({ success: true, foods });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// Get all foods with optional filtering
+const getAllFoods = async (req, res) => {
+  try {
+    const { foodType, category, restaurantId } = req.query;
+    let query = {};
+    
+    if (foodType) query.foodType = foodType;
+    if (category) query.category = category;
+    if (restaurantId) query.restaurantId = restaurantId;
+    
+    const foods = await Food.find(query).populate('restaurantId', 'name');
+    res.status(200).json({ success: true, foods });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 // ✅ Export all at once (no duplicates)
-export { addFood, getFoodByRestaurant, removeFood };
+export { addFood, getFoodByRestaurant, removeFood, getFoodTypes, getFoodsByType, getAllFoods };

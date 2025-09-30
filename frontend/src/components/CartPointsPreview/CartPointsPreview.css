@@ -1,0 +1,261 @@
+.cart-points-preview {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 15px 0;
+  color: white;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.cart-points-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+}
+
+.cart-points-preview > * {
+  position: relative;
+  z-index: 2;
+}
+
+.points-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.points-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.points-earning {
+  margin-bottom: 20px;
+}
+
+.earning-card {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.earning-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.earning-label {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.earning-points {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffd23f;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.points-calculation {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.current-rewards,
+.upcoming-rewards {
+  margin-bottom: 20px;
+}
+
+.current-rewards h4,
+.upcoming-rewards h4 {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.rewards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reward-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 12px;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  position: relative;
+}
+
+.reward-item.available {
+  border: 1px solid rgba(255, 215, 63, 0.5);
+  background: rgba(255, 215, 63, 0.15);
+}
+
+.reward-item.upcoming {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.reward-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.reward-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.reward-cost {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.unlock-badge {
+  background: #ff6b35;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.more-rewards {
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  font-style: italic;
+  padding: 8px;
+}
+
+.next-milestone {
+  margin-bottom: 20px;
+}
+
+.milestone-progress {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd23f, #ff6b35);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.points-summary {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.summary-row:last-child {
+  margin-bottom: 0;
+}
+
+.summary-row.total {
+  font-weight: 600;
+  font-size: 1rem;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffd23f;
+}
+
+.points-cta {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.points-cta p {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* Dark theme support */
+.cart-points-preview.dark {
+  background: linear-gradient(135deg, #2d1810 0%, #1a1a1a 100%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.cart-points-preview.dark::before {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .cart-points-preview {
+    padding: 15px;
+    margin: 10px 0;
+  }
+  
+  .earning-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .progress-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .summary-row {
+    font-size: 0.85rem;
+  }
+}

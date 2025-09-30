@@ -1,0 +1,374 @@
+/* ===== Overlay ===== */
+.rewards-promo-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1001;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.4s ease forwards;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ===== Popup Container ===== */
+.rewards-promo-popup {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: none;
+  border-radius: 0;
+  padding: 40px;
+  box-shadow: none;
+  animation: slideUp 0.5s ease forwards;
+  transition: all 0.3s ease;
+  color: white;
+  font-family: "Inter", sans-serif;
+  overflow-y: auto;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.rewards-promo-popup.dark {
+  background: rgba(30, 34, 46, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+}
+
+/* ===== Close Button ===== */
+.close-button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  color: #64748b;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 32px;
+  height: 32px;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(229, 231, 235, 0.8);
+  color: #374151;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark .close-button {
+  background: rgba(45, 55, 72, 0.9);
+  border: 1px solid rgba(75, 85, 99, 0.5);
+  color: #a0aec0;
+}
+
+.dark .close-button:hover {
+  background: rgba(45, 55, 72, 1);
+  border-color: rgba(75, 85, 99, 0.8);
+  color: #e2e8f0;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Header ===== */
+.promo-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.promo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  background: linear-gradient(135deg, #ff6347, #ff7a59);
+  border-radius: 50%;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 16px rgba(255, 99, 71, 0.35);
+}
+
+.promo-icon svg {
+  color: #fff;
+  stroke: #fff;
+  width: 32px;
+  height: 32px;
+}
+
+/* Dark theme: use a golden/yellow stroke for better contrast */
+.dark .promo-icon {
+  background: linear-gradient(135deg, #ffb347, #ffcc33);
+  box-shadow: 0 6px 16px rgba(255, 204, 51, 0.3);
+}
+
+.dark .promo-icon svg {
+  color: #1a202c;   /* dark gray/near black */
+  stroke: #1a202c;
+}
+
+.promo-header h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Points Display ===== */
+.points-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(255, 99, 71, 0.08), rgba(255, 122, 89, 0.08));
+  border-radius: 12px;
+  border: 1px solid rgba(255, 99, 71, 0.2);
+}
+
+.dark .points-display {
+  background: linear-gradient(135deg, rgba(255, 99, 71, 0.12), rgba(255, 122, 89, 0.12));
+  border-color: rgba(255, 99, 71, 0.25);
+}
+
+.points-icon {
+  color: #ffffff; /* gold for visibility */
+  stroke: #ffffff;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Dark mode tweak */
+.dark .points-icon {
+  color: #ffeb3b; /* brighter yellow */
+  stroke: #ffeb3b;
+}
+
+
+.points-count {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.points-label,
+.points-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dark .points-label,
+.dark .points-text {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ===== Rewards Preview ===== */
+.rewards-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.reward-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  border-radius: 10px;
+  font-size: 0.92rem;
+  transition: all 0.2s ease;
+}
+
+.reward-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.dark .reward-item {
+  background: rgba(45, 55, 72, 0.6);
+  border: 1px solid rgba(75, 85, 99, 0.6);
+}
+
+.reward-item svg {
+  color: white;
+}
+
+.reward-item span:nth-child(2) {
+  flex: 1;
+  font-weight: 500;
+  color: white;
+}
+
+.cost {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* ===== Description ===== */
+.promo-description {
+  text-align: center;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+.dark .promo-description {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ===== Actions ===== */
+.promo-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.explore-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ff6347, #ff7a59);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(255, 99, 71, 0.3);
+}
+
+.explore-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 99, 71, 0.4);
+}
+
+.maybe-later-btn {
+  background: none;
+  border: 1px solid #d1d5db;
+  color: #64748b;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.maybe-later-btn:hover {
+  background: rgba(100, 116, 139, 0.05);
+  border-color: #9ca3af;
+  color: #374151;
+}
+
+.dark .maybe-later-btn {
+  border-color: #4b5563;
+  color: #a0aec0;
+}
+
+.dark .maybe-later-btn:hover {
+  background: rgba(156, 163, 175, 0.08);
+  border-color: #6b7280;
+  color: #e2e8f0;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+  .rewards-promo-overlay {
+    padding: 0;
+  }
+
+  .rewards-promo-popup {
+    width: 100vw;
+    height: 100vh;
+    padding: 30px 20px;
+    border-radius: 0;
+  }
+
+  .promo-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .points-count {
+    font-size: 1.5rem;
+  }
+
+  .promo-actions {
+    flex-direction: column;
+  }
+
+  .explore-btn,
+  .maybe-later-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .close-button {
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+  }
+}
+
+@media (max-height: 600px) {
+  .rewards-promo-overlay {
+    padding: 0;
+  }
+
+  .rewards-promo-popup {
+    height: 100vh;
+    padding: 20px;
+  }
+}

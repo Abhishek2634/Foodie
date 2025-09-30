@@ -2,6 +2,7 @@ import "./Cart.css";
 import React, { useContext, useState } from "react";
 import { StoreContext } from "../../components/context/StoreContext";
 import AddressSection from "../../components/AddressSection/AddressSection.jsx"
+import CartPointsPreview from "../../components/CartPointsPreview/CartPointsPreview.jsx";
 import { useNavigate, Link } from "react-router-dom";
 
 const Cart = () => {
@@ -146,6 +147,7 @@ const Cart = () => {
         })}
       </div>
       <div className="cart-bottom">
+        <CartPointsPreview cartTotal={getTotalCartAmount()} />
         <div className="cart-total">
           <h2>Cart Totals</h2>
           <div className="cart-total-details">

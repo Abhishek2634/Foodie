@@ -4,6 +4,7 @@ import "./Home.css";
 import Header from "../../components/Header/Header";
 import ExploreMenu from "../../components/ExploreMenu/ExploreMenu";
 import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
+import RewardsPromoPopup from "../../components/RewardsPromoPopup/RewardsPromoPopup";
 import { use } from "react";
 
 const Home = () => {
@@ -44,6 +45,7 @@ const Home = () => {
   return (
     <div className="home-page">
       <Header />
+      <RewardsPromoPopup />
       <ExploreMenu category={category} setCategory={setCategory} />
       <FoodDisplay category={category} />
     </div>
