@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:analyze": "vite build --mode analyze",
+    "preview": "vite preview",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "analyze": "npm run build"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -38,6 +40,23 @@
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
-    "globals": "^15.9.0"
-  }
+    "globals": "^15.9.0",
+    "react-image-webp": "^0.8.0",
+    "react-intersection-observer": "^9.16.0",
+    "rollup-plugin-visualizer": "^6.0.3",
+    "vite-bundle-analyzer": "^1.2.3",
+    "web-vitals": "^5.1.0"
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/assets/*.js",
+      "maxSize": "500kb",
+      "compression": "gzip"
+    },
+    {
+      "path": "./dist/assets/*.css",
+      "maxSize": "50kb",
+      "compression": "gzip"
+    }
+  ]
 }

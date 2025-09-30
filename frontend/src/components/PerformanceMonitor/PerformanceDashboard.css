@@ -1,0 +1,399 @@
+.performance-dashboard {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 400px;
+  max-height: 600px;
+  background: #1a1a1a;
+  color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-size: 12px;
+  overflow: hidden;
+  z-index: 10000;
+  border: 1px solid #333;
+}
+
+.perf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  border-radius: 12px 12px 0 0;
+}
+
+.perf-header h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.perf-close {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.perf-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.perf-tabs {
+  display: flex;
+  background: #2a2a2a;
+  border-bottom: 1px solid #333;
+}
+
+.perf-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #888;
+  padding: 10px 8px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.2s;
+  border-bottom: 2px solid transparent;
+}
+
+.perf-tab:hover {
+  color: #ccc;
+  background: #333;
+}
+
+.perf-tab.active {
+  color: #ff6b35;
+  border-bottom-color: #ff6b35;
+  background: #1a1a1a;
+}
+
+.perf-tab-content {
+  padding: 16px;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.perf-tab-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.perf-tab-content::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+.perf-tab-content::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 2px;
+}
+
+/* Performance Score Card */
+.perf-score-card {
+  text-align: center;
+  padding: 16px;
+  background: #2a2a2a;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.perf-score-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  color: #aaa;
+  font-weight: 500;
+}
+
+.perf-score {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Metrics Grid */
+.perf-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.perf-metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #2a2a2a;
+  border-radius: 6px;
+  border-left: 3px solid #555;
+}
+
+.metric-label {
+  color: #aaa;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-value {
+  font-weight: 600;
+  font-size: 11px;
+}
+
+/* Memory and Connection Cards */
+.perf-memory-card,
+.perf-connection-card {
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.perf-memory-card h4,
+.perf-connection-card h4 {
+  margin: 0 0 8px 0;
+  font-size: 11px;
+  color: #ff6b35;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.memory-info,
+.connection-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.memory-item,
+.connection-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+}
+
+.memory-item span:first-child,
+.connection-item span:first-child {
+  color: #aaa;
+}
+
+.memory-item span:last-child,
+.connection-item span:last-child {
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Insights */
+.perf-insights {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.insight {
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid;
+}
+
+.insight-error {
+  background: #2d1b1b;
+  border-left-color: #ef4444;
+}
+
+.insight-warning {
+  background: #2d2619;
+  border-left-color: #f59e0b;
+}
+
+.insight-info {
+  background: #1b2d2d;
+  border-left-color: #06b6d4;
+}
+
+.insight-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.insight-metric {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #ff6b35;
+  letter-spacing: 0.5px;
+}
+
+.insight-value {
+  font-size: 10px;
+  font-weight: 500;
+  color: #aaa;
+}
+
+.insight-message {
+  margin: 0 0 6px 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #ccc;
+}
+
+.insight-recommendation {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.3;
+  color: #888;
+  font-style: italic;
+}
+
+.no-insights {
+  text-align: center;
+  padding: 24px;
+  color: #22c55e;
+}
+
+.no-insights p {
+  margin: 0;
+  font-size: 12px;
+}
+
+/* Footer */
+.perf-footer {
+  padding: 8px 16px;
+  background: #2a2a2a;
+  border-top: 1px solid #333;
+  text-align: center;
+}
+
+.perf-footer small {
+  color: #666;
+  font-size: 9px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .performance-dashboard {
+    width: calc(100vw - 40px);
+    max-width: 360px;
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .perf-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Light theme support */
+@media (prefers-color-scheme: light) {
+  .performance-dashboard {
+    background: #ffffff;
+    color: #1a1a1a;
+    border-color: #e0e0e0;
+  }
+  
+  .perf-tabs {
+    background: #f5f5f5;
+    border-bottom-color: #e0e0e0;
+  }
+  
+  .perf-tab {
+    color: #666;
+  }
+  
+  .perf-tab:hover {
+    color: #333;
+    background: #e0e0e0;
+  }
+  
+  .perf-tab.active {
+    background: #ffffff;
+  }
+  
+  .perf-score-card,
+  .perf-metric,
+  .perf-memory-card,
+  .perf-connection-card {
+    background: #f8f8f8;
+  }
+  
+  .perf-metric {
+    border-left-color: #ddd;
+  }
+  
+  .metric-label {
+    color: #666;
+  }
+  
+  .memory-item span:first-child,
+  .connection-item span:first-child {
+    color: #666;
+  }
+  
+  .memory-item span:last-child,
+  .connection-item span:last-child {
+    color: #1a1a1a;
+  }
+  
+  .insight-error {
+    background: #fef2f2;
+  }
+  
+  .insight-warning {
+    background: #fffbeb;
+  }
+  
+  .insight-info {
+    background: #f0fdff;
+  }
+  
+  .insight-message {
+    color: #374151;
+  }
+  
+  .insight-recommendation {
+    color: #6b7280;
+  }
+  
+  .perf-footer {
+    background: #f5f5f5;
+    border-top-color: #e0e0e0;
+  }
+  
+  .perf-tab-content::-webkit-scrollbar-track {
+    background: #f5f5f5;
+  }
+  
+  .perf-tab-content::-webkit-scrollbar-thumb {
+    background: #ccc;
+  }
+}
+
+/* Animation for showing/hiding */
+.performance-dashboard {
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
