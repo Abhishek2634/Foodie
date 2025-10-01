@@ -1,13 +1,13 @@
+// LoginPopup.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import './LoginPopup.css';
 import { assets } from '../../assets/frontend_assets/assets';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import apiRequest from "../../lib/apiRequest";
-import { EyeIcon,EyeOffIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
-
-const LoginPopup = ({ setShowLogin }) => {
+const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
   const [currState, setCurrState] = useState("Sign Up");
   const [forgotFlow, setForgotFlow] = useState(false);
   const [stage, setStage] = useState(1);
@@ -16,10 +16,10 @@ const LoginPopup = ({ setShowLogin }) => {
   const [timer, setTimer] = useState(60);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [showPassword,setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showLoginPassword, setShowLoginPassword] = useState(false);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const [password, setPassword] = useState('');
   const [passwordStrength, setPasswordStrength] = useState({
@@ -36,7 +36,6 @@ const LoginPopup = ({ setShowLogin }) => {
   const [showPasswordChecker, setShowPasswordChecker] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [confirmFocused, setConfirmFocused] = useState(false);
-  const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
 
   const popupRef = useRef();
   const otpRefs = useRef([]);
@@ -112,8 +111,6 @@ const LoginPopup = ({ setShowLogin }) => {
     setPasswordMatch(password === signUpConfirmPassword && signUpConfirmPassword !== '');
   }, [password, signUpConfirmPassword]);
 
-
-
   const handleSendOTP = (e) => {
     e.preventDefault();
     if (!email) return toast.error("Enter email");
@@ -132,13 +129,14 @@ const LoginPopup = ({ setShowLogin }) => {
   const handleResetPassword = (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) return toast.error("Passwords do not match");
-      toast.success("Password reset successfully!");
-      setForgotFlow(false);
-      setStage(1);
-      setOtp(Array(6).fill(""));
-      setCurrState("Login");
-    };
-    const handleSubmit = async (e) => {
+    toast.success("Password reset successfully!");
+    setForgotFlow(false);
+    setStage(1);
+    setOtp(Array(6).fill(""));
+    setCurrState("Login");
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -148,8 +146,8 @@ const LoginPopup = ({ setShowLogin }) => {
     const confirmPassword = formData.get("confirmPassword");
 
     if (!email || !password || (currState === "Sign Up" && !name)) {
-        return toast.error("Please fill all fields");
-      }
+      return toast.error("Please fill all fields");
+    }
 
     if (currState === "Sign Up" && password !== confirmPassword) {
       return toast.error("Passwords do not match");
@@ -159,27 +157,39 @@ const LoginPopup = ({ setShowLogin }) => {
       currState === "Sign Up" ? "/api/auth/register" : "/api/auth/login";
 
     try {
-        const { data } = await apiRequest.post(endpoint, { name, email, password });
+      const response = await apiRequest.post(endpoint, { name, email, password });
+      const data = response.data;
 
-      toast.success(`${currState} successful!`);
+      if (data.success) {
+        toast.success(data.message);
 
-      // Store user info and auth token locally
-      localStorage.setItem("user", JSON.stringify(data.user));
-      if (data.token) {
-        localStorage.setItem("authToken", data.token);
+        // Store user info and auth token locally
+        localStorage.setItem("user", JSON.stringify(data.user));
+        if (data.token) {
+          localStorage.setItem("authToken", data.token);
+        } else {
+          localStorage.setItem("authToken", "authenticated"); // fallback
+        }
+
+        // Update authentication state in parent component
+        if (setIsLoggedIn) {
+          setIsLoggedIn(true);
+        }
+
+        setShowLogin(false);
+
+        // Navigate to home page
+        navigate("/");
+        window.location.reload();
+      } else {
+        toast.error(data.message || `${currState} failed. Please try again.`);
       }
-
-      setShowLogin(false);
-      window.location.reload();
     } catch (err) {
-      const message =
-        err.response?.data?.message || `${currState} failed. Please try again.`;
+      const message = err.response?.data?.message || `${currState} failed. Please try again.`;
       toast.error(message);
       console.error(err);
     }
   };
-
-
 
   return (
     <div className='LoginPopup'>
@@ -220,11 +230,11 @@ const LoginPopup = ({ setShowLogin }) => {
                     className="password-toggle-btn"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    {showPassword ? <EyeOffIcon size={20} /> : <EyeIcon size={20} />}
+                    {showPassword ? <EyeOffIcon size={20} color='white'/> : <EyeIcon size={20} color='white'/>}
                   </span>
                 </div>
               )}
-              
+
               {currState === "Sign Up" && (
                 <div className="password-input-container">
                   <input
@@ -247,11 +257,11 @@ const LoginPopup = ({ setShowLogin }) => {
                     className="password-toggle-btn"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   >
-                    {showConfirmPassword ? <EyeOffIcon size={20} /> : <EyeIcon size={20} />}
+                    {showConfirmPassword ? <EyeOffIcon size={20} color='white'/> : <EyeIcon size={20} color='white' />}
                   </span>
                 </div>
               )}
-              
+
               {currState === "Sign Up" && showPasswordChecker && (
                 <div className="password-checker-box">
                   {passwordFocused && (
@@ -306,7 +316,7 @@ const LoginPopup = ({ setShowLogin }) => {
                   </span>
                 </div>
               )}
-              
+
               <button type="submit">{currState === 'Sign Up' ? "Create Account" : "Login"}</button>
               {currState === "Login" && (
                 <p className="forgot-password-link" onClick={() => {
@@ -384,9 +394,9 @@ const LoginPopup = ({ setShowLogin }) => {
 
         {!forgotFlow && (
           currState === "Login" ? (
-            <p style={{color: '#ddd'}}>Create a new account? <span onClick={() => setCurrState("Sign Up")}>Click Here</span></p>
+            <p style={{ color: '#ddd' }}>Create a new account? <span onClick={() => setCurrState("Sign Up")}>Click Here</span></p>
           ) : (
-            <p style={{color: '#ddd'}}>Already have an account? <span onClick={() => setCurrState("Login")}>Login Here</span></p>
+            <p style={{ color: '#ddd' }}>Already have an account? <span onClick={() => setCurrState("Login")}>Login Here</span></p>
           )
         )}
       </form>

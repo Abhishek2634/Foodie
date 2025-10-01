@@ -21,7 +21,7 @@ import {
   CircleDollarSign,
 } from "lucide-react";
 
-const Navbar = ({ setShowLogin }) => {
+const Navbar = ({ setShowLogin, setIsLoggedIn }) => {
   const [menu, setMenu] = useState("home");
   const { cartItems, wishlistItems, toggleWishlist, getTotalCartAmount } =
     useContext(StoreContext);
@@ -36,6 +36,17 @@ const Navbar = ({ setShowLogin }) => {
     setUser(storedUser);
   }, []);
 
+  // Listen for storage changes to update user state
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      setUser(storedUser);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
   const handleNavMenuClick = (menuName, id) => {
     setMenu(menuName);
       if (location.pathname !== "/") {
@@ -46,10 +57,27 @@ const Navbar = ({ setShowLogin }) => {
       }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      // Call logout endpoint to clear HTTP-only cookie
+      await fetch("http://localhost:4000/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+    
+    // Clear local storage
     localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    localStorage.removeItem("authToken");
     setUser(null);
+    
+    // Update authentication state in parent component
+    if (setIsLoggedIn) {
+        setIsLoggedIn(false);
+    }
+    
     window.location.reload();
   };
   

@@ -9,7 +9,7 @@ html, body {
 
 .contact-container {
   max-width: 900px;
-  margin: 3rem auto;
+  margin: 8rem auto 4rem; /* Top 8rem, Bottom 4rem */
   padding: 3rem 2rem;
   background: #fff3e0;
   border-radius: 20px;
