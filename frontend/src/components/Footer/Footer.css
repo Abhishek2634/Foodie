@@ -1,15 +1,12 @@
 .footer{
     color: #d9d9d9;
-    background-color: #323232;
+    background-color: #1c1410;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
     padding: 20px 8vw;
-    padding-top: 80px;
-    margin-top: 100px;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+    padding-top: 50px;
 }
 
 .footer-content{
@@ -24,7 +21,7 @@
     flex-direction: column;
     align-items: start;
     gap: 20px;
-
+    color: rgb(233, 207, 207);
 }
 
 .footer-content-left li, .footer-content-right li, .footer-content-center li{
@@ -32,21 +29,100 @@
     margin-bottom: 10px;
     cursor: pointer;
     margin-left: 3px;
+    color: rgb(233, 207, 207);
 }
 
-.footer-content-right h2, .footer-content-center h2{
+.footer-content-left img {
+    width: 100px;
+    height: auto;
+    border-radius: 12px;
+}
+
+.footer-content-center ul li,.footer-content-right ul li{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.75rem;
+}
+
+.footer-content-center ul li:hover .icon,
+.footer-content-center ul li:hover span,
+.footer-content-right ul li:hover .icon,
+.footer-content-right ul li:hover span{
+    color: rgb(243, 113, 38);
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+.footer-content-center ul li span,.footer-content-right ul li span{
+    color: White;
+}
+
+.text{
+    position: relative;
+    display: inline-block;
     color: white;
 }
 
-.footer-social-icons img{
-    width: 40px;
-    margin-right: 15px;
-    cursor: pointer;
-    transition: 0.5s;
+.text::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 3px;
+    background-color: rgb(243, 113, 38);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
 }
 
-.footer-social-icons img:hover{
-    opacity: 0.6;
+.text:hover::after{
+    transform: scaleX(1);
+}
+
+.text:hover{
+    -webkit-text-fill-color: rgb(243, 113, 38);
+}
+
+/* Social Media Icons - Consistent styling for all icons */
+.footer-social-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-social-icons a {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.footer-social-icons a:hover {
+    background-color: rgb(243, 113, 38);
+    border-color: rgb(243, 113, 38);
+    transform: scale(1.1);
+}
+
+.footer-social-icons a svg {
+    width: 24px !important;
+    height: 24px !important;
+    fill: #fff !important;
+    transition: all 0.3s ease;
+}
+
+.footer-social-icons a:hover svg {
+    fill: #fff !important;
 }
 
 .footer hr{
@@ -55,6 +131,10 @@
     margin: 20px 0px;
     background-color: grey;
     border: none;
+}
+
+.footer p {
+    color: rgb(233, 207, 207);
 }
 
 @media (max-width:750px){
@@ -66,4 +146,25 @@
     .footer-copyright{
         text-align: center;
     }
+}
+
+.nav-link {
+    display: flex;           
+    align-items: center;    
+    gap: 8px;                
+    text-decoration: none;  
+    color: inherit;          
+}
+  
+.logo-head {
+    fill: #c14f21;
+    transition: 0.3s;
+}
+
+.logo-head:hover {
+    fill: rgb(243, 113, 38);
+}
+
+.logo-text {
+    fill: rgb(243, 113, 38);
 }

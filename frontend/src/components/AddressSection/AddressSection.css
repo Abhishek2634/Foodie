@@ -1,0 +1,111 @@
+.address-section-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  margin-top: 30px;
+  border: 1px solid #e2e2e2;
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.address-section-container h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.address-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.address-form label {
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.address-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.address-form input:focus {
+  border-color: tomato;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 99, 71, 0.5);
+}
+
+.address-submit-btn {
+  background-color: tomato;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+  flex: 1;
+  height: 48px;
+  box-sizing: border-box;
+}
+
+.address-submit-btn:hover {
+  background-color: #e74c3c;
+}
+
+.button-row {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.address-pay-btn {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex: 1;
+  height: 48px;
+  box-sizing: border-box;
+}
+
+.address-pay-btn:hover:not(:disabled) {
+  background-color: #333;
+}
+
+.address-pay-btn:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
