@@ -28,6 +28,7 @@ import ReferralProgram from "./components/Referrals/ReferralProgram";
 import AboutUs from "./components/Aboutus/Aboutus";
 import FAQ from "./components/FAQ/FAQ";
 import Privacy from "./components/Privacy/privacy";
+import TermsOfService from "./components/TermsOfService/TermsOfService";
 import FeedbackReviews from "./components/FeedbackReviews/FeedbackReviews";
 
 const App = () => {
@@ -107,6 +108,7 @@ const App = () => {
             <Route path="/restaurant/:id" element={<RestaurantDetail />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<TermsOfService />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
 
