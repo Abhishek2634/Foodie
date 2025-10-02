@@ -6,9 +6,20 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+  /* PWA specific styles */
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
 }
+
 html, body {
   background-color: var(--bg-color) !important;
+  /* Mobile-first improvements */
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
@@ -17,10 +28,83 @@ html, body {
   box-sizing: border-box;
   font-family: "Outfit", sans-serif;
   scroll-behavior: smooth;
+  /* Mobile touch improvements */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 body {
   background-color: var(--bg-color, #ffffff) !important;
+}
+
+/* PWA and Mobile-First Enhancements */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Prevent zoom on input focus on iOS */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Mobile viewport fixes */
+@supports (-webkit-touch-callout: none) {
+  /* iOS specific styles */
+  .app {
+    min-height: -webkit-fill-available;
+  }
+  
+  html, body {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Safe area handling for devices with notches */
+@supports (padding: max(0px)) {
+  .app {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+}
+
+/* Mobile-first responsive breakpoints */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+  
+  body {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 769px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* Touch-friendly button sizes */
+button, .btn, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  
+  * {
+    max-width: 100%;
+  }
 }
 
 a {
