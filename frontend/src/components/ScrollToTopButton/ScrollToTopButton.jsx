@@ -8,7 +8,7 @@ const ScrollToTop = () => {
 
   useEffect(() => {
     const toggleVisible = () => {
-      setVisible(window.scrollY > 200);
+      setVisible(window.scrollY > 100);
     };
 
     window.addEventListener('scroll', toggleVisible);
