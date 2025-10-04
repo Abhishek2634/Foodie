@@ -137,6 +137,77 @@
     color: rgb(233, 207, 207);
 }
 
+/* =================== Newsletter Section Styles =================== */
+.newsletter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.newsletter h3 {
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.newsletter input[type="email"] {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 1rem;
+}
+
+.newsletter .buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter .buttons button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.newsletter .subscribe {
+    background-color: rgb(243, 113, 38);
+    color: white;
+}
+
+.newsletter .subscribe:hover {
+    background-color: #e76e23;
+}
+
+.newsletter .no-thanks {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+}
+
+.newsletter .no-thanks:hover {
+    background-color: white;
+    color: rgb(243, 113, 38);
+}
+
+.newsletter p {
+    font-size: 0.85rem;
+    text-align: center;
+    color: #d9d9d9;
+}
+
+.newsletter p a {
+    color: rgb(243, 113, 38);
+    text-decoration: underline;
+}
+/* =================== End Newsletter Section =================== */
+
 @media (max-width:750px){
     .footer-content{
         display: flex;
