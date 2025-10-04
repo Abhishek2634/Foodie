@@ -50,6 +50,7 @@ const Footer = () => {
             <li><BsQuestionCircle className='icon' /><Link to="/faq"><span>FAQ</span></Link></li>
           </ul>
         </div>
+      
 
         {/* Contact Info */}
         <div className='footer-content-right'>
@@ -59,6 +60,24 @@ const Footer = () => {
             <li><IoIosMail className='icon' /><span>Contact@foodie.com</span></li>
           </ul>
         </div>
+      </div>
+      
+      {/* Newsletter Section Start */}
+        <div className='footer-newsletter'>
+          <h2 className='text'>Subscribe to our Newsletter</h2>
+          <div className="newsletter-input">
+            <input type="email" placeholder="Enter your email" />
+            <div className="newsletter-buttons">
+              <button className="subscribe-btn">Subscribe</button>
+              <button className="no-thanks-btn">No Thanks</button>
+            </div>
+          </div>
+          <p className="newsletter-terms">
+            By subscribing, you agree to our <Link to="/terms">Terms of Service</Link> and <Link to="/privacy">Privacy Policy</Link>.
+          </p>
+        </div>
+        {/* Newsletter Section End */}
+
       </div>
 
       <hr />
