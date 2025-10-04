@@ -117,7 +117,6 @@ const App = () => {
           
           {/* ✅ Footer now contains FAQ */}
           <Footer />
-            {/* <FAQ /> */}
           {/* </Footer> */}
 
           <Chatbot /> {/* AI Food Assistant */}
