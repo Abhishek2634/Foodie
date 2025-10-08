@@ -30,10 +30,12 @@
 
 /* === Filter Buttons === */
 .filter-toggle {
-  margin: 15px 0;
+  margin: 15px auto;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .filter-toggle button {
@@ -43,7 +45,7 @@
   cursor: pointer;
   border-radius: 4px;
   font-weight: 500;
-  margin-left: 23px;
+  margin: 0 8px
   color: #333;
   transition: all 0.3s ease;
 }

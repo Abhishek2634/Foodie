@@ -41,10 +41,10 @@ const AboutUs = () => {
 
       {/* About Us */}
       <section className="section">
-        <h2 className="section-title">About Foodies</h2>
-        <p className="about-text">
+        <h2 className="section-title" >About Foodies</h2>
+        <p className="about-text" id="about-description">
           At Foodies, we serve the best Veg, Non-Veg, Italian, Chinese, Desserts, and Main Courses.
-          Our focus is on <strong>taste, quality, and hygiene</strong>. We're passionate about bringing 
+          Our focus is on <strong>taste, quality, and hygiene</strong>. We&apos;re passionate about bringing 
           you exceptional dining experiences right to your doorstep. Enjoy your favorite meals via our 
           intuitive app or website, crafted with love and delivered with care.
         </p>

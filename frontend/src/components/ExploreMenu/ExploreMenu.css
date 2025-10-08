@@ -86,12 +86,6 @@
   scroll-behavior: smooth;
   padding: 30px 80px;
   position: relative;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    var(--menu-gradient, rgba(255, 99, 71, 0.02)) 20%, 
-    var(--menu-gradient, rgba(255, 99, 71, 0.02)) 80%, 
-    transparent 100%
-  );
 }
 
 .explore-menu-list::-webkit-scrollbar {
@@ -121,12 +115,7 @@
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, 
-    rgba(255, 99, 71, 0.1) 0%, 
-    rgba(255, 140, 105, 0.05) 100%
-  );
-  border-radius: 20px;
+  bottom: 0; 
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 0;
@@ -138,9 +127,6 @@
 
 .explore-menu-list-item:hover {
   transform: translateY(-8px) scale(1.05);
-  box-shadow: 
-    0 15px 35px rgba(255, 99, 71, 0.2),
-    0 5px 15px rgba(0, 0, 0, 0.1);
   background: var(--item-hover-bg, rgba(255, 255, 255, 0.1));
 }
 
@@ -172,7 +158,7 @@
 
 .explore-menu-list-item p {
   margin: 0;
-  font-size: clamp(14px, 1.2vw, 16px);
+  font-size: clamp(16px, 1.2vw, 18px);
   color: var(--text-color, #747474);
   font-weight: 600;
   text-transform: capitalize;

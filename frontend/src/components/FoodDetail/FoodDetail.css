@@ -91,16 +91,23 @@
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-inline: 1vmax;
 }
 
 .add-to-cart:hover {
     background-color: rgb(239, 17, 17);
     transform: scale(1.05);
 }
+.two-button-in-same-frame{
+    display: flex;
+    align-items: center;
+    gap:0.5vmax;
+}
 
 /* Food Detail Cart Section */
 .food-detail-cart-section {
     margin-top: 32px;
+    display: contents;
 }
 
 /* Quantity Controls for Food Detail */
@@ -154,7 +161,6 @@
     border-radius: 20px;
     border: 1px solid #e9ecef;
 }
-
 .food-item-footer {
     display: flex;
     justify-content: space-between;
@@ -177,10 +183,85 @@
     cursor: pointer;
     font-weight: 500;
     transition: background-color 0.3s ease;
+    
 }
 
 .view-btn:hover {
     background-color: #c70000;
+}
+
+
+.reviewratings{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vmax
+}
+.description > textarea{
+padding: 1vmax;
+width: 30vw;
+outline:none;
+border: 1px solid grey;
+border-radius:5px
+}
+.submitbtn{
+    display: inline-flex;
+    align-items: center;
+    background-color: red;
+    color: white;
+    padding: 10px 32px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-inline: 1vmax;
+    margin-top: -2vmax
+}
+.submitbtn:hover{
+    background-color: rgb(239, 17, 17);
+    transform: scale(1.05);
+}
+.reviewcards{
+    margin-top: 2vmax;
+    width: 25vw;
+    overflow:auto;
+    height: 40vh
+}
+hr{
+    margin-top: 2vmax
+}
+h2{
+    /* text-align: center; */
+    margin-top: 1vmax
+}
+.userreview{
+     display: flex;
+     flex-direction: column;
+     border: 1px solid rgba(185, 181, 181, 1);
+     padding: 1vmax;
+     margin-top:0.5vmax;
+}
+.userreview > p{
+    margin-top: -4vmax;
+    background-color: rgba(247, 247, 247, 1);
+    padding: 0.5vmax;
+    color: black;
+}
+.section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: -2vmax;
+}
+.section > p{
+    font-weight: bold;
+    margin-left: -2.5vmax;
+}
+.section2{
+    display: flex;
+    gap: 0.5vmax;
 }
 
 

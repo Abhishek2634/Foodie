@@ -1,12 +1,13 @@
+// LoginPopup.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import './LoginPopup.css';
 import { assets } from '../../assets/frontend_assets/assets';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import apiRequest from "../../lib/apiRequest";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
-
-const LoginPopup = ({ setShowLogin }) => {
+const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
   const [currState, setCurrState] = useState("Sign Up");
   const [forgotFlow, setForgotFlow] = useState(false);
   const [stage, setStage] = useState(1);
@@ -15,7 +16,10 @@ const LoginPopup = ({ setShowLogin }) => {
   const [timer, setTimer] = useState(60);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate=useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const navigate = useNavigate();
 
   const [password, setPassword] = useState('');
   const [passwordStrength, setPasswordStrength] = useState({
@@ -26,7 +30,12 @@ const LoginPopup = ({ setShowLogin }) => {
     special: false,
   });
 
+  const [signUpConfirmPassword, setSignUpConfirmPassword] = useState('');
+  const [passwordMatch, setPasswordMatch] = useState(false);
+
   const [showPasswordChecker, setShowPasswordChecker] = useState(false);
+  const [passwordFocused, setPasswordFocused] = useState(false);
+  const [confirmFocused, setConfirmFocused] = useState(false);
 
   const popupRef = useRef();
   const otpRefs = useRef([]);
@@ -75,6 +84,7 @@ const LoginPopup = ({ setShowLogin }) => {
     }
   };
 
+  // Password strength check
   useEffect(() => {
     if (password) {
       const newStrength = {
@@ -96,6 +106,11 @@ const LoginPopup = ({ setShowLogin }) => {
     }
   }, [password]);
 
+  // Check if passwords match
+  useEffect(() => {
+    setPasswordMatch(password === signUpConfirmPassword && signUpConfirmPassword !== '');
+  }, [password, signUpConfirmPassword]);
+
   const handleSendOTP = (e) => {
     e.preventDefault();
     if (!email) return toast.error("Enter email");
@@ -114,13 +129,14 @@ const LoginPopup = ({ setShowLogin }) => {
   const handleResetPassword = (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) return toast.error("Passwords do not match");
-      toast.success("Password reset successfully!");
-      setForgotFlow(false);
-      setStage(1);
-      setOtp(Array(6).fill(""));
-      setCurrState("Login");
-    };
-    const handleSubmit = async (e) => {
+    toast.success("Password reset successfully!");
+    setForgotFlow(false);
+    setStage(1);
+    setOtp(Array(6).fill(""));
+    setCurrState("Login");
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -130,8 +146,8 @@ const LoginPopup = ({ setShowLogin }) => {
     const confirmPassword = formData.get("confirmPassword");
 
     if (!email || !password || (currState === "Sign Up" && !name)) {
-        return toast.error("Please fill all fields");
-      }
+      return toast.error("Please fill all fields");
+    }
 
     if (currState === "Sign Up" && password !== confirmPassword) {
       return toast.error("Passwords do not match");
@@ -141,24 +157,39 @@ const LoginPopup = ({ setShowLogin }) => {
       currState === "Sign Up" ? "/api/auth/register" : "/api/auth/login";
 
     try {
-        const { data } = await apiRequest.post(endpoint, { name, email, password });
+      const response = await apiRequest.post(endpoint, { name, email, password });
+      const data = response.data;
 
-      toast.success(`${currState} successful!`);
+      if (data.success) {
+        toast.success(data.message);
 
-      // Store user info locally (no token)
-      localStorage.setItem("user", JSON.stringify(data.user));
+        // Store user info and auth token locally
+        localStorage.setItem("user", JSON.stringify(data.user));
+        if (data.token) {
+          localStorage.setItem("authToken", data.token);
+        } else {
+          localStorage.setItem("authToken", "authenticated"); // fallback
+        }
 
-      setShowLogin(false);
-      window.location.reload();
+        // Update authentication state in parent component
+        if (setIsLoggedIn) {
+          setIsLoggedIn(true);
+        }
+
+        setShowLogin(false);
+
+        // Navigate to home page
+        navigate("/");
+        window.location.reload();
+      } else {
+        toast.error(data.message || `${currState} failed. Please try again.`);
+      }
     } catch (err) {
-      const message =
-        err.response?.data?.message || `${currState} failed. Please try again.`;
+      const message = err.response?.data?.message || `${currState} failed. Please try again.`;
       toast.error(message);
       console.error(err);
     }
   };
-
-
 
   return (
     <div className='LoginPopup'>
@@ -178,43 +209,87 @@ const LoginPopup = ({ setShowLogin }) => {
             <>
               <input type="email" name="email" placeholder="Your Email" required />
               {currState === "Sign Up" && (
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Your Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onFocus={() => setShowPasswordChecker(true)}
-                  required
-                />
+                <div className="password-input-container">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="Your Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    onFocus={() => {
+                      setPasswordFocused(true);
+                      setShowPasswordChecker(true);
+                    }}
+                    onBlur={() => {
+                      setPasswordFocused(false);
+                      if (!confirmFocused) setShowPasswordChecker(false);
+                    }}
+                    required
+                  />
+                  <span
+                    className="password-toggle-btn"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOffIcon size={20} color='white'/> : <EyeIcon size={20} color='white'/>}
+                  </span>
+                </div>
               )}
+
               {currState === "Sign Up" && (
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  required
-                />
+                <div className="password-input-container">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    value={signUpConfirmPassword}
+                    onChange={(e) => setSignUpConfirmPassword(e.target.value)}
+                    onFocus={() => {
+                      setConfirmFocused(true);
+                      setShowPasswordChecker(true);
+                    }}
+                    onBlur={() => {
+                      setConfirmFocused(false);
+                      if (!passwordFocused) setShowPasswordChecker(false);
+                    }}
+                    required
+                  />
+                  <span
+                    className="password-toggle-btn"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? <EyeOffIcon size={20} color='white'/> : <EyeIcon size={20} color='white' />}
+                  </span>
+                </div>
               )}
+
               {currState === "Sign Up" && showPasswordChecker && (
                 <div className="password-checker-box">
-                  <div className="password-strength-checker">
-                    <p className={passwordStrength.length ? 'valid' : 'invalid'}>
-                      {passwordStrength.length ? '✔️' : '❌'} At least 8 characters long
-                    </p>
-                    <p className={passwordStrength.uppercase ? 'valid' : 'invalid'}>
-                      {passwordStrength.uppercase ? '✔️' : '❌'} Contains at least one uppercase letter
-                    </p>
-                    <p className={passwordStrength.lowercase ? 'valid' : 'invalid'}>
-                      {passwordStrength.lowercase ? '✔️' : '❌'} Contains at least one lowercase letter
-                    </p>
-                    <p className={passwordStrength.number ? 'valid' : 'invalid'}>
-                      {passwordStrength.number ? '✔️' : '❌'} Contains at least one number
-                    </p>
-                    <p className={passwordStrength.special ? 'valid' : 'invalid'}>
-                      {passwordStrength.special ? '✔️' : '❌'} Contains at least one special character
-                    </p>
-                  </div>
+                  {passwordFocused && (
+                    <div className="password-strength-checker">
+                      <p className={passwordStrength.length ? 'valid' : 'invalid'}>
+                        {passwordStrength.length ? '✔️' : '❌'} At least 8 characters long
+                      </p>
+                      <p className={passwordStrength.uppercase ? 'valid' : 'invalid'}>
+                        {passwordStrength.uppercase ? '✔️' : '❌'} Contains at least one uppercase letter
+                      </p>
+                      <p className={passwordStrength.lowercase ? 'valid' : 'invalid'}>
+                        {passwordStrength.lowercase ? '✔️' : '❌'} Contains at least one lowercase letter
+                      </p>
+                      <p className={passwordStrength.number ? 'valid' : 'invalid'}>
+                        {passwordStrength.number ? '✔️' : '❌'} Contains at least one number
+                      </p>
+                      <p className={passwordStrength.special ? 'valid' : 'invalid'}>
+                        {passwordStrength.special ? '✔️' : '❌'} Contains at least one special character
+                      </p>
+                    </div>
+                  )}
+                  {confirmFocused && signUpConfirmPassword && (
+                    <div className="password-match-checker">
+                      <p className={passwordMatch ? 'valid' : 'invalid'}>
+                        {passwordMatch ? '✅ Passwords match' : '❌ Passwords do not match'}
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -226,13 +301,22 @@ const LoginPopup = ({ setShowLogin }) => {
               )}
 
               {currState === "Login" && (
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Your Password"
-                  required
-                />
+                <div className="password-input-container">
+                  <input
+                    type={showLoginPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="Your Password"
+                    required
+                  />
+                  <span
+                    className="password-toggle-btn"
+                    onClick={() => setShowLoginPassword(!showLoginPassword)}
+                  >
+                    {showLoginPassword ? <EyeOffIcon size={20} /> : <EyeIcon size={20} />}
+                  </span>
+                </div>
               )}
+
               <button type="submit">{currState === 'Sign Up' ? "Create Account" : "Login"}</button>
               {currState === "Login" && (
                 <p className="forgot-password-link" onClick={() => {
@@ -310,9 +394,9 @@ const LoginPopup = ({ setShowLogin }) => {
 
         {!forgotFlow && (
           currState === "Login" ? (
-            <p>Create a new account? <span onClick={() => setCurrState("Sign Up")}>Click Here</span></p>
+            <p style={{ color: '#ddd' }}>Create a new account? <span onClick={() => setCurrState("Sign Up")}>Click Here</span></p>
           ) : (
-            <p>Already have an account? <span onClick={() => setCurrState("Login")}>Login Here</span></p>
+            <p style={{ color: '#ddd' }}>Already have an account? <span onClick={() => setCurrState("Login")}>Login Here</span></p>
           )
         )}
       </form>

@@ -8,16 +8,22 @@ import html2pdf from "html2pdf.js";
 import FoodItem from "../FoodItem/FoodItem";
 import "./FoodDetail.css";
 import "./print.css";
-import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material'
-import { FaSquareWhatsapp, FaSquareInstagram, FaSquareXTwitter, FaFacebook } from "react-icons/fa6";
+import { Dialog, DialogContent, DialogTitle, IconButton, Rating } from '@mui/material'
+import { FaSquareWhatsapp, FaSquareXTwitter, FaFacebook } from "react-icons/fa6";
 import { IoIosShareAlt } from "react-icons/io";
 import { SiGmail } from "react-icons/si";
+import { MdOutlineRateReview } from "react-icons/md";
+import OrderTogether from "./OrderTogether";
 
 const PrintableSection = React.forwardRef(({ children }, ref) => (
   <div ref={ref}>{children}</div>
 ));
 
 const FoodDetail = () => {
+  const [openReviewModal, setOpenReviewModal] = useState(false);
+  const [description, setDescription] = useState("");
+  const [ratingValue, setRatingValue] = useState(5);
+  const [review, setReview] = useState([]);
   const [open, setOpen] = useState(false)
   const { addToCart, removeFromCart, cartItems, food_list } = useContext(StoreContext);
 
@@ -121,6 +127,19 @@ const FoodDetail = () => {
   ]
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleOpenModal = () => setOpenReviewModal(true);
+  const handleCloseModal = () => setOpenReviewModal(false);
+  const submitHandler = () => {
+    const item = {
+      id: review.length + 1,
+      text: description,
+      user: 'Jack Doe',  // replace with real user after integrating api
+      ratings: ratingValue
+    }
+    setReview((prev) => [...prev, item])
+    setDescription("");
+    handleCloseModal()
+  }
 
   const shareUrl = window.location.href; // generate url of current page
   // Get related products from the same category, excluding the current item
@@ -219,7 +238,8 @@ const FoodDetail = () => {
                 <FaStar className="star-icon" /> 4.5 (120+ reviews)
               </div>
             </div>
-            <div className="food-detail-cart-section">
+            <div className="two-button-in-same-frame">
+             <div className="food-detail-cart-section">
               {!cartItems[id] ? (
                 <button className="add-to-cart" onClick={() => addToCart(id)}>
                   <FaShoppingCart /> Add to Cart
@@ -236,9 +256,76 @@ const FoodDetail = () => {
                 </div>
               )}
             </div>
+              <button className="add-to-cart" onClick={handleOpenModal}>
+                <MdOutlineRateReview /> Submit Review
+              </button>
+            </div>
+            <Dialog open={openReviewModal} onClose={handleCloseModal}>
+              <DialogTitle textAlign={"center"}>Submit You Review</DialogTitle>
+              <DialogContent>
+                <div className="reviewratings">
+                  <Rating
+                    name="half-rating"
+                    precision={0.5}
+                    value={ratingValue}
+                    onChange={(event, newValue) => {
+                      setRatingValue(newValue);   //  direct update
+                    }}
+                    sx={{
+                      '& .MuiRating-icon': {
+                        display: 'flex',
+                        alignItems: 'center',
+                        height: '30px',
+                      },
+                      '& .MuiRating-iconFilled': { color: '#ff4b2b' },
+                    }}
+                  />
+                  <div className="description">
+                    <textarea
+                      placeholder="Write your Review..."
+                      rows={5}
+                      autoFocus
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
+                  </div>
+                  <button className="submitbtn" onClick={submitHandler}>Submit</button>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </PrintableSection>
+      <hr />
+      {
+        review.length > 0 && <h2>Reviews and Ratings</h2>
+      }
+      <div className="reviewcards">
+        {
+          review.map((p) => {
+            return (
+              <div className="userreview" key={p.id}>
+                <div className="section">
+                  <p>{p.user}</p>
+                  <div className="section2">
+                    <Rating
+                      name="read-only"
+                      value={p.ratings}
+                      readOnly
+                      size="small"
+                      precision={0.5}
+                      sx={{ '& .MuiRating-iconFilled': { color: '#ff4b2b' } }}
+                    />
+                    <p>{p.ratings}</p>
+                  </div>
+                </div>
+                <p>{p.text}</p>
+              </div>
+            )
+          })
+        }
+      </div>
+      <OrderTogether/>
 
       {/* Related Products Section */}
       {relatedProducts.length > 0 && (

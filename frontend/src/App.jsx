@@ -28,17 +28,29 @@ import ReferralProgram from "./components/Referrals/ReferralProgram";
 import AboutUs from "./components/Aboutus/Aboutus";
 import FAQ from "./components/FAQ/FAQ";
 import Privacy from "./components/Privacy/privacy";
+import FeedbackReviews from "./components/FeedbackReviews/FeedbackReviews";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return !!localStorage.getItem("authToken");
+    // Check for either authToken or user in localStorage
+    return !!localStorage.getItem("authToken") || !!localStorage.getItem("user");
   });
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 3000);
     return () => clearTimeout(timer);
+  }, []);
+
+  // Listen for storage changes to update auth state
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setIsLoggedIn(!!localStorage.getItem("authToken"));
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   if (loading) {
@@ -50,10 +62,10 @@ const App = () => {
       <StoreContextProvider>
         {/* ✅ Wrap the app with StoreContextProvider */}
         <Toaster position="top-right" reverseOrder={false} />
-        {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
+        {showLogin && <LoginPopup setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} />}
 
         <div className="app">
-          <Navbar setShowLogin={setShowLogin} />
+          <Navbar setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} />
           <ScrollToTop />
           <ScrollToBottom />
 
@@ -85,6 +97,7 @@ const App = () => {
                 )
               }
             />
+            <Route path="/faq" element={<FAQ />} />
             <Route path="/food/:id" element={<FoodDetail />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/wishlist/:userId" element={<SharedWishlist />} />
@@ -100,11 +113,12 @@ const App = () => {
           <ScrollToTopButton /> {/* floating button */}
           <CartSummaryBar />
           <AppDownload />
+          <FeedbackReviews />
           
           {/* ✅ Footer now contains FAQ */}
-          <Footer>
-            <FAQ />
-          </Footer>
+          <Footer />
+            {/* <FAQ /> */}
+          {/* </Footer> */}
 
           <Chatbot /> {/* AI Food Assistant */}
         </div>

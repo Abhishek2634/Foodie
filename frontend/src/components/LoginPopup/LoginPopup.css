@@ -153,10 +153,10 @@
 
 /* ===== Password Checker ===== */
 .password-checker-box {
-  background: rgba(255, 255, 255, 0.12);
+  /*background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 8px;
-  padding: 12px;
+  padding: 12px;*/
   font-size: 0.9em;
   color: #eee;
 }
@@ -175,12 +175,24 @@
   color: #ff5252;
 }
 
+.password-match-checker .valid{
+  color: #4caf50;
+}
+
+.password-match-checker .invalid{
+  color: #ff5252
+}
+
 /* ===== Terms Condition ===== */
 .login-popup-condition {
   display: flex;
   align-items: start;
   gap: 8px;
   font-size: 13px;
+  color: #ddd;
+}
+
+.login-popup-condition p {
   color: #ddd;
 }
 
@@ -205,4 +217,31 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+/* ===== Password Input Container ===== */
+.password-input-container {
+  width: 100%;
+  position: relative;
+}
+
+.password-input-container input {
+   width: 100%;
+  padding-right: 45px !important;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle-btn svg {
+  width: 18px;
+  height: 18px;
 }

@@ -117,6 +117,7 @@ const RestaurantDetail = () => {
           boxShadow: "0 4px 6px rgba(59, 130, 246, 0.3)",
           cursor: "pointer",
           transition: "all 0.3s ease",
+          marginBottom: "0.8rem",
         }}
       >
         Back to Restaurants
