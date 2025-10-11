@@ -32,11 +32,13 @@ import MyOrder from "./pages/MyOrder/MyOrder";
 import Privacy from "./components/Privacy/privacy";
 import TermsOfService from "./components/TermsOfService/TermsOfService";
 import FeedbackReviews from "./components/FeedbackReviews/FeedbackReviews";
-import Delivery from "./pages/Delivery/Delivery";
+import OfflineFallback from "./components/OfflineFallback/OfflineFallback";
+import PWAInstallPrompt from "./components/PWAInstallPrompt/PWAInstallPrompt";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     // Check for either authToken or user in localStorage
     return !!localStorage.getItem("authToken") || !!localStorage.getItem("user");
@@ -57,8 +59,33 @@ const App = () => {
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
+  // Listen for online/offline status
+  useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  const handleRetryConnection = () => {
+    if (navigator.onLine) {
+      setIsOffline(false);
+    }
+  };
+
   if (loading) {
     return <LoadingAnimation />;
+  }
+
+  // Show offline fallback when offline
+  if (isOffline) {
+    return <OfflineFallback onRetry={handleRetryConnection} />;
   }
 
   return (
@@ -171,6 +198,9 @@ const App = () => {
           {/* </Footer> */}
 
           <Chatbot /> {/* AI Food Assistant */}
+          
+          {/* PWA Install Prompt */}
+          <PWAInstallPrompt />
         </div>
       </StoreContextProvider>
     </ThemeContextProvider>

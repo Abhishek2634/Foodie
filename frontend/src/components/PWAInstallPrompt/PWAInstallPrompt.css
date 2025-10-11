@@ -1,0 +1,149 @@
+.pwa-install-prompt {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideUp 0.3s ease-out;
+}
+
+.install-prompt-content {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.install-icon {
+  color: #f97316;
+  flex-shrink: 0;
+}
+
+.install-text {
+  flex: 1;
+}
+
+.install-text h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.install-text p {
+  margin: 4px 0 0 0;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.install-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.install-button {
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.install-button:hover {
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  transform: translateY(-1px);
+}
+
+.dismiss-button {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.dismiss-button:hover {
+  background: #f1f5f9;
+  color: #2d3748;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .install-prompt-content {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+  
+  .install-text h3 {
+    color: #e2e8f0;
+  }
+  
+  .install-text p {
+    color: #a0aec0;
+  }
+  
+  .dismiss-button {
+    color: #a0aec0;
+  }
+  
+  .dismiss-button:hover {
+    background: #4a5568;
+    color: #e2e8f0;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .pwa-install-prompt {
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+  }
+  
+  .install-prompt-content {
+    padding: 12px;
+    border-radius: 12px;
+  }
+  
+  .install-text h3 {
+    font-size: 0.9rem;
+  }
+  
+  .install-text p {
+    font-size: 0.8rem;
+  }
+  
+  .install-button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}

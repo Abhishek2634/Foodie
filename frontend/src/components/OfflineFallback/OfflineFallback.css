@@ -1,0 +1,138 @@
+.offline-fallback {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px;
+}
+
+.offline-content {
+  text-align: center;
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+}
+
+.offline-icon {
+  color: #f97316;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.offline-content h2 {
+  color: #2d3748;
+  font-size: 2rem;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.offline-content p {
+  color: #64748b;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.offline-features {
+  text-align: left;
+  margin: 20px 0;
+  padding: 0 20px;
+}
+
+.offline-features li {
+  color: #4a5568;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.offline-features li::marker {
+  color: #f97316;
+}
+
+.retry-button {
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  margin: 20px 0;
+}
+
+.retry-button:hover {
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+}
+
+.retry-button:active {
+  transform: translateY(0);
+}
+
+.offline-tip {
+  font-size: 0.9rem;
+  color: #a0aec0;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .offline-fallback {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  }
+  
+  .offline-content {
+    background: #2d3748;
+    color: white;
+  }
+  
+  .offline-content h2 {
+    color: #e2e8f0;
+  }
+  
+  .offline-content p {
+    color: #a0aec0;
+  }
+  
+  .offline-features li {
+    color: #cbd5e0;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .offline-content {
+    padding: 30px 20px;
+    margin: 10px;
+  }
+  
+  .offline-content h2 {
+    font-size: 1.5rem;
+  }
+  
+  .offline-content p {
+    font-size: 1rem;
+  }
+  
+  .retry-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
