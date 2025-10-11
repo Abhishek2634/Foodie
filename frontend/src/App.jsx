@@ -1,3 +1,4 @@
+import ScrollToTop from "./components/ScrollToTop";
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import { Routes, Route } from "react-router-dom";
@@ -19,7 +20,6 @@ import Chatbot from "./components/Chatbot/Chatbot";
 import ContactPage from "./pages/Contactpage";
 import { Toaster } from "react-hot-toast";
 import LoadingAnimation from "./components/LoadingAnimation";
-import ScrollToTop from "../utility/ScrollToTop";
 import "./components/FoodDetail/print.css";
 import NotFound from "./pages/Notfound";
 import StoreContextProvider from "./components/context/StoreContext";
@@ -125,6 +125,7 @@ const App = () => {
           {/* </Footer> */}
 
           <Chatbot /> {/* AI Food Assistant */}
+          
         </div>
       </StoreContextProvider>
     </ThemeContextProvider>
