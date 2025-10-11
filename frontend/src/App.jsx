@@ -27,7 +27,10 @@ import ScrollToBottom from "./components/ScrollToBottomButton/ScrollToBottomButt
 import ReferralProgram from "./components/Referrals/ReferralProgram";
 import AboutUs from "./components/Aboutus/Aboutus";
 import FAQ from "./components/FAQ/FAQ";
+import MyProfile from "./pages/MyProfile/MyProfile";
+import MyOrder from "./pages/MyOrder/MyOrder";
 import Privacy from "./components/Privacy/privacy";
+import TermsOfService from "./components/TermsOfService/TermsOfService";
 import FeedbackReviews from "./components/FeedbackReviews/FeedbackReviews";
 import OfflineFallback from "./components/OfflineFallback/OfflineFallback";
 import PWAInstallPrompt from "./components/PWAInstallPrompt/PWAInstallPrompt";
@@ -134,7 +137,53 @@ const App = () => {
             <Route path="/referral" element={<ReferralProgram />} />
             <Route path="/restaurant/:id" element={<RestaurantDetail />} />
             <Route path="/aboutus" element={<AboutUs />} />
+            <Route
+              path="/profile/me"
+              element={
+                isLoggedIn ? (<MyProfile />) : (
+                  <div style={{ padding: "2rem", textAlign: "center" }}>
+                    <h2
+                      style={{
+                        color: "#f97316", // Tailwind's orange-500
+                        fontSize: "2rem",
+                        fontWeight: "bold",
+                        textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
+                      Please Log In To Proceed
+                    </h2>
+                    <p style={{ color: "#fdba74", fontSize: "1rem" }}>
+                      Your journey continues after login 🔐
+                    </p>
+                  </div>
+                )
+              } />
+            <Route
+              path="/orders/me"
+              element={
+                isLoggedIn ? (<MyOrder />) : (
+                  <div style={{ padding: "2rem", textAlign: "center" }}>
+                    <h2
+                      style={{
+                        color: "#f97316", // Tailwind's orange-500
+                        fontSize: "2rem",
+                        fontWeight: "bold",
+                        textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
+                      Please Log In To Proceed
+                    </h2>
+                    <p style={{ color: "#fdba74", fontSize: "1rem" }}>
+                      Your journey continues after login 🔐
+                    </p>
+                  </div>
+                )
+              } />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/delivery" element={<Delivery />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
 
