@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar/Navbar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
@@ -27,14 +27,16 @@ import ScrollToBottom from "./components/ScrollToBottomButton/ScrollToBottomButt
 import ReferralProgram from "./components/Referrals/ReferralProgram";
 import AboutUs from "./components/Aboutus/Aboutus";
 import FAQ from "./components/FAQ/FAQ";
+import MyProfile from "./pages/MyProfile/MyProfile";
+import MyOrder from "./pages/MyOrder/MyOrder";
 import Privacy from "./components/Privacy/privacy";
-import FeedbackReviews from "./components/FeedbackReviews/FeedbackReviews";
+import TermsOfService from "./components/TermsOfService/TermsOfService";
+import Delivery from "./pages/Delivery/Delivery";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    // Check for either authToken or user in localStorage
     return !!localStorage.getItem("authToken") || !!localStorage.getItem("user");
   });
 
@@ -43,14 +45,12 @@ const App = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Listen for storage changes to update auth state
   useEffect(() => {
     const handleStorageChange = () => {
       setIsLoggedIn(!!localStorage.getItem("authToken"));
     };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   if (loading) {
@@ -60,7 +60,6 @@ const App = () => {
   return (
     <ThemeContextProvider>
       <StoreContextProvider>
-        {/* ✅ Wrap the app with StoreContextProvider */}
         <Toaster position="top-right" reverseOrder={false} />
         {showLogin && <LoginPopup setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} />}
 
@@ -81,7 +80,7 @@ const App = () => {
                   <div style={{ padding: "2rem", textAlign: "center" }}>
                     <h2
                       style={{
-                        color: "#f97316", // Tailwind's orange-500
+                        color: "#f97316",
                         fontSize: "2rem",
                         fontWeight: "bold",
                         textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
@@ -106,11 +105,63 @@ const App = () => {
             <Route path="/referral" element={<ReferralProgram />} />
             <Route path="/restaurant/:id" element={<RestaurantDetail />} />
             <Route path="/aboutus" element={<AboutUs />} />
+            <Route
+              path="/profile/me"
+              element={
+                isLoggedIn ? (
+                  <MyProfile />
+                ) : (
+                  <div style={{ padding: "2rem", textAlign: "center" }}>
+                    <h2
+                      style={{
+                        color: "#f97316",
+                        fontSize: "2rem",
+                        fontWeight: "bold",
+                        textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
+                      Please Log In To Proceed
+                    </h2>
+                    <p style={{ color: "#fdba74", fontSize: "1rem" }}>
+                      Your journey continues after login 🔐
+                    </p>
+                  </div>
+                )
+              }
+            />
+            <Route
+              path="/orders/me"
+              element={
+                isLoggedIn ? (
+                  <MyOrder />
+                ) : (
+                  <div style={{ padding: "2rem", textAlign: "center" }}>
+                    <h2
+                      style={{
+                        color: "#f97316",
+                        fontSize: "2rem",
+                        fontWeight: "bold",
+                        textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
+                      Please Log In To Proceed
+                    </h2>
+                    <p style={{ color: "#fdba74", fontSize: "1rem" }}>
+                      Your journey continues after login 🔐
+                    </p>
+                  </div>
+                )
+              }
+            />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/delivery" element={<Delivery />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
 
-          <ScrollToTopButton /> {/* floating button */}
+          <ScrollToTopButton />
           <CartSummaryBar />
           <AppDownload />
           <FeedbackReviews />
@@ -119,7 +170,10 @@ const App = () => {
           <Footer />
           {/* </Footer> */}
 
-          <Chatbot /> {/* AI Food Assistant */}
+          {/* Removed FeedbackReviews from here */}
+
+          <Footer />
+          <Chatbot />
         </div>
       </StoreContextProvider>
     </ThemeContextProvider>
