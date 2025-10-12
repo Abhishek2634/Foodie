@@ -11,6 +11,7 @@ node_modules/
 dist
 dist-ssr
 *.local
+package-lock.json
 
 # Editor directories and files
 .vscode/*
@@ -27,3 +28,6 @@ dist-ssr
 .env
 */ENV
 .env.*
+# Ignore uploaded files from multer
+/backend/uploads
+
