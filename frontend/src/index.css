@@ -8,7 +8,7 @@ body,
   padding: 0;
 }
 html, body {
-  background-color: var(--bg-color) !important;
+  background-color: transparent;
 }
 
 * {
@@ -20,7 +20,7 @@ html, body {
 }
 
 body {
-  background-color: var(--bg-color, #ffffff) !important;
+  background-color: transparent;
 }
 
 a {
@@ -110,7 +110,7 @@ li {
 }
 
 html, body {
-  background: var(--bg-color);
+  background: transparent;
   color: var(--text-color);
   margin: 0;
   padding: 0;
@@ -122,4 +122,12 @@ html, body {
 h1, h2, h3, h4, h5, h6, p, a, span, li {
   color: var(--text-color);
   transition: color 0.3s ease;
+}
+#three-js-canvas {
+  position: fixed; /* Or absolute, if .hero-container is the whole page */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* This is the key: sends it behind everything */
 }

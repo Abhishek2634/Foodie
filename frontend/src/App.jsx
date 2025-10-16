@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Hero from './components/Hero';
 import Navbar from "./components/Navbar/Navbar";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
@@ -65,6 +66,7 @@ const App = () => {
 
         <div className="app">
           <Navbar setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} />
+           <Hero />
           <ScrollToTop />
           <ScrollToBottom />
 
