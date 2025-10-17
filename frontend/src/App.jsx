@@ -164,6 +164,11 @@ const App = () => {
           <ScrollToTopButton />
           <CartSummaryBar />
           <AppDownload />
+          <FeedbackReviews />
+          
+          {/* ✅ Footer now contains FAQ */}
+          <Footer />
+          {/* </Footer> */}
 
           {/* Removed FeedbackReviews from here */}
 
