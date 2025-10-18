@@ -189,12 +189,13 @@ p.about-text {
 
 .flow-step {
   padding: 20px 30px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+background: linear-gradient(135deg, #FF7E5F 0%, #e87a26 100%);
+
   color: white;
   border-radius: 50px;
   text-align: center;
   font-weight: 600;
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 8px 20px rgba(226, 156, 76, 0.3);
   transition: transform 0.3s ease;
   min-width: 140px;
 }
@@ -206,7 +207,7 @@ p.about-text {
 .flow-arrow {
   font-size: 2rem;
   font-weight: bold;
-  color: #667eea;
+  color: #433cd0;
 }
 
 
