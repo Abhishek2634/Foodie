@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import Navbar from "./components/Navbar/Navbar";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
@@ -20,52 +20,101 @@ import ContactPage from "./pages/Contactpage";
 import { Toaster } from "react-hot-toast";
 import LoadingAnimation from "./components/LoadingAnimation";
 import ScrollToTop from "../utility/ScrollToTop";
-import "./components/FoodDetail/print.css";
-import NotFound from "./pages/Notfound";
-import StoreContextProvider from "./components/context/StoreContext";
 import ScrollToBottom from "./components/ScrollToBottomButton/ScrollToBottomButton";
 import ReferralProgram from "./components/Referrals/ReferralProgram";
 import AboutUs from "./components/Aboutus/Aboutus";
 import FAQ from "./components/FAQ/FAQ";
 import Privacy from "./components/Privacy/privacy";
 import FeedbackReviews from "./components/FeedbackReviews/FeedbackReviews";
+import StoreContextProvider from "./components/context/StoreContext";
+import apiRequest from "./lib/apiRequest";
+import SuccessPopup from "./components/LoginPopup/SuccessPopup"; // Import SuccessPopup
+import "./components/FoodDetail/print.css";
+import NotFound from "./pages/Notfound";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    // Check for either authToken or user in localStorage
-    return !!localStorage.getItem("authToken") || !!localStorage.getItem("user");
-  });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
+  // Loading animation
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 3000);
+    const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Listen for storage changes to update auth state
+  // Check authentication on app load
   useEffect(() => {
-    const handleStorageChange = () => {
-      setIsLoggedIn(!!localStorage.getItem("authToken"));
+    const checkAuth = async () => {
+      try {
+        const response = await apiRequest.get("/api/auth/me", {
+          withCredentials: true,
+        });
+        if (response.data.success) {
+          setIsLoggedIn(true);
+          setUser(response.data.user);
+        } else {
+          setIsLoggedIn(false);
+          setUser(null);
+        }
+      } catch (err) {
+        console.log("Auth check failed:", err);
+        setIsLoggedIn(false);
+        setUser(null);
+      }
     };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    checkAuth();
   }, []);
 
-  if (loading) {
-    return <LoadingAnimation />;
-  }
+  // Test login flow (development only)
+  useEffect(() => {
+    if (process.env.NODE_ENV !== "development") return;
+
+    const testLogin = async () => {
+      try {
+        console.log("=== Testing Login ===");
+        const payload = { email: "muskan@example.com", password: "123456" };
+        const loginRes = await apiRequest.post("/api/auth/login", payload);
+        console.log("Login response:", loginRes.data);
+
+        const authRes = await apiRequest.get("/api/auth/me");
+        console.log("Auth check after login:", authRes.data);
+      } catch (err) {
+        console.error("Test login failed:", err.response?.data || err);
+      }
+    };
+    testLogin();
+  }, []);
+
+  if (loading) return <LoadingAnimation />;
 
   return (
     <ThemeContextProvider>
       <StoreContextProvider>
-        {/* ✅ Wrap the app with StoreContextProvider */}
         <Toaster position="top-right" reverseOrder={false} />
-        {showLogin && <LoginPopup setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} />}
+
+        {/* Success Popup */}
+        {successMessage && (
+          <SuccessPopup
+            message={successMessage}
+            onClose={() => setSuccessMessage("")}
+          />
+        )}
+
+        {/* Login Popup */}
+        {showLogin && (
+          <LoginPopup
+            setShowLogin={setShowLogin}
+            setIsLoggedIn={setIsLoggedIn}
+            setUser={setUser}
+            setSuccessMessage={setSuccessMessage}
+          />
+        )}
 
         <div className="app">
-          <Navbar setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} />
+          <Navbar setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} user={user} />
           <ScrollToTop />
           <ScrollToBottom />
 
@@ -79,15 +128,13 @@ const App = () => {
                   <PlaceOrder />
                 ) : (
                   <div style={{ padding: "2rem", textAlign: "center" }}>
-                    <h2
-                      style={{
-                        color: "#f97316", // Tailwind's orange-500
-                        fontSize: "2rem",
-                        fontWeight: "bold",
-                        textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
-                        marginBottom: "0.5rem",
-                      }}
-                    >
+                    <h2 style={{
+                      color: "#f97316",
+                      fontSize: "2rem",
+                      fontWeight: "bold",
+                      textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
+                      marginBottom: "0.5rem"
+                    }}>
                       Please Log In To Proceed
                     </h2>
                     <p style={{ color: "#fdba74", fontSize: "1rem" }}>
@@ -110,17 +157,12 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
 
-          <ScrollToTopButton /> {/* floating button */}
+          <ScrollToTopButton />
           <CartSummaryBar />
           <AppDownload />
           <FeedbackReviews />
-          
-          {/* ✅ Footer now contains FAQ */}
           <Footer />
-            {/* <FAQ /> */}
-          {/* </Footer> */}
-
-          <Chatbot /> {/* AI Food Assistant */}
+          <Chatbot />
         </div>
       </StoreContextProvider>
     </ThemeContextProvider>
