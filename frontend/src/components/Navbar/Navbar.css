@@ -184,7 +184,7 @@ body {
 .cart-badge {
   position: absolute;
   top: 2px;
-  right: 2px;
+  right: 13px;
   background: #fc4b32;
   color: #fff;
   font-size: 12px;

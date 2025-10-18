@@ -72,7 +72,6 @@
 
 .cart-promo-code{
     flex: 1;
-
 }
 
 .cart-promo-code p{
@@ -103,6 +102,48 @@
     background-color: black;
     border: none;
     cursor: pointer;
+}
+
+.coupon-divider {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+    position: relative;
+}
+
+.coupon-divider::before,
+.coupon-divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.coupon-divider span {
+    padding: 0 10px;
+    background-color: white;
+    color: #888;
+    font-size: 14px;
+}
+
+.discount-row {
+    color: #4CAF50;
+    font-weight: 500;
+}
+
+/* Adjust the CouponGenerator styling for the cart page */
+.cart-promo-code .coupon-generator {
+    margin: 10px 0 20px;
+    justify-content: flex-start;
+}
+
+.cart-promo-code .coupon-button {
+    background-color: #ff4d4d;
+    box-shadow: 0 4px 8px rgba(255, 77, 77, 0.3);
+}
+
+.cart-promo-code .coupon-button:hover {
+    background-color: #ff3333;
+    box-shadow: 0 6px 12px rgba(255, 77, 77, 0.4);
 }
 
 .cart-quantity-controls {

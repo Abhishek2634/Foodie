@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"; 
 import Navbar from "./components/Navbar/Navbar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
@@ -24,13 +24,16 @@ import ScrollToBottom from "./components/ScrollToBottomButton/ScrollToBottomButt
 import ReferralProgram from "./components/Referrals/ReferralProgram";
 import AboutUs from "./components/Aboutus/Aboutus";
 import FAQ from "./components/FAQ/FAQ";
+import MyProfile from "./pages/MyProfile/MyProfile";
+import MyOrder from "./pages/MyOrder/MyOrder";
 import Privacy from "./components/Privacy/privacy";
-import FeedbackReviews from "./components/FeedbackReviews/FeedbackReviews";
 import StoreContextProvider from "./components/context/StoreContext";
 import apiRequest from "./lib/apiRequest";
-import SuccessPopup from "./components/LoginPopup/SuccessPopup"; // Import SuccessPopup
+import SuccessPopup from "./components/LoginPopup/SuccessPopup"; 
 import "./components/FoodDetail/print.css";
 import NotFound from "./pages/Notfound";
+import TermsOfService from "./components/TermsOfService/TermsOfService";
+import Delivery from "./pages/Delivery/Delivery";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -45,7 +48,7 @@ const App = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Check authentication on app load
+  // Check authentication from backend
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -65,27 +68,17 @@ const App = () => {
         setUser(null);
       }
     };
+
     checkAuth();
-  }, []);
 
-  // Test login flow (development only)
-  useEffect(() => {
-    if (process.env.NODE_ENV !== "development") return;
-
-    const testLogin = async () => {
-      try {
-        console.log("=== Testing Login ===");
-        const payload = { email: "muskan@example.com", password: "123456" };
-        const loginRes = await apiRequest.post("/api/auth/login", payload);
-        console.log("Login response:", loginRes.data);
-
-        const authRes = await apiRequest.get("/api/auth/me");
-        console.log("Auth check after login:", authRes.data);
-      } catch (err) {
-        console.error("Test login failed:", err.response?.data || err);
-      }
+    // Listen to localStorage changes (optional, if frontend still uses it)
+    const handleStorageChange = () => {
+      const token = localStorage.getItem("authToken");
+      setIsLoggedIn(!!token);
+      // Optionally set user info from localStorage
     };
-    testLogin();
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   if (loading) return <LoadingAnimation />;
@@ -95,7 +88,6 @@ const App = () => {
       <StoreContextProvider>
         <Toaster position="top-right" reverseOrder={false} />
 
-        {/* Success Popup */}
         {successMessage && (
           <SuccessPopup
             message={successMessage}
@@ -103,7 +95,6 @@ const App = () => {
           />
         )}
 
-        {/* Login Popup */}
         {showLogin && (
           <LoginPopup
             setShowLogin={setShowLogin}
@@ -124,24 +115,7 @@ const App = () => {
             <Route
               path="/order"
               element={
-                isLoggedIn ? (
-                  <PlaceOrder />
-                ) : (
-                  <div style={{ padding: "2rem", textAlign: "center" }}>
-                    <h2 style={{
-                      color: "#f97316",
-                      fontSize: "2rem",
-                      fontWeight: "bold",
-                      textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
-                      marginBottom: "0.5rem"
-                    }}>
-                      Please Log In To Proceed
-                    </h2>
-                    <p style={{ color: "#fdba74", fontSize: "1rem" }}>
-                      Your journey continues after login 🔐
-                    </p>
-                  </div>
-                )
+                isLoggedIn ? <PlaceOrder /> : <LoginRequired />
               }
             />
             <Route path="/faq" element={<FAQ />} />
@@ -153,14 +127,17 @@ const App = () => {
             <Route path="/referral" element={<ReferralProgram />} />
             <Route path="/restaurant/:id" element={<RestaurantDetail />} />
             <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/profile/me" element={isLoggedIn ? <MyProfile /> : <LoginRequired />} />
+            <Route path="/orders/me" element={isLoggedIn ? <MyOrder /> : <LoginRequired />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/delivery" element={<Delivery />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
 
           <ScrollToTopButton />
           <CartSummaryBar />
           <AppDownload />
-          <FeedbackReviews />
           <Footer />
           <Chatbot />
         </div>
@@ -168,5 +145,23 @@ const App = () => {
     </ThemeContextProvider>
   );
 };
+
+// Reusable login-required component
+const LoginRequired = () => (
+  <div style={{ padding: "2rem", textAlign: "center" }}>
+    <h2
+      style={{
+        color: "#f97316",
+        fontSize: "2rem",
+        fontWeight: "bold",
+        textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
+        marginBottom: "0.5rem",
+      }}
+    >
+      Please Log In To Proceed
+    </h2>
+    <p style={{ color: "#fdba74", fontSize: "1rem" }}>Your journey continues after login 🔐</p>
+  </div>
+);
 
 export default App;

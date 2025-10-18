@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import "./Restaurants.css";
-import { Star, MapPin, Clock } from "lucide-react";
+import { Star, MapPin, Clock, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import searchIcon from "../../assets/frontend_assets/search_icon.png";
 
 const Restaurants = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("default"); // default, rating, deliveryTime, discountLowToHigh, discountHighToLow
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const restaurants = [
     {
@@ -16,6 +19,7 @@ const Restaurants = () => {
       discount: "20% OFF",
       cuisine: "Italian",
       deliveryTime: "25-35 min",
+      deliveryMinutes: 30, // Average for sorting
       location: "Downtown",
       description: "Authentic Italian cuisine with fresh ingredients and traditional recipes.",
     },
@@ -27,6 +31,7 @@ const Restaurants = () => {
       discount: "15% OFF",
       cuisine: "Indian",
       deliveryTime: "30-45 min",
+      deliveryMinutes: 37.5,
       location: "Midtown",
       description: "Exotic Indian flavors with aromatic spices and rich curries.",
     },
@@ -38,6 +43,7 @@ const Restaurants = () => {
       discount: "25% OFF",
       cuisine: "Seafood",
       deliveryTime: "20-30 min",
+      deliveryMinutes: 25,
       location: "Harbor District",
       description: "Fresh seafood and coastal cuisine with stunning ocean views.",
     },
@@ -49,15 +55,35 @@ const Restaurants = () => {
       discount: "10% OFF",
       cuisine: "American",
       deliveryTime: "15-25 min",
+      deliveryMinutes: 20,
       location: "Westside",
       description: "Gourmet burgers and comfort food with premium ingredients.",
     },
   ];
 
+  // Helper function to extract discount value from string
+  const getDiscountValue = (discountStr) => {
+    return parseInt(discountStr.match(/\d+/)[0]);
+  };
+
   // Filter restaurants by cuisine search
   const filteredRestaurants = restaurants.filter((restaurant) =>
     restaurant.cuisine.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Sort filtered restaurants
+  const sortedRestaurants = [...filteredRestaurants].sort((a, b) => {
+    if (sortBy === "rating") {
+      return b.rating - a.rating; // Highest rating first
+    } else if (sortBy === "deliveryTime") {
+      return a.deliveryMinutes - b.deliveryMinutes; // Fastest delivery first
+    } else if (sortBy === "discountLowToHigh") {
+      return getDiscountValue(a.discount) - getDiscountValue(b.discount); // Lowest discount first
+    } else if (sortBy === "discountHighToLow") {
+      return getDiscountValue(b.discount) - getDiscountValue(a.discount); // Highest discount first
+    }
+    return 0; // Default order
+  });
 
   const renderStars = (rating) => {
     const stars = [];
@@ -82,6 +108,19 @@ const Restaurants = () => {
     return stars;
   };
 
+  const getSortLabel = () => {
+    if (sortBy === "rating") return "Rating";
+    if (sortBy === "deliveryTime") return "Delivery Time";
+    if (sortBy === "discountLowToHigh") return "Discount: Low to High";
+    if (sortBy === "discountHighToLow") return "Discount: High to Low";
+    return "Default";
+  };
+
+  const handleSortSelect = (option) => {
+    setSortBy(option);
+    setShowDropdown(false);
+  };
+
   return (
     <div className="restaurants-page">
       <div className="restaurants-header">
@@ -89,20 +128,68 @@ const Restaurants = () => {
         <p>Explore the best restaurants in your area with exclusive offers</p>
       </div>
 
-      {/* 🔍 Search bar instead of buttons */}
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search cuisine (e.g., Italian, Indian, American)..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="search-input"
-        />
+      {/* Search bar with sort button */}
+      <div className="search-sort-container">
+        <div className="search-bar">
+          <img src={searchIcon} alt="Search" className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search cuisine (e.g., Italian, Indian, American)..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="search-input"
+          />
+        </div>
+
+        <div className="sort-dropdown-container">
+          <button 
+            className="sort-dropdown-btn"
+            onClick={() => setShowDropdown(!showDropdown)}
+          >
+            <span className="sort-label-text">Sort By: <span className="sort-value">{getSortLabel()}</span></span>
+            <ChevronDown size={18} className={`chevron ${showDropdown ? "open" : ""}`} />
+          </button>
+          
+          {showDropdown && (
+            <div className="sort-dropdown-menu">
+              <button 
+                className={`sort-option ${sortBy === "default" ? "active" : ""}`}
+                onClick={() => handleSortSelect("default")}
+              >
+                Default
+              </button>
+              <button 
+                className={`sort-option ${sortBy === "rating" ? "active" : ""}`}
+                onClick={() => handleSortSelect("rating")}
+              >
+                Rating
+              </button>
+              <button 
+                className={`sort-option ${sortBy === "deliveryTime" ? "active" : ""}`}
+                onClick={() => handleSortSelect("deliveryTime")}
+              >
+                Delivery Time
+              </button>
+              <button 
+                className={`sort-option ${sortBy === "discountLowToHigh" ? "active" : ""}`}
+                onClick={() => handleSortSelect("discountLowToHigh")}
+              >
+                Discount: Low to High
+              </button>
+              <button 
+                className={`sort-option ${sortBy === "discountHighToLow" ? "active" : ""}`}
+                onClick={() => handleSortSelect("discountHighToLow")}
+              >
+                Discount: High to Low
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="restaurants-grid">
-        {filteredRestaurants.length > 0 ? (
-          filteredRestaurants.map((restaurant) => (
+        {sortedRestaurants.length > 0 ? (
+          sortedRestaurants.map((restaurant) => (
             <div
               key={restaurant.id}
               className="restaurant-card"

@@ -80,7 +80,12 @@ const Navbar = ({ setShowLogin, user, setUser, isLoggedIn, setIsLoggedIn }) => {
         <nav className="navbar-menu navbar-menu-desktop">{navMenu}</nav>
         <div className="navbar-right">
           <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">{theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}</button>
-          <div className="navbar-cart"><Link to="/cart" className="icon-button" aria-label="Go to cart"><ShoppingCart size={18} />{totalCartItems > 0 && <div className="cart-badge">{totalCartItems}</div>}</Link></div>
+          <div className="navbar-cart">
+            <Link to="/cart" className="icon-button" aria-label="Go to cart">
+              <ShoppingCart size={18} />
+              {totalCartItems > 0 && <div className="cart-badge">{totalCartItems}</div>}
+            </Link>
+          </div>
 
           {isLoggedIn && user ? (
             <div className="user-info">

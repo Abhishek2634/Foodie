@@ -14,6 +14,7 @@ import TwitterIcon from '../Icons/TwitterIcon';
 import LinkedInIcon from '../Icons/LinkedInIcon';
 import GithubIcon from '../Icons/GithubIcon';
 import FooterLogo from './FooterLogo';
+import NewsletterSubscription from '../NewsletterSubscription/NewsletterSubscription';
 
 const Footer = () => {
   return (
@@ -55,11 +56,25 @@ const Footer = () => {
         <div className='footer-content-right'>
           <h2 className='text'>Get In Touch</h2>
           <ul>
-            <li><MdAddCall className='icon' /><span>+1-214-723-889</span></li>
-            <li><IoIosMail className='icon' /><span>Contact@foodie.com</span></li>
+            <li>
+              <MdAddCall className='icon' />
+              <a href="tel:+1214723889" className="no-underline text-inherit">
+                <span>+1-214-723-889</span>
+              </a>
+            </li>
+            <li>
+              <IoIosMail className='icon' />
+              <a href="mailto:Contact@foodie.com" className="no-underline text-inherit">
+                <span>Contact@foodie.com</span>
+              </a>
+            </li>
           </ul>
+          {/* Newsletter Subscription Section */}
+      <NewsletterSubscription />
         </div>
       </div>
+
+      
 
       <hr />
       <p className="footer-copyright">
@@ -69,4 +84,4 @@ const Footer = () => {
   )
 }
 
-export default Footer;
+export default Footer

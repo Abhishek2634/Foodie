@@ -4,7 +4,7 @@ import "./Home.css";
 import Header from "../../components/Header/Header";
 import ExploreMenu from "../../components/ExploreMenu/ExploreMenu";
 import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
-import { use } from "react";
+import CouponGenerator from "../../components/CouponGenerator/CouponGenerator";
 
 const Home = () => {
   const location = useLocation();
@@ -44,6 +44,7 @@ const Home = () => {
   return (
     <div className="home-page">
       <Header />
+      <CouponGenerator />
       <ExploreMenu category={category} setCategory={setCategory} />
       <FoodDisplay category={category} />
     </div>

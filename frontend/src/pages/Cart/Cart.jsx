@@ -1,8 +1,9 @@
 import "./Cart.css";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../components/context/StoreContext";
 import AddressSection from "../../components/AddressSection/AddressSection.jsx"
 import { useNavigate, Link } from "react-router-dom";
+import CouponGenerator from "../../components/CouponGenerator/CouponGenerator";
 
 const Cart = () => {
   const [checkoutBtnClicked, setCheckoutBtnClick] = useState(false);
@@ -12,15 +13,45 @@ const Cart = () => {
   // Check if cart is empty
   const isCartEmpty = getTotalCartAmount() === 0;
 
-  const [promo,setPromo]=useState();
-  const [err,setErr] = useState();
+  const [promo, setPromo] = useState("");
+  const [err, setErr] = useState();
+  const [discount, setDiscount] = useState(0);
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
 
-  const handlebtn=()=>{
+  // Check if there's a coupon in localStorage
+  useEffect(() => {
+    const savedCoupon = localStorage.getItem('foodieCoupon');
+    if (savedCoupon) {
+      const couponObj = JSON.parse(savedCoupon);
+      setPromo(couponObj.code);
+    }
+  }, []);
 
+  const handlebtn = () => {
     if (!promo) {
       setErr("Please enter a promo code");
-    } else {
+      return;
+    }
+    
+    // Check if the promo code is valid
+    const validCoupons = [
+      { code: 'FOOD10', discount: 10 },
+      { code: 'SAVE15', discount: 15 },
+      { code: 'YUMMY20', discount: 20 },
+      { code: 'TASTY25', discount: 25 },
+      { code: 'DELISH30', discount: 30 }
+    ];
+    
+    const foundCoupon = validCoupons.find(coupon => coupon.code === promo);
+    
+    if (foundCoupon) {
+      setDiscount(foundCoupon.discount);
+      setAppliedCoupon(foundCoupon);
       setErr("");
+    } else {
+      setErr("Invalid promo code");
+      setDiscount(0);
+      setAppliedCoupon(null);
     }
   };
 
@@ -157,10 +188,27 @@ const Cart = () => {
             <p>Delivery Fee</p>
             <p>${getTotalCartAmount() === 0 ? 0 : 2}</p>
           </div>
+          {appliedCoupon && (
+            <>
+              <hr />
+              <div className="cart-total-details discount-row">
+                <p>Discount ({appliedCoupon.discount}%)</p>
+                <p>-${((getTotalCartAmount() * appliedCoupon.discount) / 100).toFixed(2)}</p>
+              </div>
+            </>
+          )}
           <hr />
           <div className="cart-total-details">
             <b><p>Total</p></b>
-            <b><p>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}</p></b>
+            <b><p>${
+              getTotalCartAmount() === 0 
+                ? 0 
+                : (
+                    appliedCoupon 
+                      ? (getTotalCartAmount() - (getTotalCartAmount() * appliedCoupon.discount / 100) + 2).toFixed(2)
+                      : getTotalCartAmount() + 2
+                  )
+            }</p></b>
           </div>
           {/*<button onClick={() => navigate('/order')}>PROCEED TO CHECKOUT</button>*/}
           <button onClick={() => setCheckoutBtnClick(true)}>PROCEED TO CHECKOUT</button>
@@ -169,16 +217,31 @@ const Cart = () => {
           <div>
             <p>If you have a promo code, Enter it here</p>
             <div className="cart-promocode-input">
-              <input placeholder="Promo Code" type="text" id="promo" onChange={(e)=>(setPromo(e.target.value))} />
-              <button onClick={()=>handlebtn()}>Submit</button>
+              <input 
+                placeholder="Promo Code" 
+                type="text" 
+                id="promo" 
+                value={promo}
+                onChange={(e) => setPromo(e.target.value)} 
+              />
+              <button onClick={() => handlebtn()}>Apply</button>
             </div>
             {err && <p id="promo-err" style={{color:'red'}}>{err}</p>}
+            {appliedCoupon && (
+              <p style={{color:'green', marginTop: '10px'}}>
+                Coupon {appliedCoupon.code} applied! ({appliedCoupon.discount}% discount)
+              </p>
+            )}
+            
+            <div className="coupon-divider">
+              <span>OR</span>
+            </div>
+            
+            <p>Get a random discount coupon:</p>
+            <CouponGenerator />
           </div>
 
-          {checkoutBtnClicked && (<AddressSection />)
-            
-          }
-
+          {checkoutBtnClicked && (<AddressSection />)}
         </div>
       </div>
     </div>

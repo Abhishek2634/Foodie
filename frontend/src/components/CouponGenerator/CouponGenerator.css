@@ -1,0 +1,199 @@
+.coupon-generator {
+  display: flex;
+  justify-content: center;
+  margin: 0.4rem 0 0.8rem 0;
+}
+
+.coupon-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+}
+
+.coupon-button:hover {
+  background-color: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 107, 107, 0.4);
+}
+
+.gift-icon {
+  font-size: 18px;
+}
+
+/* Overlay and Popup */
+.coupon-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.coupon-popup {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  padding: 24px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.4s ease;
+}
+
+.coupon-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s;
+}
+
+.coupon-close:hover {
+  color: #ff5252;
+}
+
+.coupon-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.coupon-gift-icon {
+  font-size: 36px;
+  color: #ff6b6b;
+  margin-bottom: 10px;
+}
+
+.coupon-header h2 {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+.coupon-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.coupon-card {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+}
+
+.discount-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #ff5252;
+  color: white;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.coupon-code {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #333;
+  margin: 15px 0;
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  border: 2px dashed #ff5252;
+}
+
+.copy-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.copy-button:hover {
+  background-color: #45a049;
+}
+
+.copy-button:disabled {
+  background-color: #45a049;
+  cursor: default;
+}
+
+.coupon-description {
+  font-size: 16px;
+  color: #555;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.coupon-terms {
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to { 
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .coupon-popup {
+    width: 95%;
+    padding: 20px;
+  }
+  
+  .coupon-code {
+    font-size: 24px;
+  }
+}

@@ -9,7 +9,7 @@ const FeedbackReviews = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
-  const [rating, setRating] = useState(0); // ⭐ new state for rating
+  const [rating, setRating] = useState(0); // ⭐ rating state
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,21 +25,17 @@ const FeedbackReviews = () => {
         submittedAt: new Date().toLocaleDateString(),
       };
 
-      // Store feedback locally in localStorage
       const existingFeedbacks = JSON.parse(
         localStorage.getItem("userFeedbacks") || "[]"
       );
       const updatedFeedbacks = [newFeedback, ...existingFeedbacks];
       localStorage.setItem("userFeedbacks", JSON.stringify(updatedFeedbacks));
 
-      // Clear form
       setFeedback("");
       setName("");
       setEmail("");
       setRating(0);
       setShowSuccess(true);
-
-      // Hide success message after 3 seconds
       setTimeout(() => setShowSuccess(false), 3000);
     } else {
       alert("Please fill out all fields and select a rating before submitting!");
@@ -66,7 +62,6 @@ const FeedbackReviews = () => {
           </p>
         </div>
 
-        {/* ✅ Success Message */}
         {showSuccess && (
           <div className="success-message">
             <div className="success-content">
@@ -75,8 +70,24 @@ const FeedbackReviews = () => {
           </div>
         )}
 
-        {/* 📝 Feedback Form */}
         <form className="feedback-form" onSubmit={handleSubmit}>
+          {/* ⭐ Star Rating on TOP */}
+          <div className="form-group rating-group">
+            <p className="rating-label">Rate your experience:</p>
+            <div className="star-rating">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <span
+                  key={star}
+                  className={`star ${rating >= star ? "filled" : ""}`}
+                  onClick={() => setRating(star)}
+                >
+                  ★
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Name + Email Inputs */}
           <div className="form-group name-email-row">
             <div className="input-container">
               <FaUser className="input-icon" />
@@ -103,23 +114,7 @@ const FeedbackReviews = () => {
             </div>
           </div>
 
-          {/* ⭐ Star Rating Section */}
-          <div className="form-group rating-group">
-            <p className="rating-label">Rate your experience:</p>
-            <div className="star-rating">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <span
-                  key={star}
-                  className={`star ${rating >= star ? "filled" : ""}`}
-                  onClick={() => setRating(star)}
-                >
-                  ★
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* 💬 Feedback Textarea */}
+          {/* Feedback Textarea */}
           <div className="form-group">
             <div className="textarea-container">
               <textarea
@@ -133,7 +128,7 @@ const FeedbackReviews = () => {
             </div>
           </div>
 
-          {/* 🚀 Action Buttons */}
+          {/* Action Buttons */}
           <div className="button-group">
             <button type="submit" className="submit-button">
               <BiSend className="submit-icon" />

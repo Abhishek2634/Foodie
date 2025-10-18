@@ -1,0 +1,241 @@
+.newsletter-section {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  padding: 0.8rem;
+  width: 25rem;
+  height: 10rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.3);
+  transition: all 0.3s ease;
+}
+
+.newsletter-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(249, 115, 22, 0.4);
+}
+
+.newsletter-content {
+  max-width: 25rem;
+  margin: 0 auto;
+}
+
+.newsletter-header {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+}
+
+.newsletter-icon {
+  font-size: 1.5rem;
+  color: white;
+  margin-right: 0.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.newsletter-header h3 {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.newsletter-header p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  font-weight: 350;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.newsletter-input-group {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: start;
+  margin-bottom: 0.7rem;
+}
+
+.newsletter-input {
+  padding: 0.7rem 0.8rem;
+  width: 20rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.newsletter-input:focus {
+  outline: none;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.newsletter-input::placeholder {
+  color: #666;
+}
+
+.newsletter-subscribe-btn {
+  padding: 0.5rem 0.6rem;
+  background: #1c1410;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.newsletter-subscribe-btn:hover {
+  background: #2a1f1a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.newsletter-subscribe-btn:active {
+  transform: translateY(0);
+}
+
+
+.newsletter-success {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+
+.newsletter-success p {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.newsletter-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.newsletter-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.newsletter-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.newsletter-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.newsletter-link:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  text-decoration: underline;
+}
+
+.newsletter-separator {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .newsletter-section {
+    padding: 25px 15px;
+    margin: 15px 0;
+  }
+
+  .newsletter-header h3 {
+    font-size: 1.3rem;
+  }
+
+  .newsletter-header p {
+    font-size: 0.9rem;
+  }
+
+  .newsletter-input-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .newsletter-input {
+    min-width: 100%;
+    max-width: 300px;
+  }
+
+  .newsletter-subscribe-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .newsletter-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .newsletter-separator {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .newsletter-section {
+    padding: 20px 10px;
+  }
+
+  .newsletter-icon {
+    font-size: 2rem;
+  }
+
+  .newsletter-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .newsletter-input {
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
+
+  .newsletter-subscribe-btn {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
+}

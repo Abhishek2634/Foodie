@@ -5,14 +5,14 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    padding: 20px 8vw;
+    padding: 20px 2vw;
     padding-top: 50px;
 }
 
 .footer-content{
     width: 100%;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2.5fr 1.5fr 2.5fr;
     gap: 80px;
 }
 
