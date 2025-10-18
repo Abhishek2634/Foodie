@@ -2,25 +2,35 @@
 
 import Food from "../models/foodModel.js";
 import fs from 'fs';
+import path from "path";  
+
 
 // Add food item
 const addFood = async (req, res) => {
   try {
-    const body = { ...req.body };
-    console.log("Parsed restaurantId:", body.restaurantId);
-    console.log("Type:", typeof body.restaurantId);
+    //Destructure directly from req.body for cleaner code
+    const { name, price, description, category, restaurantId } = req.body;
 
-    const newFood = new Food({
-      name: body.name,
-      price: body.price,
-      description: body.description,
-      category: body.category,
-      restaurantId: body.restaurantId,
-      image: req.file?.filename,
+    // Added validation for required fields
+    if (!name || !price || !restaurantId) {
+      return res.status(400).json({
+        success: false,
+        message: "Name, price, and restaurantId are required",
+      });
+    }
+
+    // Handles cases where no image is uploaded)
+    const image = req.file?.filename;
+
+    // Use Food.create directly instead of new + save
+    const newFood = await Food.create({
+      name,
+      price,
+      description,
+      category,
+      restaurantId,
+      image,
     });
-
-    await newFood.save();
-
     res.status(201).json({ success: true, food: newFood });
   } catch (error) {
     console.error("❌ Add food error:", error);
@@ -32,7 +42,13 @@ const addFood = async (req, res) => {
 const getFoodByRestaurant = async (req, res) => {
   try {
     const { restaurantId } = req.params;
-    const foodList = await Food.find({ restaurantId });
+    //Validate required parameters
+    if (!restaurantId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "restaurantId is required" });
+    }
+    const foodList = await Food.find({ restaurantId }).sort({ createdAt: -1 });
     res.status(200).json({ success: true, food: foodList });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -42,13 +58,33 @@ const getFoodByRestaurant = async (req, res) => {
 // Remove food item
 const removeFood = async (req, res) => {
   try {
-    const food = await Food.findById(req.body.id);
-    fs.unlink(`uploads/${food.image}`, () => {});
-    await Food.findByIdAndDelete(req.body.id);
+    const { id } = req.body;
+    // Validate input ID
+    if (!id) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Food ID is required" });
+    }
+
+    // Check if food exists before proceeding
+    const food = await Food.findById(id);
+    if (!food) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Food item not found" });
+    }
+
+    if (food.image) {
+      const filePath = path.join("uploads", food.image);
+      fs.unlink(filePath, (err) => {
+        if (err) console.warn("⚠️ Failed to delete image:", err.message);
+      });
+    }
+    await Food.findByIdAndDelete(id);
     res.json({ success: true, message: "Food item removed" });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: "Error removing food item" });
+    res.json({ success: false, message: error.message });
   }
 };
 
