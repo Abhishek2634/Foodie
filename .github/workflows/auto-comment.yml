@@ -26,5 +26,3 @@ jobs:
               issue_number: prNumber,
               body: commentBody
             });
-
-            console.log('Comment added successfully.');
