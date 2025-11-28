@@ -1,4 +1,3 @@
-// LoginPopup.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import './LoginPopup.css';
 import { assets } from '../../assets/frontend_assets/assets';
@@ -6,6 +5,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import apiRequest from "../../lib/apiRequest";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../../firebase/firebase";
 
 const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
   const [currState, setCurrState] = useState("Sign Up");
@@ -164,7 +165,8 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
         toast.success(data.message);
 
         // Store user info and auth token locally
-        localStorage.setItem("user", JSON.stringify(data.user));
+        const enrichedUser = { ...data.user, provider: 'local' };
+        localStorage.setItem("user", JSON.stringify(enrichedUser));
         if (data.token) {
           localStorage.setItem("authToken", data.token);
         } else {
@@ -177,10 +179,10 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
         }
 
         setShowLogin(false);
-
-        // Navigate to home page
+        // Navigate to home page without full reload
         navigate("/");
-        window.location.reload();
+        // Notify app and navbar without reloading
+        window.dispatchEvent(new Event('auth-changed'));
       } else {
         toast.error(data.message || `${currState} failed. Please try again.`);
       }
@@ -190,6 +192,43 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
       console.error(err);
     }
   };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      const userInfo = {
+        name: user.displayName || "User",
+        email: user.email || "",
+        photo: user.photoURL || "",
+        provider: "google",
+      };
+      localStorage.setItem("user", JSON.stringify(userInfo));
+      // Mark authenticated for route guards
+      localStorage.setItem("authToken", "firebase");
+
+      if (setIsLoggedIn) {
+        setIsLoggedIn(true);
+      }
+      setShowLogin(false);
+      // soft update UI without full reload
+      window.dispatchEvent(new Event('auth-changed'));
+      toast.success("Signed in with Google");
+    } catch (error) {
+      console.error(error);
+      toast.error("Google sign-in failed");
+    }
+  };
+
+  const GoogleGIcon = () => (
+    <svg className="google-icon" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#EA4335" d="M24 9.5c3.54 0 6.72 1.22 9.23 3.6l6.9-6.9C36.89 2.38 30.93 0 24 0 14.62 0 6.51 5.38 2.56 13.19l8.04 6.24C12.43 13.64 17.78 9.5 24 9.5z"/>
+      <path fill="#4285F4" d="M46.5 24c0-1.47-.13-2.88-.38-4.24H24v8.03h12.7c-.55 2.98-2.2 5.5-4.72 7.2l7.2 5.59C43.95 36.5 46.5 30.7 46.5 24z"/>
+      <path fill="#FBBC05" d="M10.61 28.43a14.5 14.5 0 0 1 0-8.86l-8.05-6.24A24 24 0 0 0 0 24c0 3.86.92 7.5 2.56 10.66l8.05-6.23z"/>
+      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.14 15.9-5.82l-7.2-5.6c-2.02 1.36-4.6 2.16-8.7 2.16-6.22 0-11.57-4.14-13.4-9.93l-8.04 6.24C6.51 42.62 14.62 48 24 48z"/>
+      <path fill="none" d="M0 0h48v48H0z"/>
+    </svg>
+  );
 
   return (
     <div className='LoginPopup'>
@@ -318,6 +357,11 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
               )}
 
               <button type="submit">{currState === 'Sign Up' ? "Create Account" : "Login"}</button>
+              <div className="or-separator"><span>or</span></div>
+              <button type="button" className="google-signin-btn" onClick={handleGoogleSignIn}>
+                <GoogleGIcon />
+                <span>Sign in with Google</span>
+              </button>
               {currState === "Login" && (
                 <p className="forgot-password-link" onClick={() => {
                   setForgotFlow(true);

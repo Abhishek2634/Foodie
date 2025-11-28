@@ -245,3 +245,45 @@
   width: 18px;
   height: 18px;
 }
+
+/* Google Sign-in Button - matches theme, slightly outlined */
+.google-signin-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+.google-signin-btn:hover {
+  box-shadow: 0 6px 15px rgba(255, 99, 71, 0.25);
+  transform: translateY(-1px);
+}
+.google-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  object-fit: contain;
+}
+
+/* OR separator */
+.or-separator {
+  position: relative;
+  text-align: center;
+  color: #ff8567; /* match accent text color on this modal */
+  font-size: 13px;
+  font-weight: 600;
+}
+.or-separator::before,
+.or-separator::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: rgba(255,133,103,0.6); /* orange, semi-opaque */
+}
+.or-separator::before { left: 0; }
+.or-separator::after { right: 0; }
+.or-separator span { background: transparent; padding: 0 8px; }

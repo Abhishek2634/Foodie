@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import "./Navbar.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
@@ -27,6 +27,8 @@ const Navbar = ({ setShowLogin, setIsLoggedIn }) => {
     useContext(StoreContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [user, setUser] = useState(null);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const userMenuRef = useRef(null);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,15 +38,30 @@ const Navbar = ({ setShowLogin, setIsLoggedIn }) => {
     setUser(storedUser);
   }, []);
 
-  // Listen for storage changes to update user state
   useEffect(() => {
     const handleStorageChange = () => {
       const storedUser = JSON.parse(localStorage.getItem("user"));
       setUser(storedUser);
     };
 
+    const handleAuthChanged = () => {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      setUser(storedUser);
+    };
+
     window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    window.addEventListener('auth-changed', handleAuthChanged);
+    const handleClickOutside = (e) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setShowUserMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('auth-changed', handleAuthChanged);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleNavMenuClick = (menuName, id) => {
@@ -78,10 +95,10 @@ const Navbar = ({ setShowLogin, setIsLoggedIn }) => {
         setIsLoggedIn(false);
     }
     
-    window.location.reload();
+    // Soft notify listeners
+    window.dispatchEvent(new Event('auth-changed'));
   };
   
-  // to trigger the dark theme on scroll bar
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
@@ -181,19 +198,14 @@ const Navbar = ({ setShowLogin, setIsLoggedIn }) => {
 
   return (
     <>
-      {/* Top Navigation Bar */}
       <div className={`navbar ${theme === "dark" ? "navbar-dark" : ""}`}>
-        {/* Logo */}
         <Link to="/" className="navbar-logo">
           <img src={assets.foodie_icon} alt="app icon" className="app-icon" />
         </Link>
 
-        {/* Desktop menu (center, hidden on mobile) */}
         <nav className="navbar-menu navbar-menu-desktop">{navMenu}</nav>
 
-        {/* Right action buttons */}
         <div className="navbar-right">
-          {/* Theme Toggle */}
           <button
             className="theme-toggle"
             onClick={toggleTheme}
@@ -202,7 +214,6 @@ const Navbar = ({ setShowLogin, setIsLoggedIn }) => {
             {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
           </button>
 
-          {/* Cart */}
           <div className="navbar-cart">
             <Link to="/cart" className="icon-button" aria-label="Go to cart">
               <ShoppingCart size={18} />
@@ -212,16 +223,31 @@ const Navbar = ({ setShowLogin, setIsLoggedIn }) => {
             </Link>
           </div>
 
-          {/* User / Auth */}
           {user ? (
-            <div className="user-info">
-              <div className="user-avatar">
-                {user.name?.charAt(0).toUpperCase()}
-              </div>
-              <span>{user.name}</span>
-              <button className="signin-button" onClick={handleLogout}>
-                Logout
+            <div className="user-info" ref={userMenuRef}>
+              <button className="user-avatar-button" onClick={() => setShowUserMenu((s) => !s)} aria-label="Open user menu">
+                <div className="user-avatar">
+                  {user.photo ? (
+                    <img src={user.photo} alt="avatar" />
+                  ) : (
+                    (user.name || user.email || 'U').charAt(0).toUpperCase()
+                  )}
+                </div>
               </button>
+              <span className="user-name-text" onClick={() => navigate('/profile/me')}>
+                {user.name || user.email}
+              </span>
+              {showUserMenu && (
+                <div className="user-dropdown">
+                  <button className="user-dropdown-item" onClick={() => { navigate('/profile/me'); setShowUserMenu(false); }}>
+                    Profile
+                  </button>
+                  <div className="user-dropdown-sep" />
+                  <button className="user-dropdown-item danger" onClick={() => { setShowUserMenu(false); handleLogout(); }}>
+                    Logout
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <button className="signin-button" onClick={() => setShowLogin(true)}>
