@@ -12,5 +12,8 @@ export default defineConfig({
   },
   esbuild:{
     sourcemap:false,
-  }
+  },
+  server: {
+    historyApiFallback: true,
+  },
 });
