@@ -22,8 +22,76 @@
     color: black;
 }
 
-.cart-items-item img{
+
+.cart-items-item img.cart-item-img-rounded {
     width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    border: 2px solid #fff;
+    background: #f8f8f8;
+    transition: box-shadow 0.2s;
+}
+
+.cart-items-item img.cart-item-img-rounded:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+
+/* Sticky floating checkout/continue ordering button */
+.cart-sticky-buttons {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-end;
+}
+
+.cart-sticky-btn {
+    background: tomato;
+    color: #fff;
+    border: none;
+    border-radius: 32px;
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    margin-bottom: 0;
+}
+
+.cart-sticky-btn.continue {
+    background: #fff;
+    color: tomato;
+    border: 2px solid tomato;
+}
+
+.cart-sticky-btn.checkout:disabled {
+    background: #ccc;
+    color: #fff;
+    cursor: not-allowed;
+}
+
+.cart-sticky-btn:hover:not(:disabled) {
+    background: #e74c3c;
+    color: #fff;
+    box-shadow: 0 6px 24px rgba(231,76,60,0.18);
+}
+
+@media (max-width: 600px) {
+    .cart-sticky-buttons {
+        right: 8px;
+        bottom: 8px;
+        gap: 10px;
+    }
+    .cart-sticky-btn {
+        padding: 12px 18px;
+        font-size: 1rem;
+    }
 }
 
 .cart hr{

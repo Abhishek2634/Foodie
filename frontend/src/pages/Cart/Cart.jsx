@@ -154,17 +154,18 @@ const Cart = () => {
             return (
               <React.Fragment key={item._id}>
                 <div className="cart-items-title cart-items-item">
-                  <img src={item.image} alt="" />
+                  <img className="cart-item-img-rounded" src={item.image} alt="" />
                   <Link to={`/food/${item._id}`}>{item.name}</Link>
                   <p>${item.price}</p>
                   <div className="cart-quantity-controls">
                     <button
                       onClick={() => removeFromCart(item._id)}
+                      disabled={cartItems[item._id] <= 1}
                     >-</button>
                     <span>{cartItems[item._id]}</span>
                     <button
                       onClick={() => addToCart(item._id)}
-                      disabled={cartItems[item._id] >= 20}   // disable plus if quantity goes above 20
+                      disabled={cartItems[item._id] >= 20}
                     >+</button>
                   </div>
                   <p>${item.price * cartItems[item._id]}</p>
@@ -243,6 +244,23 @@ const Cart = () => {
 
           {checkoutBtnClicked && (<AddressSection />)}
         </div>
+      </div>
+
+      {/* Floating sticky checkout/continue ordering button */}
+      <div className="cart-sticky-buttons">
+        <button
+          className="cart-sticky-btn continue"
+          onClick={() => navigate('/')}
+        >
+          Continue Ordering
+        </button>
+        <button
+          className="cart-sticky-btn checkout"
+          onClick={() => navigate('/order')}
+          disabled={getTotalCartAmount() === 0}
+        >
+          Proceed to Checkout (${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2})
+        </button>
       </div>
     </div>
   );
