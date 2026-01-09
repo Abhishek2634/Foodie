@@ -338,7 +338,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <button onClick={handleSendOTP}>Send OTP</button>
+              <button type="button" onClick={handleSendOTP}>Send OTP</button>
             </>
           )}
 
@@ -356,7 +356,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
                   />
                 ))}
               </div>
-              <button onClick={handleVerifyOTP}>Verify OTP</button>
+              <button type="button" onClick={handleVerifyOTP}>Verify OTP</button>
               <button
                 type="button"
                 disabled={timer > 0}
@@ -387,7 +387,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
-              <button onClick={handleResetPassword}>Reset Password</button>
+              <button type="button" onClick={handleResetPassword}>Reset Password</button>
             </>
           )}
         </div>
