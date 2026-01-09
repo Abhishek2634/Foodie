@@ -15,6 +15,7 @@ import LinkedInIcon from '../Icons/LinkedInIcon';
 import GithubIcon from '../Icons/GithubIcon';
 import FooterLogo from './FooterLogo';
 import NewsletterSubscription from '../NewsletterSubscription/NewsletterSubscription';
+import QRCodeDownload from "./QRCodeDownload";
 
 const Footer = () => {
   return (
@@ -25,6 +26,7 @@ const Footer = () => {
         <div className="footer-content-left">
           {/* <img src={assets.foodie_icon} alt="Foodie Logo" /> */}
           <FooterLogo />
+          <QRCodeDownload link="https://foodie-beta-rouge.vercel.app/" />
           <p>
             Enjoy delicious food from your favorite restaurants.  
             Fast delivery, easy to use, and always satisfying.  
