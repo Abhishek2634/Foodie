@@ -11,7 +11,13 @@
   backdrop-filter: blur(8px);
 }
 
+
+h2,p{
+  color: black;
+}
+
 /* ===== Popup Container ===== */
+
 .login-popup-container {
   place-self: center;
   width: max(23vw, 340px);
