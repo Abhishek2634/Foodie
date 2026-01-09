@@ -8,7 +8,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #fff8e1, #ffc107);
+  background: #ff6347;
 }
 
 /* Animated City Skyline */
@@ -33,7 +33,7 @@
 
 .building {
   flex: 1;
-  background: rgba(255, 193, 7, 0.5);
+  background: rgba(255, 193, 7, 1);
   opacity: 0.9;
   animation: building-grow 0.8s ease-out forwards;
   transform-origin: bottom;
@@ -108,7 +108,7 @@
 .icon-circle {
   width: 64px;
   height: 64px;
-  background: linear-gradient(to bottom right, #ff9800, #ffc107);
+  background: linear-gradient(to bottom right, #f1efed, #ffc107);
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -378,6 +378,9 @@
     right: 60px;
   }
 }
-
+.text * {
+  color: rgb(144, 0, 0) !important;
+  font-weight: 700!important;
+}
 
 
