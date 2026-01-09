@@ -26,3 +26,64 @@
 .back-to-top:hover {
   background-color: #d43f3f;
 }
+/* ===== Responsive Navbar CSS ===== */
+
+/* Small phones (≤360px) e.g., Galaxy A21s */
+@media (max-width: 360px) {
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+  }
+  nav li {
+    width: 100%;
+    text-align: center;
+  }
+  nav a {
+    font-size: 0.9rem;
+  }
+  .hamburger {
+    display: block;
+  }
+  nav ul {
+    display: none;  /* hidden initially if using hamburger */
+  }
+  nav.active ul {
+    display: flex;  /* show when hamburger is clicked */
+  }
+}
+
+/* Medium phones (≤460px) */
+@media (max-width: 460px) {
+  nav ul {
+    gap: 12px;
+  }
+  nav a {
+    font-size: 1rem;
+  }
+}
+
+/* Small tablets (≤623px) */
+@media (max-width: 623px) {
+  nav ul {
+    flex-direction: row;  /* horizontal layout if space allows */
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  nav li {
+    width: auto;
+    text-align: center;
+  }
+}
+
+/* Small laptops (≤923px) */
+@media (max-width: 923px) {
+  nav ul {
+    gap: 20px;
+  }
+  nav a {
+    font-size: 1.05rem;
+  }
+}
+
+
