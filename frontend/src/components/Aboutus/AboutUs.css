@@ -158,14 +158,10 @@
 }
 
 .about-text {
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.8;
-  text-align: justify;
-  max-width: 800px;
-}
-
-p.about-text {
-  margin: 0;
+  text-align: center;
+  max-width: 700px;
 }
 
 /* Categories */
