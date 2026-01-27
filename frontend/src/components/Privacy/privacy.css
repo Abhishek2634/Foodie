@@ -60,11 +60,11 @@
 
 /* Privacy sections */
 .privacy-section {
-  margin-bottom: 30px;
-  padding: 20px;
+  margin-bottom: 15px;
   border-radius: 10px;
   background: rgba(239, 174, 78, 0.05);
   border-left: 4px solid #efae4e;
+  overflow: hidden;
 }
 
 .privacy-container.dark .privacy-section {
@@ -72,20 +72,88 @@
   border-left-color: #ff8c00;
 }
 
-.privacy-section h2 {
+/* Section header */
+.privacy-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin: 0;
+}
+
+.privacy-section-header h2 {
   font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin: 0;
   color: #efae4e;
 }
 
-.privacy-container.dark .privacy-section h2 {
+.privacy-container.dark .privacy-section-header h2 {
   color: #ff8c00;
 }
 
-.privacy-section p {
+/* Dropdown toggle button */
+.dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-toggle:hover {
+  background: rgba(239, 174, 78, 0.1);
+}
+
+.privacy-container.dark .dropdown-toggle:hover {
+  background: rgba(255, 140, 0, 0.15);
+}
+
+.dropdown-toggle:focus {
+  outline: 2px solid #efae4e;
+  outline-offset: 2px;
+}
+
+.privacy-container.dark .dropdown-toggle:focus {
+  outline: 2px solid #ff8c00;
+}
+
+/* Dropdown icon */
+.dropdown-icon {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+  color: #efae4e;
+  display: inline-block;
+}
+
+.dropdown-icon.open {
+  transform: rotate(180deg);
+}
+
+.privacy-container.dark .dropdown-icon {
+  color: #ff8c00;
+}
+
+/* Section content */
+.privacy-section-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 20px;
+}
+
+.privacy-section-content.open {
+  max-height: 500px;
+  padding: 0 20px 20px 20px;
+}
+
+.privacy-section-content p {
   line-height: 1.6;
-  margin-bottom: 10px;
+  margin: 0;
 }
 
 /* Privacy link styling */
@@ -119,12 +187,20 @@
     padding: 20px 10px;
   }
   
-  .privacy-section {
+  .privacy-section-header {
     padding: 15px;
   }
   
-  .privacy-section h2 {
+  .privacy-section-header h2 {
     font-size: 1.3rem;
+  }
+  
+  .privacy-section-content.open {
+    padding: 0 15px 15px 15px;
+  }
+  
+  .dropdown-toggle {
+    padding: 6px;
   }
 }
 
@@ -133,7 +209,23 @@
     font-size: 2rem;
   }
   
-  .privacy-section {
-    padding: 10px;
+  .privacy-section-header {
+    padding: 12px;
+  }
+  
+  .privacy-section-header h2 {
+    font-size: 1.1rem;
+  }
+  
+  .privacy-section-content.open {
+    padding: 0 12px 12px 12px;
+  }
+  
+  .dropdown-icon {
+    font-size: 0.7rem;
+  }
+  
+  .dropdown-toggle {
+    padding: 4px;
   }
 }

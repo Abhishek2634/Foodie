@@ -1,8 +1,7 @@
 /* Base container */
 .about-container {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 20px;
   font-family: 'Segoe UI', 'Roboto', sans-serif;
   min-height: 100vh;
   transition: background 0.3s, color 0.3s;
@@ -20,42 +19,52 @@
   color: #e0e0e0;
 }
 
+/* Hero Container */
+.hero-box {
+  margin-bottom: 1.5rem;
+  padding: 0;
+  background: url("src/assets/frontend_assets/about-us-hero.jpg") no-repeat center center / cover;
+}
+
+
 /* Hero Section */
 .hero-section {
+  width: 100%;
   text-align: center;
-  padding: 60px 20px;
-  border-radius: 20px;
-  margin-bottom: 40px;
-  color: white;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  background: linear-gradient(135deg, #efae4e 0%, #e78207 100%);
+  padding: 150px 20px;
+  background-color: linear-gradient(135deg, #ff6b357e, #2d1810ce, #1a1a1ae6);
+  backdrop-filter: blur(4px);
 }
 
 .about-container.dark .hero-section {
-  background: linear-gradient(135deg, #ff8c00 0%, #cc5500 100%);
+  background: url("src/assets/frontend_assets/about-us-hero.jpg") no-repeat center center / cover;
 }
 
 .about-title {
   font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+  margin-bottom: 0.2rem;
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 6px rgb(208 112 68 / 60%);
   min-height: 90px;
 }
 
 .subtitle {
   font-size: 1.2rem;
+  font-weight: 700;
   opacity: 0.9;
-  max-width: 600px;
+  max-width: 550px;
   margin: 0 auto;
-  color: rgb(244, 231, 134);
+  color: rgb(1 101 5);
+  text-shadow: 2px 2px 6px rgb(250 255 153 / 60%);
+  text-transform: uppercase;
 }
 
 /* Marquee */
 .marquee {
   overflow: hidden;
   white-space: nowrap;
-  background: linear-gradient(90deg, #ff6b6b, #ffa726, #66bb6a, #42a5f5);
+  background: linear-gradient(135deg, #200700, #ff6b35, #ff8c5a, #200700);
   padding: 15px 0;
   margin-bottom: 40px;
   border-radius: 10px;
@@ -64,7 +73,7 @@
 
 .marquee-text {
   display: inline-block;
-  animation: marquee 20s linear infinite;
+  animation: marquee 25s linear infinite;
   font-weight: bold;
   font-size: 1.1rem;
   color: white;
@@ -83,14 +92,39 @@
 
 /* Sections */
 .section {
-  padding: 40px;
-  border-radius: 15px;
-  margin-bottom: 30px;
+   padding: 35px;
+  min-height: fit-content;
+  height: 25rem;
+  width: 100%;
+  margin-bottom: 2rem;
   transition: background 0.3s, border 0.3s;
-  display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
+.decorative-box {
+  background-color: #ff6b35;
+  color: #ff6b35;
+  width: 100rem;
+  height: 50px;
+}
+
+#decorative-box-top {
+  width: 15em;
+  height: 2rem;
+  background-color: #ff6b35;
+  color: #ff6b35;
+}
+
+
+#about-description{
+  margin: 0 0 0 2rem;
+  font-weight: 400;
+  min-width: 55rem;
+}
 .about-container.light .section {
   background: #ffffff;
   border: 1px solid #ddd;
@@ -105,11 +139,11 @@
 
 .section-title {
   font-size: 2.2rem;
-  margin-bottom: 20px;
   font-weight: 600;
   position: relative;
   padding-bottom: 10px;
   text-align: center;
+  color:#ff6b35;;
 }
 
 .section-title::after {
@@ -151,8 +185,8 @@ p.about-text {
   text-align: center;
   transition: all 0.3s ease;
   cursor: pointer;
-  font-size: 1.1rem;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  font-size: 1.2rem;
+  box-shadow: 2px 6px 8px rgb(255 99 71 / 60%);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   /* keeps readable over gradients */
 }

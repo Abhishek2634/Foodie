@@ -286,3 +286,16 @@
 .faq-answer::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 107, 107, 0.5);
 } 
+/* Highlight the active FAQ item */
+.faq-item.active {
+  background-color: rgba(255, 107, 107, 0.1); /* subtle pink highlight */
+  border-left: 4px solid #ff6b6b;             /* accent color on left */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.1); /* subtle elevation */
+}
+
+/* Optional: rotate chevron for active FAQ */
+.faq-item.active .faq-toggle {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}

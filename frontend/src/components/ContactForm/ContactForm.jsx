@@ -45,8 +45,8 @@ const ContactForm = () => {
   return (
     <div className="contact-container">
       <div className="contact-details">
-        <h3 className="subtitle">Let's Talk Food!</h3>
-        <h2 className="title">We'd Love to Hear From You</h2>
+        <h2 className="title">We'd Love to hear from You</h2>
+        <h3 className="subTitle">Let's Talk Food!</h3>
         <p className="description">
           Whether you’re craving a delicious meal, planning a special event, or just want to say hi — we’re all ears!
           Reach out with any questions or feedback and let’s make your foodie dreams come true.
@@ -98,6 +98,7 @@ const ContactForm = () => {
           onChange={handleChange}
         />
         <textarea
+          className="comments"
           name="message"
           placeholder="Your Comments or Questions "
           value={formData.message}

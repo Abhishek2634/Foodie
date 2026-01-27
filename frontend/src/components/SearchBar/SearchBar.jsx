@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
-import { Search, X, Clock, TrendingUp, Mic } from "lucide-react"; // ✅ Added Mic icon
+import { Search, X, Clock, TrendingUp, Mic, Camera, Upload } from "lucide-react";
 import "./SearchBar.css";
 
 const SearchBar = ({
@@ -15,8 +15,14 @@ const SearchBar = ({
   const [debounceQuery, setDebounceQuery] = useState("")
   const [isOpen, setIsOpen] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+  const [isListening, setIsListening] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [isProcessingImage, setIsProcessingImage] = useState(false);
   const searchRef = useRef(null);
   const inputRef = useRef(null);
+  const fileInputRef = useRef(null);
+  const recognitionRef = useRef(null);
 
   // debouncing
   useEffect(()=> {
@@ -29,29 +35,131 @@ const SearchBar = ({
     }
   },[query])
 
-  // ✅ Voice search
+  // ✅ Enhanced Voice search
   const handleVoiceSearch = () => {
     if (!("webkitSpeechRecognition" in window)) {
       alert("Sorry, your browser does not support Speech Recognition.");
       return;
     }
 
+    if (isListening) {
+      // Stop listening
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
+      return;
+    }
+
     const recognition = new window.webkitSpeechRecognition();
+    recognitionRef.current = recognition;
+    
     recognition.lang = "en-US";
     recognition.continuous = false;
-    recognition.interimResults = false;
+    recognition.interimResults = true;
+
+    recognition.onstart = () => {
+      setIsListening(true);
+    };
 
     recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      setQuery(transcript); // Put speech text into input
-      onSearch && onSearch(transcript); // Auto search
+      let transcript = "";
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      setQuery(transcript);
+      
+      // Auto search when final result is ready
+      if (event.results[event.results.length - 1].isFinal) {
+        onSearch && onSearch(transcript);
+        setIsListening(false);
+      }
     };
 
     recognition.onerror = (err) => {
       console.error("Speech recognition error", err);
+      setIsListening(false);
+      alert("Speech recognition failed. Please try again.");
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
     };
 
     recognition.start();
+  };
+
+  // ✅ Image upload functionality
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      alert('Please select a valid image file.');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Image size should be less than 5MB.');
+      return;
+    }
+
+    setUploadedImage(file);
+    
+    // Create preview
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setImagePreview(e.target.result);
+    };
+    reader.readAsDataURL(file);
+
+    // Process image for search
+    processImageForSearch(file);
+  };
+
+  // ✅ Process image for search
+  const processImageForSearch = async (file) => {
+    setIsProcessingImage(true);
+    
+    try {
+      // Simulate image recognition API call
+      // In a real implementation, you would call an actual image recognition service
+      const formData = new FormData();
+      formData.append('image', file);
+      
+      // Mock API call - replace with actual implementation
+      const mockResults = [
+        "Pizza Margherita",
+        "Italian Cuisine", 
+        "Cheese Pizza",
+        "Traditional Pizza"
+      ];
+      
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Use the first result as search query
+      const searchQuery = mockResults[0];
+      setQuery(searchQuery);
+      onSearch && onSearch(searchQuery);
+      
+    } catch (error) {
+      console.error('Image processing error:', error);
+      alert('Failed to process image. Please try again.');
+    } finally {
+      setIsProcessingImage(false);
+    }
+  };
+
+  // ✅ Remove uploaded image
+  const removeUploadedImage = () => {
+    setUploadedImage(null);
+    setImagePreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   // Sample data for demonstration
@@ -141,6 +249,7 @@ const SearchBar = ({
   const handleClear = () => {
     setQuery("");
     setIsOpen(false);
+    removeUploadedImage();
     inputRef.current?.focus();
   };
 
@@ -176,14 +285,27 @@ const SearchBar = ({
             className="search-input"
           />
 
-          {/* ✅ Voice Search Button */}
-          <button className="voice-button" onClick={handleVoiceSearch}>
-            <Mic size={24} />
+          {/* ✅ Image Upload Button */}
+          <button 
+            className="image-upload-button" 
+            onClick={() => fileInputRef.current?.click()}
+            title="Upload image to search"
+          >
+            <Camera size={20} />
           </button>
 
-          {query && (
+          {/* ✅ Voice Search Button */}
+          <button 
+            className={`voice-button ${isListening ? 'listening' : ''}`} 
+            onClick={handleVoiceSearch}
+            title={isListening ? "Stop listening" : "Voice search"}
+          >
+            <Mic size={20} />
+          </button>
+
+          {(query || uploadedImage) && (
             <button className="clear-button" onClick={handleClear}>
-              <X size={28} />
+              <X size={20} />
             </button>
           )}
         </div>
@@ -191,6 +313,37 @@ const SearchBar = ({
           Search
         </button>
       </div>
+
+      {/* Hidden file input for image upload */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+        style={{ display: 'none' }}
+      />
+
+      {/* Image preview and processing status */}
+      {imagePreview && (
+        <div className="image-preview-container">
+          <div className="image-preview">
+            <img src={imagePreview} alt="Uploaded" />
+            <button 
+              className="remove-image-btn" 
+              onClick={removeUploadedImage}
+              title="Remove image"
+            >
+              <X size={16} />
+            </button>
+          </div>
+          {isProcessingImage && (
+            <div className="processing-indicator">
+              <div className="spinner"></div>
+              <span>Processing image...</span>
+            </div>
+          )}
+        </div>
+      )}
 
       {isOpen && showSuggestions && (
         <div className="search-dropdown">

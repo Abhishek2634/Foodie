@@ -7,6 +7,8 @@ export const StoreContext = createContext();
 const StoreContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [wishlistItems, setWishlistItems] = useState({});
+  // sortOrder: 'none' | 'asc' | 'desc'
+  const [sortOrder, setSortOrder] = useState('none');
 
  /** Add an item to the cart or increment quantity (with max limit) */
 const addToCart = (itemId) => {
@@ -77,6 +79,8 @@ const addToCart = (itemId) => {
 
   const contextValue = {
     food_list,
+    sortOrder,
+    setSortOrder,
     cartItems,
     addToCart,
     removeFromCart,

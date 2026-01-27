@@ -1,4 +1,6 @@
-/* FeedbackReviews.css */
+/* ===========================
+   Feedback & Reviews Section
+=========================== */
 
 .feedback-reviews-section {
   background: var(--bg-color, #ffffff);
@@ -12,7 +14,9 @@
   margin: 0 auto;
 }
 
-/* Header Styles */
+/* ---------------------------
+   Header
+--------------------------- */
 .feedback-header {
   text-align: center;
   margin-bottom: 30px;
@@ -25,7 +29,7 @@
   gap: 15px;
   font-size: 2rem;
   font-weight: bold;
-  color: var(--title-color);
+  color: var(--title-color, #222);
   margin-bottom: 15px;
 }
 
@@ -41,7 +45,9 @@
   margin: 0;
 }
 
-/* Success Message */
+/* ---------------------------
+   Success Message
+--------------------------- */
 .success-message {
   background: linear-gradient(135deg, #4caf50, #45a049);
   border-radius: 12px;
@@ -68,26 +74,30 @@
   }
 }
 
-/* Form Styles */
+/* ---------------------------
+   Feedback Form
+--------------------------- */
 .feedback-form {
   background: var(--bg-color, #ffffff);
   padding: 25px;
   border-radius: 16px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color, #ddd);
   margin-bottom: 30px;
-  box-shadow: 0 4px 16px var(--box-shadow);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.3s ease;
 }
 
 .feedback-form:hover {
-  box-shadow: 0 6px 24px var(--hover-box-shadow);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
 }
 
 .form-group {
   margin-bottom: 20px;
 }
 
-/* Name and Email Row */
+/* ---------------------------
+   Name + Email Inputs
+--------------------------- */
 .name-email-row {
   display: flex;
   gap: 15px;
@@ -97,7 +107,6 @@
   flex: 1;
 }
 
-/* Input Styles */
 .input-container {
   position: relative;
   display: flex;
@@ -116,9 +125,9 @@
   width: 100%;
   padding: 12px 12px 12px 40px;
   background: var(--bg-color, #ffffff);
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--border-color, #ddd);
   border-radius: 8px;
-  color: var(--text-color);
+  color: var(--text-color, #333);
   font-size: 1rem;
   transition: all 0.3s ease;
 }
@@ -130,12 +139,13 @@
 }
 
 .feedback-input::placeholder {
-  color: var(--text-color);
+  color: var(--text-color, #555);
   opacity: 0.6;
 }
 
-
-/* Textarea Styles */
+/* ---------------------------
+   Textarea
+--------------------------- */
 .textarea-container {
   position: relative;
 }
@@ -144,9 +154,9 @@
   width: 100%;
   padding: 12px;
   background: var(--bg-color, #ffffff);
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--border-color, #ddd);
   border-radius: 8px;
-  color: var(--text-color);
+  color: var(--text-color, #333);
   font-size: 1rem;
   font-family: inherit;
   resize: vertical;
@@ -161,18 +171,56 @@
 }
 
 .feedback-textarea::placeholder {
-  color: var(--text-color);
+  color: var(--text-color, #555);
   opacity: 0.6;
 }
 
-/* Button Group */
+/* ---------------------------
+   Star Rating Section
+--------------------------- */
+.rating-group {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.rating-label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-color, #222);
+}
+
+.star-rating {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.star {
+  color: #ccc;
+  transition: color 0.25s ease, transform 0.15s ease;
+}
+
+.star:hover {
+  transform: scale(1.2);
+  color: #ffce3d;
+}
+
+.star.filled {
+  color: #ffb400;
+}
+
+/* ---------------------------
+   Buttons
+--------------------------- */
 .button-group {
   display: flex;
   gap: 15px;
   align-items: stretch;
 }
 
-/* Submit Button */
 .submit-button {
   display: flex;
   align-items: center;
@@ -206,7 +254,6 @@
   font-size: 1rem;
 }
 
-/* Cancel Button */
 .cancel-button {
   display: flex;
   align-items: center;
@@ -215,9 +262,9 @@
   flex: 1;
   padding: 14px 24px;
   background: transparent;
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--border-color, #ddd);
   border-radius: 8px;
-  color: var(--text-color);
+  color: var(--text-color, #333);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -227,7 +274,7 @@
 }
 
 .cancel-button:hover {
-  background: var(--border-color);
+  background: var(--border-color, #eee);
   transform: translateY(-1px);
 }
 
@@ -239,68 +286,76 @@
   font-size: 1rem;
 }
 
-
-/* Responsive Design */
+/* ---------------------------
+   Responsive Design
+--------------------------- */
 @media (max-width: 768px) {
   .feedback-reviews-section {
     padding: 30px 5vw;
   }
-  
+
   .feedback-form {
     padding: 20px;
   }
-  
+
   .feedback-title {
     font-size: 1.8rem;
     flex-direction: column;
     gap: 10px;
   }
-  
+
   .title-icon {
     font-size: 1.8rem;
   }
-  
+
   .name-email-row {
     flex-direction: column;
     gap: 15px;
   }
-  
+
   .button-group {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .submit-button,
   .cancel-button {
     width: 100%;
   }
-  
+
+  .star-rating {
+    font-size: 1.8rem;
+  }
 }
 
 @media (max-width: 480px) {
   .feedback-reviews-section {
     padding: 25px 4vw;
   }
-  
+
   .feedback-form {
     padding: 15px;
   }
-  
+
   .feedback-title {
     font-size: 1.6rem;
   }
-  
-  
+
   .feedback-input,
   .feedback-textarea {
     padding: 10px 10px 10px 35px;
     font-size: 0.95rem;
   }
-  
+
   .submit-button,
   .cancel-button {
     padding: 12px 20px;
     font-size: 0.95rem;
     min-height: 44px;
+  }
+
+  .star-rating {
+    font-size: 1.6rem;
+    gap: 6px;
   }
 }

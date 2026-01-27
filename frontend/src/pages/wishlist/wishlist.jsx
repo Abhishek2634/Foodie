@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { StoreContext } from '../../components/context/StoreContext';
 import FoodItem from '../../components/FoodItem/FoodItem';
+import FeedbackReviews from '../../components/FeedbackReviews/FeedbackReviews'; // import FeedbackReviews
 import "./wishlist.css";
 
 const Wishlist = () => {
@@ -15,7 +16,7 @@ const Wishlist = () => {
 
   return (
     <div className="wishlist-page">
-      <div className="wishlist-header"style={{ padding: '20px' }}>
+      <div className="wishlist-header" style={{ padding: '20px' }}>
         <h2>Your Wishlist</h2>
         <div style={{ fontSize: '15px', color: '#666', marginBottom: '10px' }}>
           Items in wishlist: {wishlistedItems.length}
@@ -34,11 +35,13 @@ const Wishlist = () => {
               description={item.description}
               price={item.price}
               image={item.image}
-              // Heart click in FoodItem will handle add/remove from wishlist
             />
           ))}
         </div>
       )}
+
+      {/* Add FeedbackReviews at the bottom of the Wishlist page */}
+      <FeedbackReviews />
     </div>
   );
 };

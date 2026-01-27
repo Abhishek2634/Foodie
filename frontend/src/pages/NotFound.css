@@ -1,0 +1,65 @@
+/* Converts the inline JS styles to standard CSS */
+
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f8f9fa; /* Light background color */
+}
+
+.not-found-content {
+    /* Center the text and provide some padding */
+    text-align: center;
+    padding: 40px 20px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Limit width for better readability */
+}
+
+.not-found-image {
+    /* Remove image-specific styles since we are using text now */
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.not-found-title {
+    font-size: 5rem; /* Large text for 404 */
+    font-weight: 800;
+    color: #ff6b35; /* Use the brand orange/red */
+    margin-bottom: 10px;
+}
+
+.not-found-message {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.not-found-text {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.home-button {
+    /* Style the Go Back Home button */
+    padding: 12px 25px;
+    background-color: #ff6b35; /* Brand color */
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block; /* Essential for padding to work */
+}
+
+.home-button:hover {
+    background-color: #e05e2d; /* Darker on hover */
+    transform: translateY(-2px);
+}
