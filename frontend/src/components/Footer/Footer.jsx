@@ -14,7 +14,7 @@ import TwitterIcon from '../Icons/TwitterIcon';
 import LinkedInIcon from '../Icons/LinkedInIcon';
 import GithubIcon from '../Icons/GithubIcon';
 import FooterLogo from './FooterLogo';
-import NewsletterSubscription from '../NewsletterSubscription/NewsletterSubscription';
+import NewsletterSubscription from '../Newsletter/NewsletterSubscription';
 
 const Footer = () => {
   return (
@@ -71,6 +71,10 @@ const Footer = () => {
           </ul>
           {/* Newsletter Subscription Section */}
       <NewsletterSubscription />
+        </div>
+        {/* Newsletter Subscription */}
+        <div className='footer-content-newsletter'>
+          <NewsletterSubscription />
         </div>
       </div>
 
