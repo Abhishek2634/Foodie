@@ -40,6 +40,12 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
   const popupRef = useRef();
   const otpRefs = useRef([]);
 
+  // ✅ Email validation function
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email.trim());
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -111,9 +117,27 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
     setPasswordMatch(password === signUpConfirmPassword && signUpConfirmPassword !== '');
   }, [password, signUpConfirmPassword]);
 
+  // ✅ Updated handleSendOTP with email validation
   const handleSendOTP = (e) => {
     e.preventDefault();
-    if (!email) return toast.error("Enter email");
+    
+    // Trim whitespace
+    const trimmedEmail = email.trim();
+    
+    // Check if email is empty
+    if (!trimmedEmail) {
+      return toast.error("Email is required");
+    }
+    
+    // Validate email format
+    if (!validateEmail(trimmedEmail)) {
+      return toast.error("Please enter a valid email address");
+    }
+    
+    // Update email state with trimmed value
+    setEmail(trimmedEmail);
+    
+    // Proceed to OTP stage
     toast.success("OTP sent to your email");
     setStage(2);
     setTimer(60);
