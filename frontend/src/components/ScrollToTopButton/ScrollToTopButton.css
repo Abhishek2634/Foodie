@@ -1,26 +1,47 @@
 .scroll-to-top-btn {
   position: fixed;
-  bottom: 20px; /* ⬅️ bottom left corner */
-  left: 20px; /* ⬅️ changed from right to left */
+  bottom: 20px; /* ⬅️ bottom right corner */
+  right: 20px; /* ⬅️ moved to right as requested */
   z-index: 999;
-  background-color: #FC4B32;
+  background: linear-gradient(135deg, #f97316, #fb923c);
   color: white;
   border-radius: 50%;
-  width: 40px;height: 40px;
+  width: 50px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0 0 10px #00000040;
-  transition: transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .scroll-to-top-btn:hover {
-  transform: scale(1.1);
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.6);
+  background: linear-gradient(135deg, #ea580c, #f97316);
 }
 
-@media screen and (max-width:750px) {
-  .scroll-to-top-btn{
-    bottom: 65px;
+.scroll-to-top-btn:active {
+  transform: scale(0.95);
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 768px) {
+  .scroll-to-top-btn {
+    width: 45px;
+    height: 45px;
+    bottom: 80px; /* Adjusted for mobile navigation */
+    right: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .scroll-to-top-btn {
+    width: 40px;
+    height: 40px;
+    bottom: 70px;
+    right: 10px;
   }
 }
