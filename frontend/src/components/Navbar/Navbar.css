@@ -287,11 +287,12 @@ body {
     width: 200px;
     max-width: 200px;
     padding-right:0.5rem;
-    gap: 0.01rem;
+    gap: 0.5rem;
   }
   .signin-button {
-    width: 200px;
-    padding: 0.5rem 0.3rem;
+    width: auto;
+    min-width: fit-content;
+    padding: 0.5rem 1rem;
   }
 } 
 
@@ -329,7 +330,7 @@ body {
     width: 200px;
     max-width: 250px;
     padding-right:0.5rem;
-    gap: 0.01rem;
+    gap: 0.5rem;
   }
 
   .theme-toggle {
@@ -337,16 +338,19 @@ body {
     width: 40px; height: 40px;
   }
   .navbar-cart {
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
+    flex-shrink: 0;
   }
   .signin-button {
-    width: 180px;
-    padding: 0.4rem 0.2rem;
+    width: auto;
+    min-width: fit-content;
+    padding: 0.4rem 0.8rem;
     border-radius: 8px;
     gap: 0.2rem;
     font-size: 15px; 
     font-weight: 500;
+    flex-shrink: 0;
   }
 } 
 
@@ -385,7 +389,7 @@ body {
     max-width: 150px;
     margin-left: 30px;
     padding-right:10px;
-    gap: 0.1rem;
+    gap: 0.3rem;
   }
 
   .theme-toggle {
@@ -393,19 +397,22 @@ body {
     width: 30px; height: 30px;
   }
   .navbar-cart {
-    width: 50%;
-    height: 50%;
+    width: auto;
+    height: auto;
+    flex-shrink: 0;
   }
   .signin-button {
-    width: 100px;
+    width: auto;
+    min-width: fit-content;
     background: var(--accent-color);
     color: #fff;
     border: none;
-    padding: 8px 6px;
+    padding: 8px 10px;
     border-radius: 8px;
     gap: 0.1rem;
     font-size: 12px; 
     font-weight: 500;
+    flex-shrink: 0;
   }
 }
 
